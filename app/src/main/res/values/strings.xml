@@ -6,4 +6,16 @@
     <string name="menu_manage_workouts">Manage workouts</string>
     <string name="menu_manage_week">Manage week</string>
 
+    <!-- rep range spinner -->
+    <string-array name="spinner_items">
+        <item>1 to 3 reps</item>
+        <item>3 to 6 reps</item>
+        <item>6 to 10 reps</item>
+        <item>8 to 12 reps</item>
+        <item>12 to 15 reps</item>
+        <item>15 to 20 reps</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
