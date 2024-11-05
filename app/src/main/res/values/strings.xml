@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">WorkoutPlannerApp</string>
+
+    <!-- menu items -->
+    <string name="menu_home">Home</string>
+    <string name="menu_manage_workouts">Manage workouts</string>
+    <string name="menu_manage_week">Manage week</string>
+
+</resources>

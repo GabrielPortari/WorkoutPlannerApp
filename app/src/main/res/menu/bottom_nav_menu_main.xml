@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottom_menu_home"
+        android:title="@string/menu_home"
+        android:icon="@drawable/round_home_24"/>
+    <item
+        android:id="@+id/bottom_menu_manage_workouts"
+        android:title="@string/menu_manage_workouts"
+        android:icon="@drawable/round_fitness_center_24"/>
+    <item
+        android:id="@+id/bottom_menu_manage_week"
+        android:title="@string/menu_manage_week"
+        android:icon="@drawable/round_view_week_24"/>
+</menu>
