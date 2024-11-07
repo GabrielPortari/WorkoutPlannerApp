@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.service.model.Workout
 import com.gabrielportari.workoutplannerapp.view.viewholder.WorkoutViewHolder
+import com.google.android.material.snackbar.Snackbar
 
 class WorkoutAdapter(
     private val workouts: List<Workout>
@@ -28,10 +29,16 @@ class WorkoutAdapter(
             holder.itemView.findViewById<TextView>(R.id.text_workout_name).visibility = View.GONE
             holder.itemView.findViewById<TextView>(R.id.text_workout_description).visibility = View.GONE
             holder.itemView.findViewById<ImageView>(R.id.image_new_workout).visibility = View.VISIBLE
+            holder.itemView.findViewById<ImageView>(R.id.image_new_workout).setOnClickListener{
+                Snackbar.make(it, "Criar novo treino", Snackbar.LENGTH_SHORT).show()
+            }
+
         }else {
             val workout = workouts[position]
             holder.bind(workout)
-            //holder.itemView.setOnClickListener { onItemClickListener(workout) }
+            holder.itemView.setOnClickListener {
+                Snackbar.make(it, "Editar treino ${workout.name}", Snackbar.LENGTH_SHORT).show()
+            }
         }
     }
 
