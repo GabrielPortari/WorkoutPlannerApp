@@ -7,14 +7,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielportari.workoutplannerapp.R
+import com.gabrielportari.workoutplannerapp.service.listener.WorkoutListener
 import com.gabrielportari.workoutplannerapp.service.model.Workout
 import com.gabrielportari.workoutplannerapp.view.viewholder.WorkoutViewHolder
 import com.google.android.material.snackbar.Snackbar
 
-class WorkoutAdapter(
-    private val workouts: List<Workout>
-    //private val onItemClickListener: (Workout) -> Unit
-) : RecyclerView.Adapter<WorkoutViewHolder>() {
+class WorkoutAdapter() : RecyclerView.Adapter<WorkoutViewHolder>() {
+
+    private var workouts: List<Workout> = arrayListOf()
+    private lateinit var listener: WorkoutListener
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkoutViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.workout_item, parent, false)
         return WorkoutViewHolder(view)
@@ -25,21 +27,16 @@ class WorkoutAdapter(
     }
 
     override fun onBindViewHolder(holder: WorkoutViewHolder, position: Int) {
-        if(workouts[position].NEW_CONTROLER){
-            holder.itemView.findViewById<TextView>(R.id.text_workout_name).visibility = View.GONE
-            holder.itemView.findViewById<TextView>(R.id.text_workout_description).visibility = View.GONE
-            holder.itemView.findViewById<ImageView>(R.id.image_new_workout).visibility = View.VISIBLE
-            holder.itemView.findViewById<ImageView>(R.id.image_new_workout).setOnClickListener{
-                Snackbar.make(it, "Criar novo treino", Snackbar.LENGTH_SHORT).show()
-            }
-
-        }else {
-            val workout = workouts[position]
-            holder.bind(workout)
-            holder.itemView.setOnClickListener {
-                Snackbar.make(it, "Editar treino ${workout.name}", Snackbar.LENGTH_SHORT).show()
-            }
-        }
+        val workout = workouts[position]
+        holder.bind(workout)
     }
 
+    fun attachListener(workoutListener: WorkoutListener) {
+        listener = workoutListener
+    }
+
+    fun updateWorkouts(list: List<Workout>){
+        workouts = list
+        notifyDataSetChanged()
+    }
 }

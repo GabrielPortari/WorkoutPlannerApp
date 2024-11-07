@@ -30,11 +30,12 @@ class ManageWorkoutFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val workout = listOf(generateRandomWorkouts(), Workout("", "", emptyList(), true))
+        val workouts = listOf(generateRandomWorkouts(), Workout("", "", emptyList(), true))
         //val workout = emptyList<Workout>()
 
         binding.recyclerWorkouts.layoutManager = LinearLayoutManager(context)
-        val adapter = WorkoutAdapter(workout)
+        val adapter = WorkoutAdapter()
+        adapter.updateWorkouts(workouts)
         binding.recyclerWorkouts.adapter = adapter
 
         val emptyDataObserver = EmptyDataObserver(binding.recyclerWorkouts, view.findViewById(R.id.empty_data_parent))

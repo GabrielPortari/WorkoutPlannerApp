@@ -20,21 +20,42 @@
         android:visibility="gone"
         app:srcCompat="@drawable/baseline_add_box_24" />
 
-    <TextView
-        android:id="@+id/text_workout_name"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/layout_workout_item"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nome do treino"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
 
+        <LinearLayout
+            android:id="@+id/layout_workout_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/text_workout_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Descrição"
-        android:textSize="14sp" />
+            <TextView
+                android:id="@+id/text_workout_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nome do treino"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_workout_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Descrição"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/image_delete_workout"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:srcCompat="@drawable/round_delete_24" />
+    </LinearLayout>
+
 
     <View
         android:id="@+id/divider"
