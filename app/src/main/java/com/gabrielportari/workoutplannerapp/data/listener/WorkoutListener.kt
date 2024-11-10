@@ -1,7 +1,7 @@
-package com.gabrielportari.workoutplannerapp.service.listener
+package com.gabrielportari.workoutplannerapp.data.listener
 
 interface WorkoutListener {
-    fun onNewClick(id: Int)
+    fun onNewClick()
 
     fun onDeleteClick(id: Int)
 

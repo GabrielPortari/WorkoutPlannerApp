@@ -1,17 +1,12 @@
 package com.gabrielportari.workoutplannerapp.view.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.databinding.WorkoutItemBinding
-import com.gabrielportari.workoutplannerapp.service.listener.WorkoutListener
-import com.gabrielportari.workoutplannerapp.service.model.Workout
+import com.gabrielportari.workoutplannerapp.data.listener.WorkoutListener
+import com.gabrielportari.workoutplannerapp.data.model.Workout
 import com.gabrielportari.workoutplannerapp.view.viewholder.WorkoutViewHolder
-import com.google.android.material.snackbar.Snackbar
 
 class WorkoutAdapter() : RecyclerView.Adapter<WorkoutViewHolder>() {
 

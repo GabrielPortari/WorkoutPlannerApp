@@ -1,4 +1,4 @@
-package com.gabrielportari.workoutplannerapp.service.model
+package com.gabrielportari.workoutplannerapp.data.model
 
 class Exercise(
     val idExercise: Int,

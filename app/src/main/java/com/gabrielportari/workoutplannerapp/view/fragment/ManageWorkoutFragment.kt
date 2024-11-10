@@ -5,14 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.databinding.FragmentManageWorkoutBinding
-import com.gabrielportari.workoutplannerapp.service.helper.EmptyDataObserver
-import com.gabrielportari.workoutplannerapp.service.listener.WorkoutListener
-import com.gabrielportari.workoutplannerapp.service.model.Workout
-import com.gabrielportari.workoutplannerapp.service.repository.Data
+import com.gabrielportari.workoutplannerapp.data.helper.EmptyDataObserver
+import com.gabrielportari.workoutplannerapp.data.listener.WorkoutListener
+import com.gabrielportari.workoutplannerapp.data.model.Workout
 import com.gabrielportari.workoutplannerapp.view.adapter.WorkoutAdapter
 import com.gabrielportari.workoutplannerapp.viewmodel.ManageWorkoutViewModel
 
@@ -24,7 +24,7 @@ class ManageWorkoutFragment : Fragment() {
     private val binding get() = _binding!!
     val adapter = WorkoutAdapter()
 
-    val workouts = Data.workouts
+    val workouts: List<Workout> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,24 +38,25 @@ class ManageWorkoutFragment : Fragment() {
         adapter.updateWorkouts(workouts)
 
         val listener = object: WorkoutListener {
-            override fun onNewClick(id: Int) {
-                TODO("Not yet implemented")
+            override fun onNewClick() {
+                viewModel.addWorkout()
             }
 
             override fun onDeleteClick(id: Int) {
-                TODO("Not yet implemented")
+                viewModel.deleteWorkout(id)
             }
 
             override fun onEditClick(id: Int) {
-                TODO("Not yet implemented")
+                viewModel.editWorkout(id)
             }
-
         }
 
         adapter.attachListener(listener)
 
         val emptyDataObserver = EmptyDataObserver(binding.recyclerWorkouts, view?.findViewById(R.id.empty_data_parent))
         adapter.registerAdapterDataObserver(emptyDataObserver)
+
+        observe()
 
         return binding.root
     }
@@ -65,7 +66,9 @@ class ManageWorkoutFragment : Fragment() {
             adapter.updateWorkouts(it)
         }
 
-
+        viewModel.validation.observe(viewLifecycleOwner){
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onDestroyView() {

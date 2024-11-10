@@ -4,8 +4,8 @@ import android.content.Intent
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielportari.workoutplannerapp.databinding.WorkoutItemBinding
-import com.gabrielportari.workoutplannerapp.service.listener.WorkoutListener
-import com.gabrielportari.workoutplannerapp.service.model.Workout
+import com.gabrielportari.workoutplannerapp.data.listener.WorkoutListener
+import com.gabrielportari.workoutplannerapp.data.model.Workout
 import com.gabrielportari.workoutplannerapp.view.activity.NewWorkoutActivity
 import com.google.android.material.snackbar.Snackbar
 
@@ -32,9 +32,7 @@ class WorkoutViewHolder(private val itemBinding: WorkoutItemBinding,val listener
         }
 
         itemBinding.imageNewWorkout.setOnClickListener {
-            Snackbar.make(it, "Adicionar novo treino", Snackbar.LENGTH_SHORT).show()
-            val intent: Intent = Intent(it.context, NewWorkoutActivity::class.java)
-            it.context.startActivity(intent)
+            listener.onNewClick()
         }
     }
 }
