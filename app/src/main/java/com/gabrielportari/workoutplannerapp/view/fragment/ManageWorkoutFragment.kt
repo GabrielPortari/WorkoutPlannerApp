@@ -30,7 +30,7 @@ class ManageWorkoutFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        //viewModel = ViewModelProvider(this).get(ManageWorkoutViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ManageWorkoutViewModel::class.java)
         _binding = FragmentManageWorkoutBinding.inflate(inflater, container, false)
 
         binding.recyclerWorkouts.layoutManager = LinearLayoutManager(context)
@@ -65,7 +65,7 @@ class ManageWorkoutFragment : Fragment() {
             adapter.updateWorkouts(it)
         }
 
-        view
+
     }
 
     override fun onDestroyView() {
