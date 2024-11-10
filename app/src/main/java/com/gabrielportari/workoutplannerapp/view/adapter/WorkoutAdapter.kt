@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielportari.workoutplannerapp.R
+import com.gabrielportari.workoutplannerapp.databinding.WorkoutItemBinding
 import com.gabrielportari.workoutplannerapp.service.listener.WorkoutListener
 import com.gabrielportari.workoutplannerapp.service.model.Workout
 import com.gabrielportari.workoutplannerapp.view.viewholder.WorkoutViewHolder
@@ -18,8 +19,9 @@ class WorkoutAdapter() : RecyclerView.Adapter<WorkoutViewHolder>() {
     private lateinit var listener: WorkoutListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkoutViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.workout_item, parent, false)
-        return WorkoutViewHolder(view)
+        val inflater = LayoutInflater.from(parent.context)
+        val itemBinding = WorkoutItemBinding.inflate(inflater, parent, false)
+        return WorkoutViewHolder(itemBinding, listener)
     }
 
     override fun getItemCount(): Int {

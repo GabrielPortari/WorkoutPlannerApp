@@ -1,10 +1,10 @@
 package com.gabrielportari.workoutplannerapp.service.listener
 
 interface WorkoutListener {
-    fun onListClick(id: Int)
+    fun onNewClick(id: Int)
 
-    fun onDelete(id: Int)
+    fun onDeleteClick(id: Int)
 
-    fun onEdit(id: Int)
+    fun onEditClick(id: Int)
 
 }
