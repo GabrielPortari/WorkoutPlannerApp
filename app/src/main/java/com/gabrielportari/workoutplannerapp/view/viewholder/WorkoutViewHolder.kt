@@ -28,7 +28,7 @@ class WorkoutViewHolder(private val itemBinding: WorkoutItemBinding,val listener
         }
 
         itemBinding.layoutWorkoutEdit.setOnClickListener {
-            listener.onEditClick(workout.idWorkout)
+            listener.onEditClick(workout)
         }
 
         itemBinding.imageNewWorkout.setOnClickListener {

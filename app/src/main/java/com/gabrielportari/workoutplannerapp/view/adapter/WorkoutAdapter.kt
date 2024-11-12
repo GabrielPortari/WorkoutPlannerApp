@@ -10,7 +10,7 @@ import com.gabrielportari.workoutplannerapp.view.viewholder.WorkoutViewHolder
 
 class WorkoutAdapter() : RecyclerView.Adapter<WorkoutViewHolder>() {
 
-    private var workouts: List<Workout> = arrayListOf()
+    private var workouts: ArrayList<Workout> = arrayListOf()
     private lateinit var listener: WorkoutListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkoutViewHolder {
@@ -32,7 +32,7 @@ class WorkoutAdapter() : RecyclerView.Adapter<WorkoutViewHolder>() {
         listener = workoutListener
     }
 
-    fun updateWorkouts(list: List<Workout>){
+    fun updateWorkouts(list: ArrayList<Workout>){
         workouts = list
         notifyDataSetChanged()
     }

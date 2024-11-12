@@ -26,7 +26,7 @@ class ManageWorkoutFragment : Fragment() {
     private val binding get() = _binding!!
     val adapter = WorkoutAdapter()
 
-    val workouts: List<Workout> = emptyList()
+    var workouts = arrayListOf<Workout>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +50,7 @@ class ManageWorkoutFragment : Fragment() {
             }
 
             override fun onEditClick(workout: Workout) {
-                viewModel.editWorkout(workout: Workout)
+                viewModel.editWorkout(workout)
             }
         }
 

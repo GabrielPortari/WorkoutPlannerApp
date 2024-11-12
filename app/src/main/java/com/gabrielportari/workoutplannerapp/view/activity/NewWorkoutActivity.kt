@@ -1,6 +1,7 @@
 package com.gabrielportari.workoutplannerapp.view.activity
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -8,13 +9,15 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.data.model.Workout
+import com.gabrielportari.workoutplannerapp.data.repository.WorkoutRepository
 import com.gabrielportari.workoutplannerapp.databinding.ActivityNewWorkoutBinding
 import com.gabrielportari.workoutplannerapp.viewmodel.ManageWorkoutViewModel
+import com.gabrielportari.workoutplannerapp.viewmodel.NewWorkoutViewModel
 
 class NewWorkoutActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityNewWorkoutBinding
-    private lateinit var viewModel: ManageWorkoutViewModel
+    private lateinit var viewModel: NewWorkoutViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +28,11 @@ class NewWorkoutActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         binding = ActivityNewWorkoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        var viewModel = ViewModelProvider(this).get(ManageWorkoutViewModel::class.java)
+
+        viewModel = ViewModelProvider(this).get(NewWorkoutViewModel::class.java)
 
 
         /* eventos */
@@ -39,12 +44,25 @@ class NewWorkoutActivity : AppCompatActivity() {
         }
     }
 
+    fun observe(){
+        viewModel.create.observe(this){
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
     private fun handleSave(){
+        val wr = WorkoutRepository();
+
         val workout = Workout(
-        10,
+            wr.getAll().size+2,
             binding.textInputWorkoutName.text.toString(),
             binding.textInputWorkoutDescription.text.toString(),
             emptyList()
         )
+
+        viewModel.createWorkout(workout)
+
+        finish()
     }
 }
