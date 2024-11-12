@@ -1,5 +1,6 @@
 package com.gabrielportari.workoutplannerapp.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.gabrielportari.workoutplannerapp.databinding.FragmentManageWorkoutBin
 import com.gabrielportari.workoutplannerapp.data.helper.EmptyDataObserver
 import com.gabrielportari.workoutplannerapp.data.listener.WorkoutListener
 import com.gabrielportari.workoutplannerapp.data.model.Workout
+import com.gabrielportari.workoutplannerapp.view.activity.NewWorkoutActivity
 import com.gabrielportari.workoutplannerapp.view.adapter.WorkoutAdapter
 import com.gabrielportari.workoutplannerapp.viewmodel.ManageWorkoutViewModel
 
@@ -39,15 +41,16 @@ class ManageWorkoutFragment : Fragment() {
 
         val listener = object: WorkoutListener {
             override fun onNewClick() {
-                viewModel.addWorkout()
+                val intent = Intent(context, NewWorkoutActivity::class.java)
+                startActivity(intent)
             }
 
             override fun onDeleteClick(id: Int) {
                 viewModel.deleteWorkout(id)
             }
 
-            override fun onEditClick(id: Int) {
-                viewModel.editWorkout(id)
+            override fun onEditClick(workout: Workout) {
+                viewModel.editWorkout(workout: Workout)
             }
         }
 

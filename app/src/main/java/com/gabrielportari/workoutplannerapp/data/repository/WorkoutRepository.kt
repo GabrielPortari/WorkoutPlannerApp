@@ -15,11 +15,13 @@ class WorkoutRepository {
         return workouts
     }
 
-    fun addWorkout() : String{
+    fun addWorkout(workout: Workout) : String{
+        workouts = workouts+(workout)
         return "Treino adicionado com sucesso!"
     }
 
-    fun deleteWorkout() : String{
+    fun deleteWorkout(id: Int) : String{
+        workouts = workouts- getWorkout(id)
         return "Treino deletado com sucesso!"
     }
 
@@ -27,7 +29,9 @@ class WorkoutRepository {
         return workouts[id]
     }
 
-    fun editWorkout() : String{
+    fun editWorkout(workout: Workout) : String{
+        workouts = workouts-getWorkout(workout.idWorkout)
+        workouts = workouts+(workout)
         return "Treino editado com sucesso!"
     }
 }

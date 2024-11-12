@@ -18,16 +18,16 @@ class ManageWorkoutViewModel(application: Application) : AndroidViewModel(applic
         workoutList.value = WorkoutRepository().list()
     }
 
-    fun addWorkout(){
-        validation.value = WorkoutRepository().addWorkout()
+    fun addWorkout(workout: Workout){
+        validation.value = WorkoutRepository().addWorkout(workout)
     }
 
     fun deleteWorkout(id: Int){
-        validation.value = WorkoutRepository().deleteWorkout()
+        validation.value = WorkoutRepository().deleteWorkout(id)
     }
 
-    fun editWorkout(id: Int){
-        validation.value = WorkoutRepository().editWorkout()
+    fun editWorkout(workout: Workout){
+        validation.value = WorkoutRepository().editWorkout(workout)
     }
 
 }
