@@ -10,7 +10,7 @@ import com.gabrielportari.workoutplannerapp.data.model.Workout
 class WorkoutRepository private constructor(context: Context){
 
     private val database = WorkoutDatabase(context)
-    private val exerciseRepository: ExerciseRepository = ExerciseRepository.getInstance(context)
+    private val exerciseRepository = ExerciseRepository.getInstance(context)
 
     /*Implementação do singleton*/
     companion object {
@@ -75,7 +75,7 @@ class WorkoutRepository private constructor(context: Context){
 
     fun get(id: Int): Workout?{
         var workout: Workout? = null
-
+        var exercises: List<Exercise> = emptyList()
         try{
             val db = database.readableDatabase
 
@@ -99,7 +99,10 @@ class WorkoutRepository private constructor(context: Context){
                     val name = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME))
                     val description = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION))
 
-                    workout = Workout(id, name, description, emptyList())
+                    //get workout exercises
+                    exercises = exerciseRepository.getAllFromWorkout(id)
+                    workout = Workout(id, name, description, exercises)
+
 
                 }
             }
@@ -113,7 +116,7 @@ class WorkoutRepository private constructor(context: Context){
         return workout
     }
 
-    fun getAllWorkouts(): List<Workout>{
+    fun getAll(): List<Workout>{
         val list = mutableListOf<Workout>()
 
         try{
