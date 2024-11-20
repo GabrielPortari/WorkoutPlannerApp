@@ -158,9 +158,9 @@ class WorkoutRepository private constructor(context: Context){
             cursor.close()
 
         }catch (e: Exception){
-
             return list
         }
+
         return list
     }
 
