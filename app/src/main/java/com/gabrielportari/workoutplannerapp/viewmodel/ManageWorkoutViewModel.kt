@@ -1,5 +1,6 @@
 package com.gabrielportari.workoutplannerapp.viewmodel
 
+import android.app.AlertDialog
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData

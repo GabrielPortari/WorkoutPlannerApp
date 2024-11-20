@@ -56,15 +56,20 @@ class NewWorkoutActivity : AppCompatActivity() {
     }
 
     private fun handleSave(){
-        val name = binding.textInputWorkoutName.text.toString()
-        val description = binding.textInputWorkoutDescription.text.toString()
-        val exercises = listOf<Exercise>()
-
-        val workout = Workout(workoutId, name, description, exercises, MyConstants.CONTROLLER.CONTROLLER_FALSE)
-
-        viewModel.createWorkout(workout)
-
-        finish()
+        if(!binding.textInputWorkoutName.text.isNullOrBlank()){
+            if(!binding.textInputWorkoutDescription.text.isNullOrBlank()){
+                val name = binding.textInputWorkoutName.text.toString()
+                val description = binding.textInputWorkoutDescription.text.toString()
+                val exercises = listOf<Exercise>()
+                val workout = Workout(workoutId, name, description, exercises, MyConstants.CONTROLLER.CONTROLLER_FALSE)
+                viewModel.createWorkout(workout)
+                finish()
+            }else{
+                Toast.makeText(this, "Preencha a descrição do treino", Toast.LENGTH_SHORT).show()
+            }
+        }else{
+            Toast.makeText(this, "Preencha o nome do treino", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun loadData() {
