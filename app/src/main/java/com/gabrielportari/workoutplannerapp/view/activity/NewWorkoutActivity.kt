@@ -8,6 +8,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.gabrielportari.workoutplannerapp.R
+import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
+import com.gabrielportari.workoutplannerapp.data.model.Exercise
 import com.gabrielportari.workoutplannerapp.data.model.Workout
 import com.gabrielportari.workoutplannerapp.data.repository.WorkoutRepository
 import com.gabrielportari.workoutplannerapp.databinding.ActivityNewWorkoutBinding
@@ -18,7 +20,7 @@ class NewWorkoutActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityNewWorkoutBinding
     private lateinit var viewModel: NewWorkoutViewModel
-
+    private var workoutId = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -42,27 +44,33 @@ class NewWorkoutActivity : AppCompatActivity() {
         binding.buttonEndWorkout.setOnClickListener{
             handleSave()
         }
+
+        observe()
+        //loadData()
     }
 
     fun observe(){
-        viewModel.create.observe(this){
+        viewModel.validation.observe(this){
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
-
     }
 
     private fun handleSave(){
-        val wr = WorkoutRepository();
+        val name = binding.textInputWorkoutName.text.toString()
+        val description = binding.textInputWorkoutDescription.text.toString()
+        val exercises = listOf<Exercise>()
 
-        val workout = Workout(
-            wr.getAll().size+2,
-            binding.textInputWorkoutName.text.toString(),
-            binding.textInputWorkoutDescription.text.toString(),
-            emptyList()
-        )
+        val workout = Workout(workoutId, name, description, exercises, MyConstants.CONTROLLER.CONTROLLER_FALSE)
 
         viewModel.createWorkout(workout)
 
         finish()
+    }
+
+    private fun loadData() {
+        val bundle = intent.extras
+        if (bundle != null) {
+            workoutId = bundle.getInt(MyConstants.KEY.ID_KEY)
+        }
     }
 }

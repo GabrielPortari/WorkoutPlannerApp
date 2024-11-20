@@ -24,9 +24,9 @@ class ManageWorkoutFragment : Fragment() {
     private lateinit var viewModel: ManageWorkoutViewModel
     private var _binding: FragmentManageWorkoutBinding? = null
     private val binding get() = _binding!!
-    val adapter = WorkoutAdapter()
 
-    var workouts = arrayListOf<Workout>()
+    private val adapter = WorkoutAdapter()
+    private var workouts = listOf<Workout>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

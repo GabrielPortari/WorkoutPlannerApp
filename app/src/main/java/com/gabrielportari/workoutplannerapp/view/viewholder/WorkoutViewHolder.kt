@@ -1,20 +1,18 @@
 package com.gabrielportari.workoutplannerapp.view.viewholder
 
-import android.content.Intent
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.databinding.WorkoutItemBinding
 import com.gabrielportari.workoutplannerapp.data.listener.WorkoutListener
 import com.gabrielportari.workoutplannerapp.data.model.Workout
-import com.gabrielportari.workoutplannerapp.view.activity.NewWorkoutActivity
-import com.google.android.material.snackbar.Snackbar
 
 class WorkoutViewHolder(private val itemBinding: WorkoutItemBinding,val listener: WorkoutListener) :
     RecyclerView.ViewHolder(itemBinding.root) {
     fun bind(workout: Workout) {
 
         /* Mostra conteudo dos treinos, e atribui o ultimo item como botão de adicionar novo */
-        if(!workout.NEW_CONTROLER){
+        if(workout.controller != MyConstants.CONTROLLER.CONTROLLER_TRUE){
             itemBinding.textWorkoutName.text = workout.name
             itemBinding.textWorkoutDescription.text = workout.description
         }else{
@@ -24,7 +22,7 @@ class WorkoutViewHolder(private val itemBinding: WorkoutItemBinding,val listener
 
         /* Eventos */
         itemBinding.imageDeleteWorkout.setOnClickListener {
-            listener.onDeleteClick(workout.idWorkout)
+            listener.onDeleteClick(workout.id)
         }
 
         itemBinding.layoutWorkoutEdit.setOnClickListener {

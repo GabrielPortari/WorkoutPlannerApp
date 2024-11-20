@@ -2,7 +2,6 @@ package com.gabrielportari.workoutplannerapp.data.repository
 
 import android.content.ContentValues
 import android.content.Context
-import android.widget.Toast
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.model.Exercise
 import com.gabrielportari.workoutplannerapp.data.model.Workout
@@ -29,9 +28,12 @@ class WorkoutRepository private constructor(context: Context){
 
             val name = workout.name
             val description = workout.description
+            val controller = workout.controller
+
             val values = ContentValues()
-            values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME, workout.name)
-            values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION, workout.description)
+            values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME, name)
+            values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION, description)
+            values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.CONTROLLER, controller)
 
             db.insert(MyConstants.DATABASE.WORKOUT_TABLE_NAME, null, values)
 
@@ -50,7 +52,7 @@ class WorkoutRepository private constructor(context: Context){
             val values = ContentValues()
 
             val selection = MyConstants.DATABASE.WORKOUT_COLUMNS.ID + " = ?"
-            val args = arrayOf(workout.idWorkout.toString())
+            val args = arrayOf(workout.id.toString())
             db.update(MyConstants.DATABASE.WORKOUT_TABLE_NAME, values, selection, args)
 
             true
@@ -98,11 +100,11 @@ class WorkoutRepository private constructor(context: Context){
                 while(cursor.moveToNext()){
                     val name = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME))
                     val description = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION))
+                    val controller = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.CONTROLLER))
 
                     //get workout exercises
                     exercises = exerciseRepository.getAllFromWorkout(id)
-                    workout = Workout(id, name, description, exercises)
-
+                    workout = Workout(id, name, description, exercises, controller)
 
                 }
             }
@@ -126,30 +128,37 @@ class WorkoutRepository private constructor(context: Context){
             val projection = arrayOf(
                 MyConstants.DATABASE.WORKOUT_COLUMNS.ID,
                 MyConstants.DATABASE.WORKOUT_COLUMNS.NAME,
-                MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION
+                MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION,
+                MyConstants.DATABASE.WORKOUT_COLUMNS.CONTROLLER
             )
 
             val cursor = db.query(
-                MyConstants.DATABASE.WORKOUT_TABLE_NAME,
-                projection, null, null, null, null, null
+                MyConstants.DATABASE.WORKOUT_TABLE_NAME, projection,
+                null, null, null, null, null
             )
 
             while(cursor.moveToNext()){
-                val id = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.ID))
-                val name = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME))
-                val description = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION))
+                val id =
+                    cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.ID))
+                val name =
+                    cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME))
+                val description =
+                    cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION))
+                val controller =
+                    cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.CONTROLLER))
 
                 // recuperar os exercícios
                 // recuperarExercise() - retorna list de exercicio
-                val exercises : List<Exercise> = emptyList()
-
-                val workout = Workout(id, name, description, exercises)
+                //val exercises = exerciseRepository.getAllFromWorkout(id)
+                val exercises = emptyList<Exercise>()
+                val workout = Workout(id, name, description, exercises, controller)
                 list.add(workout)
             }
 
             cursor.close()
 
         }catch (e: Exception){
+
             return list
         }
         return list

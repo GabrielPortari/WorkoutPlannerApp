@@ -8,22 +8,29 @@ import com.gabrielportari.workoutplannerapp.data.repository.WorkoutRepository
 
 class ManageWorkoutViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _workoutList = MutableLiveData<ArrayList<Workout>>()
-    val workoutList: MutableLiveData<ArrayList<Workout>> = _workoutList
+    private val repository = WorkoutRepository.getInstance(application.applicationContext)
+
+    private val _workoutList = MutableLiveData<List<Workout>>()
+    val workoutList: MutableLiveData<List<Workout>> = _workoutList
 
     private val _validation = MutableLiveData<String>()
     val validation: MutableLiveData<String> = _validation
 
     fun listWorkouts(){
-        workoutList.value = WorkoutRepository().list()
+        _workoutList.value = repository.getAll()
     }
 
     fun deleteWorkout(id: Int){
-        validation.value = WorkoutRepository().deleteWorkout(id)
+        if(repository.delete(id)){
+            listWorkouts()
+            _validation.value = "Treino deletado com sucesso"
+        }else{
+            _validation.value = "Falha ao deletar treino"
+        }
     }
 
     fun editWorkout(workout: Workout){
-        validation.value = WorkoutRepository().editWorkout(workout)
+
     }
 
 }

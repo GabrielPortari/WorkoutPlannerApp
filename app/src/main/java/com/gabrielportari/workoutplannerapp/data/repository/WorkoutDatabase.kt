@@ -11,17 +11,30 @@ class WorkoutDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
     companion object {
         private const val DATABASE_NAME = "workout_db"
         private const val DATABASE_VERSION = 1
-
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
         /* CRIAÇÃO DAS TABELAS */
+
+        val sqlUserName = "CREATE TABLE " + MyConstants.DATABASE.USER_TABLE + "(" +
+                MyConstants.DATABASE.USER_COLUMNS.ID + " integer primary key, " +
+                MyConstants.DATABASE.USER_COLUMNS.NAME + " text);"
+
+        val sqlWeekTable = "CREATE TABLE " + MyConstants.DATABASE.WEEK_TABLE_NAME + "(" +
+                MyConstants.DATABASE.WEEK_COLUMNS.ID + " integer primary key autoincrement, " +
+                MyConstants.DATABASE.WEEK_COLUMNS.NAME + " text, " +
+                MyConstants.DATABASE.WEEK_COLUMNS.DESCRIPTION + " text, " +
+                MyConstants.DATABASE.WEEK_COLUMNS.DAY_OF_WEEK + " text);"
+
         val sqlWorkoutTable = "CREATE TABLE " + MyConstants.DATABASE.WORKOUT_TABLE_NAME + "(" +
                 MyConstants.DATABASE.WORKOUT_COLUMNS.ID + " integer primary key autoincrement, " +
                 MyConstants.DATABASE.WORKOUT_COLUMNS.NAME + " text, " +
                 MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION + " text, " +
-                MyConstants.DATABASE.WORKOUT_COLUMNS.CONTROLLER + " boolean);"
+                MyConstants.DATABASE.WORKOUT_COLUMNS.CONTROLLER + " integer);"
 
+        val sqlWeekWorkoutTable = "CREATE TABLE " + MyConstants.DATABASE.WEEK_WORKOUT_TABLE_NAME + "(" +
+                MyConstants.DATABASE.WEEK_WORKOUT_COLUMNS.WEEK_ID + " integer, " +
+                MyConstants.DATABASE.WEEK_WORKOUT_COLUMNS.WORKOUT_ID + " integer);"
 
         val sqlExerciseTable = "CREATE TABLE " + MyConstants.DATABASE.EXERCISE_TABLE_NAME + "(" +
                 MyConstants.DATABASE.EXERCISE_COLUMNS.ID + " integer primary key autoincrement, " +
@@ -32,16 +45,26 @@ class WorkoutDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
                 "FOREIGN KEY (" + MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID + ") REFERENCES " + MyConstants.DATABASE.WORKOUT_TABLE_NAME + "(" + MyConstants.DATABASE.WORKOUT_COLUMNS.ID + ")" +
                 ");"
 
+        db?.execSQL(sqlUserName)
+        db?.execSQL(sqlWeekTable)
         db?.execSQL(sqlWorkoutTable)
+        db?.execSQL(sqlWeekWorkoutTable)
         db?.execSQL(sqlExerciseTable)
 
         /* INSERÇÃO DOS BOTÃO DE ADICIONAR TREINO */
         val values = ContentValues()
-        values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME, "ADD WORKOUT BUTTON")
+        values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME, "ADD WORKOUT BUTTON TEST TRUE")
         values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION, "THERE IS NOTHING TO SHOW")
-        values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.CONTROLLER, true)
+        values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_TRUE)
 
         db?.insert(MyConstants.DATABASE.WORKOUT_TABLE_NAME, null, values)
+
+
+        /*INSERÇÃO DO USUÁRIO QUE SERÁ LIDO COMO NOME*/
+        val userValues = ContentValues()
+        userValues.put(MyConstants.DATABASE.USER_COLUMNS.ID, 0)
+        userValues.put(MyConstants.DATABASE.USER_COLUMNS.NAME, "Usuario")
+        db?.insert(MyConstants.DATABASE.USER_TABLE, null, userValues)
 
     }
 
