@@ -36,7 +36,6 @@ class NewWorkoutActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(NewWorkoutViewModel::class.java)
 
-
         /* eventos */
         binding.buttonNewExercise.setOnClickListener{
 
@@ -46,12 +45,24 @@ class NewWorkoutActivity : AppCompatActivity() {
         }
 
         observe()
-        //loadData()
+        loadData()
     }
 
     fun observe(){
-        viewModel.validation.observe(this){
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        viewModel.workout.observe(this){
+            binding.textInputWorkoutName.setText(it.name)
+            binding.textInputWorkoutDescription.setText(it.description)
+            binding.buttonEndWorkout.text = "Editar Treino"
+            binding.buttonNewExercise.visibility = android.view.View.VISIBLE
+            for (exercise in it.exercises){
+                //TODO: Listar exercícios do treino
+            }
+        }
+
+        viewModel.workoutLoad.observe(this){
+            if(!it.status()){
+                showToast(it.message())
+            }
         }
     }
 
@@ -79,6 +90,11 @@ class NewWorkoutActivity : AppCompatActivity() {
         val bundle = intent.extras
         if (bundle != null) {
             workoutId = bundle.getInt(MyConstants.KEY.ID_KEY)
+            viewModel.loadWorkout(workoutId)
         }
+    }
+
+    private fun showToast(message: String){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gabrielportari.workoutplannerapp.R
+import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.databinding.FragmentManageWorkoutBinding
 import com.gabrielportari.workoutplannerapp.data.helper.EmptyDataObserver
 import com.gabrielportari.workoutplannerapp.data.listener.WorkoutListener
@@ -26,6 +27,7 @@ class ManageWorkoutFragment : Fragment() {
     private var _binding: FragmentManageWorkoutBinding? = null
     private val binding get() = _binding!!
 
+    private var workoutId = 0
     private val adapter = WorkoutAdapter()
     private var workouts = listOf<Workout>()
 
@@ -43,6 +45,9 @@ class ManageWorkoutFragment : Fragment() {
         val listener = object: WorkoutListener {
             override fun onNewClick() {
                 val intent = Intent(context, NewWorkoutActivity::class.java)
+                val bundle = Bundle()
+                bundle.putInt(MyConstants.KEY.ID_KEY, workoutId)
+                intent.putExtras(bundle)
                 startActivity(intent)
             }
 
@@ -61,7 +66,11 @@ class ManageWorkoutFragment : Fragment() {
             }
 
             override fun onEditClick(workout: Workout) {
-                viewModel.editWorkout(workout)
+                val intent = Intent(context, NewWorkoutActivity::class.java)
+                val bundle = Bundle()
+                bundle.putInt(MyConstants.KEY.ID_KEY, workout.id)
+                intent.putExtras(bundle)
+                startActivity(intent)
             }
         }
 
@@ -81,7 +90,15 @@ class ManageWorkoutFragment : Fragment() {
         }
 
         viewModel.validation.observe(viewLifecycleOwner){
-            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            if(it.status()){
+                if(workoutId == 0){
+                    showToast("Treino criado com sucesso")
+                }else{
+                    showToast("Treino editado com sucesso")
+                }
+            }else{
+                showToast(it.message())
+            }
         }
     }
 
@@ -93,6 +110,10 @@ class ManageWorkoutFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.listWorkouts()
+    }
+
+    private fun showToast(message: String){
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
 }
