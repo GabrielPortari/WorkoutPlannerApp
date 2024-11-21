@@ -47,9 +47,14 @@ class WorkoutRepository private constructor(context: Context){
         return try {
             val db = database.writableDatabase
 
+            val workoutId = workout.id
             val name = workout.name
             val description = workout.description
             val values = ContentValues()
+            values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.ID, workoutId)
+            values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME, name)
+            values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION, description)
+
 
             val selection = MyConstants.DATABASE.WORKOUT_COLUMNS.ID + " = ?"
             val args = arrayOf(workout.id.toString())

@@ -13,8 +13,8 @@ class NewWorkoutViewModel(application: Application) : AndroidViewModel(applicati
 
     private val repository = WorkoutRepository.getInstance(application.applicationContext)
 
-    private val _validation = MutableLiveData<Validation>()
-    val validation: MutableLiveData<Validation> = _validation
+    private val _save = MutableLiveData<Validation>()
+    val save: MutableLiveData<Validation> = _save
 
     private val _workout = MutableLiveData<Workout>()
     val workout: MutableLiveData<Workout> = _workout
@@ -23,9 +23,9 @@ class NewWorkoutViewModel(application: Application) : AndroidViewModel(applicati
 
     fun createWorkout(workout: Workout){
         if(repository.insert(workout)){
-            _validation.value = Validation()
+            _save.value = Validation()
         }else{
-            _validation.value = Validation("Erro ao criar treino")
+            _save.value = Validation("Erro ao criar treino")
 
         }
     }
@@ -41,9 +41,9 @@ class NewWorkoutViewModel(application: Application) : AndroidViewModel(applicati
 
     fun updateWorkout(workout: Workout){
         if(repository.update(workout)){
-            _validation.value = Validation()
+            _save.value = Validation()
         }else{
-            _validation.value = Validation("Erro ao editar treino")
+            _save.value = Validation("Erro ao editar treino")
         }
     }
 }

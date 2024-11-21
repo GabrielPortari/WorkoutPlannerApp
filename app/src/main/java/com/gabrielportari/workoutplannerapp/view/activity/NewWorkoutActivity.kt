@@ -21,6 +21,7 @@ class NewWorkoutActivity : AppCompatActivity() {
     private lateinit var binding : ActivityNewWorkoutBinding
     private lateinit var viewModel: NewWorkoutViewModel
     private var workoutId = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -40,23 +41,34 @@ class NewWorkoutActivity : AppCompatActivity() {
         binding.buttonNewExercise.setOnClickListener{
 
         }
+
         binding.buttonEndWorkout.setOnClickListener{
             handleSave()
         }
 
-        observe()
         loadData()
+
+        observe()
     }
 
     fun observe(){
+        viewModel.save.observe(this){
+            if(it.status()){
+                if(workoutId == 0){
+                    showToast("Treino criado com sucesso")
+                }else{
+                    showToast("Treino editado com sucesso")
+                }
+            }else{
+                showToast(it.message())
+            }
+        }
+
         viewModel.workout.observe(this){
             binding.textInputWorkoutName.setText(it.name)
             binding.textInputWorkoutDescription.setText(it.description)
             binding.buttonEndWorkout.text = "Editar Treino"
             binding.buttonNewExercise.visibility = android.view.View.VISIBLE
-            for (exercise in it.exercises){
-                //TODO: Listar exercícios do treino
-            }
         }
 
         viewModel.workoutLoad.observe(this){
@@ -75,7 +87,11 @@ class NewWorkoutActivity : AppCompatActivity() {
 
                 val workout = Workout(workoutId, name, description, exercises, MyConstants.CONTROLLER.CONTROLLER_FALSE)
 
-                viewModel.createWorkout(workout)
+                if(workoutId == 0) {
+                    viewModel.createWorkout(workout)
+                }else{
+                    viewModel.updateWorkout(workout)
+                }
 
                 finish()
             }else{
@@ -91,6 +107,17 @@ class NewWorkoutActivity : AppCompatActivity() {
         if (bundle != null) {
             workoutId = bundle.getInt(MyConstants.KEY.ID_KEY)
             viewModel.loadWorkout(workoutId)
+
+            binding.listExercises.visibility = android.view.View.VISIBLE
+            binding.textEmptyList.visibility = android.view.View.GONE
+            binding.buttonEndWorkout.text = "Editar Treino"
+            binding.buttonNewExercise.visibility = android.view.View.VISIBLE
+
+        }else{
+            binding.listExercises.visibility = android.view.View.GONE
+            binding.textEmptyList.visibility = android.view.View.VISIBLE
+            binding.buttonEndWorkout.text = "Criar Treino"
+            binding.buttonNewExercise.visibility = android.view.View.GONE
         }
     }
 

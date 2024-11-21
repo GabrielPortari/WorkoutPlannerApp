@@ -45,9 +45,6 @@ class ManageWorkoutFragment : Fragment() {
         val listener = object: WorkoutListener {
             override fun onNewClick() {
                 val intent = Intent(context, NewWorkoutActivity::class.java)
-                val bundle = Bundle()
-                bundle.putInt(MyConstants.KEY.ID_KEY, workoutId)
-                intent.putExtras(bundle)
                 startActivity(intent)
             }
 
