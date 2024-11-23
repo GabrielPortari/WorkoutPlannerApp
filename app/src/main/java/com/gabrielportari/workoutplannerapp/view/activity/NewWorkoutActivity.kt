@@ -37,10 +37,6 @@ class NewWorkoutActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(NewWorkoutViewModel::class.java)
 
-        /* eventos */
-        binding.buttonNewExercise.setOnClickListener{
-
-        }
 
         binding.buttonEndWorkout.setOnClickListener{
             handleSave()
@@ -108,16 +104,14 @@ class NewWorkoutActivity : AppCompatActivity() {
             workoutId = bundle.getInt(MyConstants.KEY.ID_KEY)
             viewModel.loadWorkout(workoutId)
 
-            binding.listExercises.visibility = android.view.View.VISIBLE
+            binding.arraylistExercises.visibility = android.view.View.VISIBLE
             binding.textEmptyList.visibility = android.view.View.GONE
             binding.buttonEndWorkout.text = "Editar Treino"
-            binding.buttonNewExercise.visibility = android.view.View.VISIBLE
 
         }else{
-            binding.listExercises.visibility = android.view.View.GONE
+            binding.arraylistExercises.visibility = android.view.View.GONE
             binding.textEmptyList.visibility = android.view.View.VISIBLE
             binding.buttonEndWorkout.text = "Criar Treino"
-            binding.buttonNewExercise.visibility = android.view.View.GONE
         }
     }
 
