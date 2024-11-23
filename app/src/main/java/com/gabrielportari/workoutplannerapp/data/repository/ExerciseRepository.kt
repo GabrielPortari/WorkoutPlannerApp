@@ -53,7 +53,6 @@ class ExerciseRepository private constructor(context: Context) {
             val description = exercise.description
             val repCount = exercise.repCount
 
-
             val values = ContentValues()
             values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.ID, exercise.exerciseId)
             values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, name)
@@ -145,21 +144,21 @@ class ExerciseRepository private constructor(context: Context) {
                 MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER
             )
 
-            val selection = MyConstants.DATABASE.WORKOUT_COLUMNS.ID + " = ?"
+            val selection = MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID + " = ?"
             val selectionArgs = arrayOf(idWorkout.toString())
 
             val cursor = db.query(
-                MyConstants.DATABASE.WORKOUT_TABLE_NAME,
+                MyConstants.DATABASE.EXERCISE_TABLE_NAME,
                 projection, selection, selectionArgs, null, null, null
             )
 
             while(cursor.moveToNext()){
+
                 val id = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.EXERCISE_COLUMNS.ID))
                 val name = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME))
                 val description = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION))
                 val repCount = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT))
                 val controller = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER))
-
 
                 val exercise = Exercise(id, idWorkout, name, description, repCount, controller)
 
