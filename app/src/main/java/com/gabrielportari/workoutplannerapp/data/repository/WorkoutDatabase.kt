@@ -14,8 +14,8 @@ class WorkoutDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        /* CRIAÇÃO DAS TABELAS */
 
+        /* CRIAÇÃO DAS TABELAS */
         val sqlUserName = "CREATE TABLE " + MyConstants.DATABASE.USER_TABLE + "(" +
                 MyConstants.DATABASE.USER_COLUMNS.ID + " integer primary key, " +
                 MyConstants.DATABASE.USER_COLUMNS.NAME + " text);"
@@ -51,14 +51,27 @@ class WorkoutDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         db?.execSQL(sqlWeekWorkoutTable)
         db?.execSQL(sqlExerciseTable)
 
-        /* INSERÇÃO DOS BOTÃO DE ADICIONAR TREINO */
+        /* INSERÇÃO DO BOTÃO DE ADICIONAR TREINO */
         val values = ContentValues()
-        values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME, "ADD WORKOUT BUTTON TEST TRUE")
+        values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME, "ADD WORKOUT BUTTON")
         values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION, "THERE IS NOTHING TO SHOW")
         values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_TRUE)
-
         db?.insert(MyConstants.DATABASE.WORKOUT_TABLE_NAME, null, values)
 
+        /* INSERÇÃO DOS BOTÃO DE ADICIONAR TREINO */
+        val exerciseValues = ContentValues()
+        exerciseValues.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, "ADD EXERCISE BUTTON")
+        exerciseValues.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, "THERE IS NOTHING TO SHOW")
+        exerciseValues.put(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_TRUE)
+        db?.insert(MyConstants.DATABASE.WORKOUT_TABLE_NAME, null, exerciseValues)
+
+        /* INSERÇÃO DOS BOTÃO DE ADICIONAR TREINO */
+        val weekValues = ContentValues()
+        weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.NAME, "ADD WEEK BUTTON")
+        weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.DESCRIPTION, "THERE IS NOTHING TO SHOW")
+        weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.DAY_OF_WEEK, "THERE IS NOTHING TO SHOW")
+        weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_TRUE)
+        db?.insert(MyConstants.DATABASE.WEEK_TABLE_NAME, null, weekValues)
 
         /*INSERÇÃO DO USUÁRIO QUE SERÁ LIDO COMO NOME*/
         val userValues = ContentValues()

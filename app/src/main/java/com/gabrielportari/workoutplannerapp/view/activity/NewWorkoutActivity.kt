@@ -64,7 +64,7 @@ class NewWorkoutActivity : AppCompatActivity() {
             binding.textInputWorkoutName.setText(it.name)
             binding.textInputWorkoutDescription.setText(it.description)
             binding.buttonEndWorkout.text = "Editar Treino"
-            binding.buttonNewExercise.visibility = android.view.View.VISIBLE
+
         }
 
         viewModel.workoutLoad.observe(this){

@@ -25,6 +25,7 @@ class MyConstants private constructor() {
             const val NAME = "name"
             const val DESCRIPTION = "description"
             const val DAY_OF_WEEK = "day_of_week"
+            const val CONTROLLER = "controller"
         }
 
         const val WORKOUT_TABLE_NAME = "workout"
@@ -48,6 +49,7 @@ class MyConstants private constructor() {
             const val NAME = "name"
             const val DESCRIPTION = "description"
             const val REP_COUNT = "rep_count"
+            const val CONTROLLER = "controller"
         }
     }
 

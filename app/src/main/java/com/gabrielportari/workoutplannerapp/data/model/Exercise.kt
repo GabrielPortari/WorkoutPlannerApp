@@ -6,5 +6,6 @@ data class Exercise(
     var name: String,
     val description: String,
     val repCount: String,
+    val controller: Int
 ) {
 }

@@ -28,12 +28,14 @@ class ExerciseRepository private constructor(context: Context) {
             val name = exercise.name
             val description = exercise.description
             val repCount = exercise.repCount
+            val controller = exercise.controller
 
             val values = ContentValues()
             values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID, workoutId)
             values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, exercise.name)
             values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, exercise.description)
             values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, exercise.repCount)
+            values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER, exercise.controller)
 
             db.insert(MyConstants.DATABASE.WORKOUT_TABLE_NAME, null, values)
 
@@ -51,7 +53,12 @@ class ExerciseRepository private constructor(context: Context) {
             val description = exercise.description
             val repCount = exercise.repCount
 
+
             val values = ContentValues()
+            values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.ID, exercise.exerciseId)
+            values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, name)
+            values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, description)
+            values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, repCount)
 
             val selection = MyConstants.DATABASE.EXERCISE_COLUMNS.ID + " = ?"
             val args = arrayOf(exercise.exerciseId.toString())
@@ -89,7 +96,8 @@ class ExerciseRepository private constructor(context: Context) {
                 MyConstants.DATABASE.EXERCISE_COLUMNS.ID,
                 MyConstants.DATABASE.EXERCISE_COLUMNS.NAME,
                 MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION,
-                MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT
+                MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT,
+                MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER
             )
 
             val selection = MyConstants.DATABASE.EXERCISE_COLUMNS.ID + " = ?"
@@ -106,8 +114,9 @@ class ExerciseRepository private constructor(context: Context) {
                     val name = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME))
                     val description = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION))
                     val repCount = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT))
+                    val controller = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER))
 
-                    exercise = Exercise(id, workoutId, name, description, repCount)
+                    exercise = Exercise(id, workoutId, name, description, repCount, controller)
 
                 }
             }
@@ -132,7 +141,8 @@ class ExerciseRepository private constructor(context: Context) {
                 MyConstants.DATABASE.EXERCISE_COLUMNS.ID,
                 MyConstants.DATABASE.EXERCISE_COLUMNS.NAME,
                 MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION,
-                MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT
+                MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT,
+                MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER
             )
 
             val selection = MyConstants.DATABASE.WORKOUT_COLUMNS.ID + " = ?"
@@ -148,9 +158,10 @@ class ExerciseRepository private constructor(context: Context) {
                 val name = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME))
                 val description = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION))
                 val repCount = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT))
+                val controller = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER))
 
 
-                val exercise = Exercise(id, idWorkout, name, description, repCount)
+                val exercise = Exercise(id, idWorkout, name, description, repCount, controller)
 
                 list.add(exercise)
             }
