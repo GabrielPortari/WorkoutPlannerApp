@@ -10,13 +10,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.databinding.FragmentManageWorkoutBinding
-import com.gabrielportari.workoutplannerapp.data.helper.EmptyDataObserver
 import com.gabrielportari.workoutplannerapp.data.listener.WorkoutListener
 import com.gabrielportari.workoutplannerapp.data.model.Workout
-import com.gabrielportari.workoutplannerapp.view.activity.NewWorkoutActivity
+import com.gabrielportari.workoutplannerapp.view.activity.NewWorkoutFormActivity
 import com.gabrielportari.workoutplannerapp.view.adapter.WorkoutAdapter
 import com.gabrielportari.workoutplannerapp.viewmodel.ManageWorkoutViewModel
 
@@ -44,7 +42,7 @@ class ManageWorkoutFragment : Fragment() {
 
         val listener = object: WorkoutListener {
             override fun onNewClick() {
-                val intent = Intent(context, NewWorkoutActivity::class.java)
+                val intent = Intent(context, NewWorkoutFormActivity::class.java)
                 startActivity(intent)
             }
 
@@ -63,7 +61,7 @@ class ManageWorkoutFragment : Fragment() {
             }
 
             override fun onEditClick(workout: Workout) {
-                val intent = Intent(context, NewWorkoutActivity::class.java)
+                val intent = Intent(context, NewWorkoutFormActivity::class.java)
                 val bundle = Bundle()
                 bundle.putInt(MyConstants.KEY.ID_KEY, workout.id)
                 intent.putExtras(bundle)
@@ -73,8 +71,6 @@ class ManageWorkoutFragment : Fragment() {
 
         adapter.attachListener(listener)
 
-        val emptyDataObserver = EmptyDataObserver(binding.recyclerWorkouts, view?.findViewById(R.id.empty_data_parent))
-        adapter.registerAdapterDataObserver(emptyDataObserver)
 
         observe()
 

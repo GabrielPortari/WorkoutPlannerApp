@@ -2,48 +2,65 @@ package com.gabrielportari.workoutplannerapp.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.gabrielportari.workoutplannerapp.data.model.Exercise
 import com.gabrielportari.workoutplannerapp.data.model.Validation
 import com.gabrielportari.workoutplannerapp.data.model.Workout
+import com.gabrielportari.workoutplannerapp.data.repository.ExerciseRepository
 import com.gabrielportari.workoutplannerapp.data.repository.WorkoutRepository
 
 class NewWorkoutViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = WorkoutRepository.getInstance(application.applicationContext)
+    private val workoutRepository = WorkoutRepository.getInstance(application.applicationContext)
+    private val exerciseRepository = ExerciseRepository.getInstance(application.applicationContext)
 
-    private val _save = MutableLiveData<Validation>()
-    val save: MutableLiveData<Validation> = _save
+    private val _validation = MutableLiveData<Validation>()
+    val validation: MutableLiveData<Validation> = _validation
 
     private val _workout = MutableLiveData<Workout>()
     val workout: MutableLiveData<Workout> = _workout
+
     private val _workoutLoad = MutableLiveData<Validation>()
     val workoutLoad: MutableLiveData<Validation> = _workoutLoad
 
-    fun createWorkout(workout: Workout){
-        if(repository.insert(workout)){
-            _save.value = Validation()
-        }else{
-            _save.value = Validation("Erro ao criar treino")
+    private val _exerciseList = MutableLiveData<List<Exercise>>()
+    val exerciseList: MutableLiveData<List<Exercise>> = _exerciseList
 
+    fun createWorkout(workout: Workout){
+        if(workoutRepository.insert(workout)){
+            _validation.value = Validation()
+        }else{
+            _validation.value = Validation("Erro ao criar treino")
         }
     }
 
     fun loadWorkout(id: Int){
-        if(repository.get(id) != null){
-            _workout.value = repository.get(id)
-            _workoutLoad.value = Validation()
+        if(workoutRepository.get(id) != null){
+            _workout.value = workoutRepository.get(id)
         }else{
             _workoutLoad.value = Validation()
         }
     }
 
     fun updateWorkout(workout: Workout){
-        if(repository.update(workout)){
-            _save.value = Validation()
+        if(workoutRepository.update(workout)){
+            _validation.value = Validation()
         }else{
-            _save.value = Validation("Erro ao editar treino")
+            _validation.value = Validation("Erro ao editar treino")
         }
     }
+
+    fun deleteExercise(id: Int){
+        if(exerciseRepository.delete(id)){
+            _validation.value = Validation()
+        }else{
+            _validation.value = Validation("Erro ao deletar exercicio")
+        }
+    }
+
+    fun listExercises(id: Int){
+        _exerciseList.value = exerciseRepository.getAllFromWorkout(id)
+    }
+
+
 }

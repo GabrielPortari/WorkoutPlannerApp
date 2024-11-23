@@ -1,7 +1,7 @@
 package com.gabrielportari.workoutplannerapp.data.model
 
 data class Exercise(
-    val exerciseId: Int,
+    val id: Int,
     val workoutId: Int,
     var name: String,
     val description: String,

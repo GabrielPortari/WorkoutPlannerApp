@@ -4,7 +4,6 @@ import android.content.ContentValues
 import android.content.Context
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.model.Exercise
-import com.gabrielportari.workoutplannerapp.data.model.Workout
 
 class ExerciseRepository private constructor(context: Context) {
 
@@ -20,18 +19,12 @@ class ExerciseRepository private constructor(context: Context) {
         }
     }
 
-    fun insert(workoutId: Int, exercise: Exercise): Boolean{
+    fun insert(exercise: Exercise): Boolean{
         return try{
             val db = database.writableDatabase
 
-            val workout = workoutId
-            val name = exercise.name
-            val description = exercise.description
-            val repCount = exercise.repCount
-            val controller = exercise.controller
-
             val values = ContentValues()
-            values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID, workoutId)
+            values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID, exercise.workoutId)
             values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, exercise.name)
             values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, exercise.description)
             values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, exercise.repCount)
@@ -54,13 +47,13 @@ class ExerciseRepository private constructor(context: Context) {
             val repCount = exercise.repCount
 
             val values = ContentValues()
-            values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.ID, exercise.exerciseId)
+            values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.ID, exercise.id)
             values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, name)
             values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, description)
             values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, repCount)
 
             val selection = MyConstants.DATABASE.EXERCISE_COLUMNS.ID + " = ?"
-            val args = arrayOf(exercise.exerciseId.toString())
+            val args = arrayOf(exercise.id.toString())
             db.update(MyConstants.DATABASE.EXERCISE_TABLE_NAME, values, selection, args)
 
             true

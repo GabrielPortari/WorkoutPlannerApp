@@ -16,7 +16,7 @@
             android:name=".view.activity.NewExerciseFormActivity"
             android:exported="false" />
         <activity
-            android:name=".view.activity.NewWorkoutActivity"
+            android:name=".view.activity.NewWorkoutFormActivity"
             android:exported="false" />
         <activity
             android:name=".view.activity.MainActivity"

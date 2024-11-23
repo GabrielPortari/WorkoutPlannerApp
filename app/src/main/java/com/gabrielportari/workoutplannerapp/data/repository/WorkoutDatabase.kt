@@ -63,7 +63,7 @@ class WorkoutDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         exerciseValues.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, "ADD EXERCISE BUTTON")
         exerciseValues.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, "THERE IS NOTHING TO SHOW")
         exerciseValues.put(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_TRUE)
-        db?.insert(MyConstants.DATABASE.WORKOUT_TABLE_NAME, null, exerciseValues)
+        db?.insert(MyConstants.DATABASE.EXERCISE_TABLE_NAME, null, exerciseValues)
 
         /* INSERÇÃO DOS BOTÃO DE ADICIONAR TREINO */
         val weekValues = ContentValues()

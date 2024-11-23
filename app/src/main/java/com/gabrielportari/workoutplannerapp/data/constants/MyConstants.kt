@@ -9,6 +9,7 @@ class MyConstants private constructor() {
 
     object KEY{
         const val ID_KEY = "id"
+        const val WORKOUT_ID_KEY = "exerciseId"
     }
 
     object DATABASE{
