@@ -1,4 +1,4 @@
-package com.gabrielportari.workoutplannerapp.service.helper
+package com.gabrielportari.workoutplannerapp.data.helper
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

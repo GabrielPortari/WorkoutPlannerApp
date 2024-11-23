@@ -1,25 +1,22 @@
 package com.gabrielportari.workoutplannerapp.view.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.gabrielportari.workoutplannerapp.R
-import com.gabrielportari.workoutplannerapp.service.listener.WorkoutListener
-import com.gabrielportari.workoutplannerapp.service.model.Workout
+import com.gabrielportari.workoutplannerapp.databinding.WorkoutItemBinding
+import com.gabrielportari.workoutplannerapp.data.listener.WorkoutListener
+import com.gabrielportari.workoutplannerapp.data.model.Workout
 import com.gabrielportari.workoutplannerapp.view.viewholder.WorkoutViewHolder
-import com.google.android.material.snackbar.Snackbar
 
 class WorkoutAdapter() : RecyclerView.Adapter<WorkoutViewHolder>() {
 
-    private var workouts: List<Workout> = arrayListOf()
+    private var workouts: List<Workout> = listOf()
     private lateinit var listener: WorkoutListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkoutViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.workout_item, parent, false)
-        return WorkoutViewHolder(view)
+        val inflater = LayoutInflater.from(parent.context)
+        val itemBinding = WorkoutItemBinding.inflate(inflater, parent, false)
+        return WorkoutViewHolder(itemBinding, listener)
     }
 
     override fun getItemCount(): Int {
