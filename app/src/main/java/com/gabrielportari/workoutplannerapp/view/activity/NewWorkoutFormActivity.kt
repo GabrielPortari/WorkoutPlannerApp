@@ -99,6 +99,7 @@ class NewWorkoutFormActivity : AppCompatActivity() {
         }
 
         viewModel.workout.observe(this){
+            TODO("OS DADOS NÃO ESTÃO SENDO CARREGADOS CORRETAMENTE")
             binding.textInputLayoutName.editText?.setText(it.name)
             binding.textInputLayoutDescription.editText?.setText(it.description)
         }
@@ -110,6 +111,7 @@ class NewWorkoutFormActivity : AppCompatActivity() {
         }
 
         viewModel.exerciseList.observe(this){
+            TODO("A LISTA NÃO ESTÁ SENDO CARREGADA CORRETAMENTE")
             adapter.updateExercises(it)
         }
 
