@@ -2,6 +2,7 @@ package com.gabrielportari.workoutplannerapp.data.repository
 
 import android.content.ContentValues
 import android.content.Context
+import android.util.Log
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.model.Exercise
 
@@ -130,6 +131,7 @@ class ExerciseRepository private constructor(context: Context) {
 
             /*o que será recuperado*/
             val projection = arrayOf(
+                MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID,
                 MyConstants.DATABASE.EXERCISE_COLUMNS.ID,
                 MyConstants.DATABASE.EXERCISE_COLUMNS.NAME,
                 MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION,
@@ -142,7 +144,8 @@ class ExerciseRepository private constructor(context: Context) {
 
             val cursor = db.query(
                 MyConstants.DATABASE.EXERCISE_TABLE_NAME,
-                projection, selection, selectionArgs, null, null, null
+                projection, selection, selectionArgs,
+                null, null, null
             )
 
             while(cursor.moveToNext()){
@@ -154,7 +157,7 @@ class ExerciseRepository private constructor(context: Context) {
                 val controller = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER))
 
                 val exercise = Exercise(id, idWorkout, name, description, repCount, controller)
-
+                Log.d("Workout GET", exercise.toString())
                 list.add(exercise)
             }
 

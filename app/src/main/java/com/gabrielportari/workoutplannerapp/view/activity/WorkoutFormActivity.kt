@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.listener.ExerciseListener
@@ -16,12 +17,12 @@ import com.gabrielportari.workoutplannerapp.data.model.Exercise
 import com.gabrielportari.workoutplannerapp.data.model.Workout
 import com.gabrielportari.workoutplannerapp.databinding.ActivityNewWorkoutBinding
 import com.gabrielportari.workoutplannerapp.view.adapter.ExerciseAdapter
-import com.gabrielportari.workoutplannerapp.viewmodel.NewWorkoutViewModel
+import com.gabrielportari.workoutplannerapp.viewmodel.WorkoutFormViewModel
 
-class NewWorkoutFormActivity : AppCompatActivity() {
+class WorkoutFormActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityNewWorkoutBinding
-    private lateinit var viewModel: NewWorkoutViewModel
+    private lateinit var viewModel: WorkoutFormViewModel
 
     private var workoutId = 0
     private val adapter = ExerciseAdapter()
@@ -39,13 +40,15 @@ class NewWorkoutFormActivity : AppCompatActivity() {
 
         binding = ActivityNewWorkoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = ViewModelProvider(this).get(NewWorkoutViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(WorkoutFormViewModel::class.java)
 
+        binding.recyclerViewExercises.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewExercises.adapter = adapter
         adapter.updateExercises(exercises)
 
         val listener = object: ExerciseListener {
             override fun onNewClick() {
-                val intent = Intent(applicationContext, NewExerciseFormActivity::class.java)
+                val intent = Intent(applicationContext, ExerciseFormActivity::class.java)
                 val bundle = Bundle()
                 bundle.putInt(MyConstants.KEY.WORKOUT_ID_KEY, workoutId)
                 intent.putExtras(bundle)
@@ -67,7 +70,7 @@ class NewWorkoutFormActivity : AppCompatActivity() {
             }
 
             override fun onEditClick(exercise: Exercise) {
-                val intent = Intent(applicationContext, NewExerciseFormActivity::class.java)
+                val intent = Intent(applicationContext, ExerciseFormActivity::class.java)
                 val bundle = Bundle()
                 bundle.putInt(MyConstants.KEY.ID_KEY, exercise.id)
                 intent.putExtras(bundle)
@@ -99,9 +102,9 @@ class NewWorkoutFormActivity : AppCompatActivity() {
         }
 
         viewModel.workout.observe(this){
-            TODO("OS DADOS NÃO ESTÃO SENDO CARREGADOS CORRETAMENTE")
             binding.textInputLayoutName.editText?.setText(it.name)
             binding.textInputLayoutDescription.editText?.setText(it.description)
+            viewModel.loadExercises(it.id)
         }
 
         viewModel.workoutLoad.observe(this){
@@ -111,7 +114,6 @@ class NewWorkoutFormActivity : AppCompatActivity() {
         }
 
         viewModel.exerciseList.observe(this){
-            TODO("A LISTA NÃO ESTÁ SENDO CARREGADA CORRETAMENTE")
             adapter.updateExercises(it)
         }
 
@@ -146,13 +148,12 @@ class NewWorkoutFormActivity : AppCompatActivity() {
         if (bundle != null) {
             workoutId = bundle.getInt(MyConstants.KEY.ID_KEY)
             viewModel.loadWorkout(workoutId)
-            viewModel.listExercises(workoutId)
 
-            binding.arraylistExercises.visibility = android.view.View.VISIBLE
+            binding.recyclerViewExercises.visibility = android.view.View.VISIBLE
             binding.textEmptyList.visibility = android.view.View.GONE
 
         }else{
-            binding.arraylistExercises.visibility = android.view.View.GONE
+            binding.recyclerViewExercises.visibility = android.view.View.GONE
             binding.textEmptyList.visibility = android.view.View.VISIBLE
         }
     }

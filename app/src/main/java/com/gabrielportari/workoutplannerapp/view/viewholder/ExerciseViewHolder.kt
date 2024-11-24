@@ -7,7 +7,8 @@ import com.gabrielportari.workoutplannerapp.data.listener.ExerciseListener
 import com.gabrielportari.workoutplannerapp.data.model.Exercise
 import com.gabrielportari.workoutplannerapp.databinding.ExerciseItemBinding
 
-class ExerciseViewHolder(private val itemBinding: ExerciseItemBinding, val listener: ExerciseListener) : RecyclerView.ViewHolder(itemBinding.root){
+class ExerciseViewHolder(private val itemBinding: ExerciseItemBinding, val listener: ExerciseListener) :
+    RecyclerView.ViewHolder(itemBinding.root){
 
     fun bind(exercise: Exercise){
 

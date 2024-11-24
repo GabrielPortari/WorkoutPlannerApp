@@ -13,8 +13,8 @@
 
     <ImageView
         android:id="@+id/image_new_exercise"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_gravity="center"
         android:scaleType="centerInside"
         android:visibility="gone"
@@ -23,6 +23,7 @@
     <LinearLayout
         android:id="@+id/layout_exercise_item"
         android:layout_width="match_parent"
+        android:visibility="visible"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
@@ -30,6 +31,7 @@
             android:id="@+id/layout_exercise_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+
             android:layout_weight="1"
             android:orientation="vertical">
 

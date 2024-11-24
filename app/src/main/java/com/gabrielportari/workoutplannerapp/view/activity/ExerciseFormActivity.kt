@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -15,12 +14,12 @@ import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.model.Exercise
 import com.gabrielportari.workoutplannerapp.databinding.ActivityNewExerciseFormBinding
-import com.gabrielportari.workoutplannerapp.viewmodel.NewExerciseViewModel
+import com.gabrielportari.workoutplannerapp.viewmodel.ExerciseFormViewModel
 
-class NewExerciseFormActivity : AppCompatActivity() {
+class ExerciseFormActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityNewExerciseFormBinding
-    private lateinit var viewModel: NewExerciseViewModel
+    private lateinit var viewModel: ExerciseFormViewModel
     private var repCountSelected: String = ""
     private var exerciseId = 0
     private var workoutId = 0
@@ -37,7 +36,7 @@ class NewExerciseFormActivity : AppCompatActivity() {
 
         binding = ActivityNewExerciseFormBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = ViewModelProvider(this).get(NewExerciseViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ExerciseFormViewModel::class.java)
         loadSpinner()
 
         binding.spinnerRepCount.setSelection(0)

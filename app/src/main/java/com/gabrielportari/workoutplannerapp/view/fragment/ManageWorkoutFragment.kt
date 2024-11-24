@@ -14,7 +14,7 @@ import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.databinding.FragmentManageWorkoutBinding
 import com.gabrielportari.workoutplannerapp.data.listener.WorkoutListener
 import com.gabrielportari.workoutplannerapp.data.model.Workout
-import com.gabrielportari.workoutplannerapp.view.activity.NewWorkoutFormActivity
+import com.gabrielportari.workoutplannerapp.view.activity.WorkoutFormActivity
 import com.gabrielportari.workoutplannerapp.view.adapter.WorkoutAdapter
 import com.gabrielportari.workoutplannerapp.viewmodel.ManageWorkoutViewModel
 
@@ -42,7 +42,7 @@ class ManageWorkoutFragment : Fragment() {
 
         val listener = object: WorkoutListener {
             override fun onNewClick() {
-                val intent = Intent(context, NewWorkoutFormActivity::class.java)
+                val intent = Intent(context, WorkoutFormActivity::class.java)
                 startActivity(intent)
             }
 
@@ -61,7 +61,7 @@ class ManageWorkoutFragment : Fragment() {
             }
 
             override fun onEditClick(workout: Workout) {
-                val intent = Intent(context, NewWorkoutFormActivity::class.java)
+                val intent = Intent(context, WorkoutFormActivity::class.java)
                 val bundle = Bundle()
                 bundle.putInt(MyConstants.KEY.ID_KEY, workout.id)
                 intent.putExtras(bundle)

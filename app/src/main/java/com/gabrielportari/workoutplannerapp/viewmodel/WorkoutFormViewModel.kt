@@ -9,7 +9,7 @@ import com.gabrielportari.workoutplannerapp.data.model.Workout
 import com.gabrielportari.workoutplannerapp.data.repository.ExerciseRepository
 import com.gabrielportari.workoutplannerapp.data.repository.WorkoutRepository
 
-class NewWorkoutViewModel(application: Application) : AndroidViewModel(application) {
+class WorkoutFormViewModel(application: Application) : AndroidViewModel(application) {
 
     private val workoutRepository = WorkoutRepository.getInstance(application.applicationContext)
     private val exerciseRepository = ExerciseRepository.getInstance(application.applicationContext)
@@ -38,7 +38,7 @@ class NewWorkoutViewModel(application: Application) : AndroidViewModel(applicati
         if(workoutRepository.get(id) != null){
             _workout.value = workoutRepository.get(id)
         }else{
-            _workoutLoad.value = Validation()
+            _workoutLoad.value = Validation("Erro ao carregar treino")
         }
     }
 
@@ -58,7 +58,7 @@ class NewWorkoutViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
-    fun listExercises(id: Int){
+    fun loadExercises(id: Int){
         _exerciseList.value = exerciseRepository.getAllFromWorkout(id)
     }
 

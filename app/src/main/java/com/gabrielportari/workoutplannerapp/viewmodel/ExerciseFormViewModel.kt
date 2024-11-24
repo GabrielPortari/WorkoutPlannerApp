@@ -7,7 +7,7 @@ import com.gabrielportari.workoutplannerapp.data.model.Exercise
 import com.gabrielportari.workoutplannerapp.data.model.Validation
 import com.gabrielportari.workoutplannerapp.data.repository.ExerciseRepository
 
-class NewExerciseViewModel(application: Application) : AndroidViewModel(application) {
+class ExerciseFormViewModel(application: Application) : AndroidViewModel(application) {
 
     private val exerciseRepository = ExerciseRepository.getInstance(application.applicationContext)
 
@@ -20,8 +20,6 @@ class NewExerciseViewModel(application: Application) : AndroidViewModel(applicat
     private val _exerciseLoad = MutableLiveData<Validation>()
     val exerciseLoad: MutableLiveData<Validation> = _exerciseLoad
 
-    private val _exerciseList = MutableLiveData<List<Exercise>>()
-    val exerciseList: MutableLiveData<List<Exercise>> = _exerciseList
 
     fun createExercise(exercise: Exercise){
         if(exerciseRepository.insert(exercise)){
@@ -34,7 +32,6 @@ class NewExerciseViewModel(application: Application) : AndroidViewModel(applicat
     fun loadExercise(id: Int) {
         if (exerciseRepository.getExercise(id) != null) {
             _exercise.value = exerciseRepository.getExercise(id)
-            _exerciseLoad.value = Validation()
         } else {
             _exerciseLoad.value = Validation()
         }

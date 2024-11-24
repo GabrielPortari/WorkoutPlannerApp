@@ -2,6 +2,7 @@ package com.gabrielportari.workoutplannerapp.data.repository
 
 import android.content.ContentValues
 import android.content.Context
+import android.util.Log
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.model.Exercise
 import com.gabrielportari.workoutplannerapp.data.model.Workout
@@ -35,7 +36,16 @@ class WorkoutRepository private constructor(context: Context){
             values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION, description)
             values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.CONTROLLER, controller)
 
-            db.insert(MyConstants.DATABASE.WORKOUT_TABLE_NAME, null, values)
+            val rowId = db.insert(MyConstants.DATABASE.WORKOUT_TABLE_NAME, null, values)
+
+            /* Inserção do botão de adicionar exercícios */
+            val exerciseValues = ContentValues()
+            exerciseValues.put(MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID, rowId)
+            exerciseValues.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, "ADD EXERCISE BUTTON")
+            exerciseValues.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, "THERE IS NOTHING TO SHOW")
+            exerciseValues.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, "THERE IS NOTHING TO SHOW")
+            exerciseValues.put(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_TRUE)
+            db.insert(MyConstants.DATABASE.EXERCISE_TABLE_NAME, null, exerciseValues)
 
             true
         }catch(e : Exception){
@@ -82,7 +92,7 @@ class WorkoutRepository private constructor(context: Context){
 
     fun get(id: Int): Workout?{
         var workout: Workout? = null
-        var exercises: List<Exercise> = emptyList()
+        var exercises: List<Exercise>?
         try{
             val db = database.readableDatabase
 
@@ -105,11 +115,9 @@ class WorkoutRepository private constructor(context: Context){
                 while(cursor.moveToNext()){
                     val name = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME))
                     val description = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION))
-                    val controller = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.CONTROLLER))
-
                     //get workout exercises
                     exercises = exerciseRepository.getAllFromWorkout(id)
-                    workout = Workout(id, name, description, exercises, controller)
+                    workout = Workout(id, name, description, exercises, MyConstants.CONTROLLER.CONTROLLER_FALSE)
 
                 }
             }

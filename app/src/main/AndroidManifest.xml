@@ -13,10 +13,10 @@
         android:theme="@style/Theme.WorkoutPlannerApp"
         tools:targetApi="31">
         <activity
-            android:name=".view.activity.NewExerciseFormActivity"
+            android:name=".view.activity.ExerciseFormActivity"
             android:exported="false" />
         <activity
-            android:name=".view.activity.NewWorkoutFormActivity"
+            android:name=".view.activity.WorkoutFormActivity"
             android:exported="false" />
         <activity
             android:name=".view.activity.MainActivity"
