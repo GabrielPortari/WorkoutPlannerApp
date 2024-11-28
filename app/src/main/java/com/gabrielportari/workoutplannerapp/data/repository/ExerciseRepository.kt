@@ -31,7 +31,7 @@ class ExerciseRepository private constructor(context: Context) {
             values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, exercise.repCount)
             values.put(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER, exercise.controller)
 
-            db.insert(MyConstants.DATABASE.WORKOUT_TABLE_NAME, null, values)
+            db.insert(MyConstants.DATABASE.EXERCISE_TABLE_NAME, null, values)
 
             true
         }catch(e : Exception){
@@ -157,7 +157,6 @@ class ExerciseRepository private constructor(context: Context) {
                 val controller = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER))
 
                 val exercise = Exercise(id, idWorkout, name, description, repCount, controller)
-                Log.d("Workout GET", exercise.toString())
                 list.add(exercise)
             }
 
@@ -166,6 +165,6 @@ class ExerciseRepository private constructor(context: Context) {
         }catch (e: Exception){
             return list
         }
-        return list
+        return list.reversed()
     }
 }

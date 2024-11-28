@@ -56,12 +56,13 @@ class WorkoutFormActivity : AppCompatActivity() {
             }
 
             override fun onDeleteClick(id: Int) {
-                val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(applicationContext)
+                val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(this@WorkoutFormActivity)
                 dialogBuilder.setTitle("Excluir exercicio")
                 dialogBuilder.setMessage("Tem certeza que deseja excluir esse exercicio?")
                 dialogBuilder.setPositiveButton("Sim") { _, _ ->
                     viewModel.deleteExercise(id)
                 }
+
                 dialogBuilder.setNegativeButton("Nao") { _, _ ->
 
                 }
@@ -84,8 +85,9 @@ class WorkoutFormActivity : AppCompatActivity() {
             handleSave()
         }
 
-        loadData()
         observe()
+
+        loadData()
     }
 
     fun observe(){
@@ -104,17 +106,16 @@ class WorkoutFormActivity : AppCompatActivity() {
         viewModel.workout.observe(this){
             binding.textInputLayoutName.editText?.setText(it.name)
             binding.textInputLayoutDescription.editText?.setText(it.description)
-            viewModel.loadExercises(it.id)
+        }
+
+        viewModel.exerciseList.observe(this){
+            adapter.updateExercises(it)
         }
 
         viewModel.workoutLoad.observe(this){
             if(!it.status()){
                 showToast(it.message())
             }
-        }
-
-        viewModel.exerciseList.observe(this){
-            adapter.updateExercises(it)
         }
 
     }
@@ -160,5 +161,10 @@ class WorkoutFormActivity : AppCompatActivity() {
 
     private fun showToast(message: String){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadExercises(workoutId)
     }
 }

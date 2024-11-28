@@ -59,6 +59,7 @@ class WorkoutFormViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun loadExercises(id: Int){
+        _exerciseList.value = emptyList()
         _exerciseList.value = exerciseRepository.getAllFromWorkout(id)
     }
 

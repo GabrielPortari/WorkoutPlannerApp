@@ -31,8 +31,5 @@ class ManageWorkoutViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
-    fun editWorkout(workout: Workout){
-
-    }
 
 }

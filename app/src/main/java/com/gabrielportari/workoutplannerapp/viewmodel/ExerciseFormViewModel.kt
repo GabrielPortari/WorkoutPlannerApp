@@ -20,6 +20,9 @@ class ExerciseFormViewModel(application: Application) : AndroidViewModel(applica
     private val _exerciseLoad = MutableLiveData<Validation>()
     val exerciseLoad: MutableLiveData<Validation> = _exerciseLoad
 
+    private val _exerciseList = MutableLiveData<List<Exercise>>()
+    val exerciseList: MutableLiveData<List<Exercise>> = _exerciseList
+
 
     fun createExercise(exercise: Exercise){
         if(exerciseRepository.insert(exercise)){
@@ -44,6 +47,5 @@ class ExerciseFormViewModel(application: Application) : AndroidViewModel(applica
             _validation.value = Validation("Erro ao editar exercicio")
         }
     }
-
 
 }
