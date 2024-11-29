@@ -14,6 +14,9 @@ class ExerciseViewHolder(private val itemBinding: ExerciseItemBinding, val liste
 
         /*Mostra o conteudo dos exercicios, caso possua controller = true, mostra o botão de adicionar novo */
         if(exercise.controller != MyConstants.CONTROLLER.CONTROLLER_TRUE) {
+            itemBinding.imageNewExercise.visibility = View.GONE
+            itemBinding.layoutExerciseItem.visibility = View.VISIBLE
+
             itemBinding.textExerciseName.text = exercise.name
             itemBinding.textExerciseDescription.text = exercise.description
             itemBinding.textExerciseReps.text = exercise.repCount

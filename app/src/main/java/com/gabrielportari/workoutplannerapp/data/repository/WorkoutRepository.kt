@@ -165,7 +165,7 @@ class WorkoutRepository private constructor(context: Context){
                 //val exercises = exerciseRepository.getAllFromWorkout(id)
                 val exercises = emptyList<Exercise>()
                 val workout = Workout(id, name, description, exercises, controller)
-                list.add(workout)
+                list.add(0, workout)
             }
 
             cursor.close()

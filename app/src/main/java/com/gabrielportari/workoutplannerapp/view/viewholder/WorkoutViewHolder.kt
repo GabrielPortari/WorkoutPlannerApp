@@ -13,6 +13,10 @@ class WorkoutViewHolder(private val itemBinding: WorkoutItemBinding,val listener
 
         /* Mostra conteudo dos treinos, e atribui o ultimo item como botão de adicionar novo */
         if(workout.controller != MyConstants.CONTROLLER.CONTROLLER_TRUE){
+
+            itemBinding.imageNewWorkout.visibility = View.GONE
+            itemBinding.layoutWorkoutItem.visibility = View.VISIBLE
+
             itemBinding.textWorkoutName.text = workout.name
             itemBinding.textWorkoutDescription.text = workout.description
         }else{
