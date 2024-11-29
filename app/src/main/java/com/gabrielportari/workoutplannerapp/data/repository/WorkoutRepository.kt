@@ -171,10 +171,10 @@ class WorkoutRepository private constructor(context: Context){
             cursor.close()
 
         }catch (e: Exception){
-            return list.reversed()
+            return list
         }
 
-        return list.reversed()
+        return list
     }
 
 }

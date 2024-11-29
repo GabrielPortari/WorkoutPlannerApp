@@ -165,6 +165,7 @@ class ExerciseRepository private constructor(context: Context) {
         }catch (e: Exception){
             return list
         }
-        return list.reversed()
+
+        return list
     }
 }

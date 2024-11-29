@@ -85,8 +85,11 @@ class WorkoutFormActivity : AppCompatActivity() {
             handleSave()
         }
 
-        observe()
+        if(workoutId != 0){
+            viewModel.listExercises(workoutId)
+        }
 
+        observe()
         loadData()
     }
 
@@ -112,8 +115,10 @@ class WorkoutFormActivity : AppCompatActivity() {
             adapter.updateExercises(it)
         }
 
-        viewModel.workoutLoad.observe(this){
-            if(!it.status()){
+        viewModel.deleteExercise.observe(this){
+            if(it.status()){
+                viewModel.listExercises(workoutId)
+            }else{
                 showToast(it.message())
             }
         }
@@ -165,6 +170,8 @@ class WorkoutFormActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.loadExercises(workoutId)
+        if(workoutId != 0){
+            viewModel.listExercises(workoutId)
+        }
     }
 }

@@ -20,11 +20,11 @@ class WorkoutFormViewModel(application: Application) : AndroidViewModel(applicat
     private val _workout = MutableLiveData<Workout>()
     val workout: MutableLiveData<Workout> = _workout
 
-    private val _workoutLoad = MutableLiveData<Validation>()
-    val workoutLoad: MutableLiveData<Validation> = _workoutLoad
-
     private val _exerciseList = MutableLiveData<List<Exercise>>()
     val exerciseList: MutableLiveData<List<Exercise>> = _exerciseList
+
+    private val _deleteExercise = MutableLiveData<Validation>()
+    val deleteExercise: MutableLiveData<Validation> = _deleteExercise
 
     fun createWorkout(workout: Workout){
         if(workoutRepository.insert(workout)){
@@ -38,7 +38,7 @@ class WorkoutFormViewModel(application: Application) : AndroidViewModel(applicat
         if(workoutRepository.get(id) != null){
             _workout.value = workoutRepository.get(id)
         }else{
-            _workoutLoad.value = Validation("Erro ao carregar treino")
+            _validation.value = Validation("Erro ao carregar treino")
         }
     }
 
@@ -52,14 +52,13 @@ class WorkoutFormViewModel(application: Application) : AndroidViewModel(applicat
 
     fun deleteExercise(id: Int){
         if(exerciseRepository.delete(id)){
-            _validation.value = Validation()
+            _deleteExercise.value = Validation()
         }else{
-            _validation.value = Validation("Erro ao deletar exercicio")
+            _deleteExercise.value = Validation("Erro ao deletar exercicio")
         }
     }
 
-    fun loadExercises(id: Int){
-        _exerciseList.value = emptyList()
+    fun listExercises(id: Int){
         _exerciseList.value = exerciseRepository.getAllFromWorkout(id)
     }
 
