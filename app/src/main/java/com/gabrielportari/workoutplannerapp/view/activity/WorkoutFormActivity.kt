@@ -118,6 +118,7 @@ class WorkoutFormActivity : AppCompatActivity() {
         viewModel.deleteExercise.observe(this){
             if(it.status()){
                 viewModel.listExercises(workoutId)
+                showToast("Exercicio deletado com sucesso")
             }else{
                 showToast(it.message())
             }

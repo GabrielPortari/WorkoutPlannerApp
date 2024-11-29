@@ -91,6 +91,14 @@ class ManageWorkoutFragment : Fragment() {
             }
         }
 
+        viewModel.validation.observe(viewLifecycleOwner){
+            if(it.status()){
+                showToast("Treino deletado com sucesso")
+            }else{
+                showToast(it.message())
+            }
+        }
+
         viewModel.workoutList.observe(viewLifecycleOwner){
             adapter.updateWorkouts(it)
 

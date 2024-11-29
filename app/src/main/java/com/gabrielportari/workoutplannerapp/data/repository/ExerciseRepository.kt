@@ -157,7 +157,7 @@ class ExerciseRepository private constructor(context: Context) {
                 val controller = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER))
 
                 val exercise = Exercise(id, idWorkout, name, description, repCount, controller)
-                list.add(exercise)
+                list.add(0, exercise)
             }
 
             cursor.close()
