@@ -19,7 +19,8 @@ class ManageWeekViewModel(application: Application) : AndroidViewModel(applicati
     private val _validation = MutableLiveData<Validation>()
     val validation: LiveData<Validation> get() = _validation
 
-    fun listWeeks(){ /_weekList.value = repository.getAll()
+    fun listWeeks(){
+        _weekList.value = repository.getAll()
     }
 
     fun deleteWeek(id: Int){
