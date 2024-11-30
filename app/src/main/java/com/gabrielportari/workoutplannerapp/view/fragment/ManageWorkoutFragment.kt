@@ -81,18 +81,6 @@ class ManageWorkoutFragment : Fragment() {
 
         viewModel.validation.observe(viewLifecycleOwner){
             if(it.status()){
-                if(workoutId == 0){
-                    showToast("Treino criado com sucesso")
-                }else{
-                    showToast("Treino editado com sucesso")
-                }
-            }else{
-                showToast(it.message())
-            }
-        }
-
-        viewModel.validation.observe(viewLifecycleOwner){
-            if(it.status()){
                 showToast("Treino deletado com sucesso")
             }else{
                 showToast(it.message())

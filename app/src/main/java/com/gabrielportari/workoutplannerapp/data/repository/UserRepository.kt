@@ -7,7 +7,7 @@ import com.gabrielportari.workoutplannerapp.data.model.User
 
 class UserRepository private constructor(context: Context){
 
-    private val database = WorkoutDatabase(context)
+    private val database = PlannerDatabase(context)
     private val userRepository = UserRepository.getInstance(context)
 
     companion object{

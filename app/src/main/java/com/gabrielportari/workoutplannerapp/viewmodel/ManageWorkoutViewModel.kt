@@ -20,7 +20,6 @@ class ManageWorkoutViewModel(application: Application) : AndroidViewModel(applic
     val validation: LiveData<Validation> get() = _validation
 
     fun listWorkouts(){
-        _workoutList.value = emptyList()
         _workoutList.value = repository.getAll()
     }
 

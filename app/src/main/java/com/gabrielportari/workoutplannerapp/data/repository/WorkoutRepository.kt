@@ -2,14 +2,13 @@ package com.gabrielportari.workoutplannerapp.data.repository
 
 import android.content.ContentValues
 import android.content.Context
-import android.util.Log
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.model.Exercise
 import com.gabrielportari.workoutplannerapp.data.model.Workout
 
 class WorkoutRepository private constructor(context: Context){
 
-    private val database = WorkoutDatabase(context)
+    private val database = PlannerDatabase(context)
     private val exerciseRepository = ExerciseRepository.getInstance(context)
 
     /*Implementação do singleton*/

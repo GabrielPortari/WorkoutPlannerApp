@@ -2,13 +2,12 @@ package com.gabrielportari.workoutplannerapp.data.repository
 
 import android.content.ContentValues
 import android.content.Context
-import android.util.Log
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.model.Exercise
 
 class ExerciseRepository private constructor(context: Context) {
 
-    private val database = WorkoutDatabase(context)
+    private val database = PlannerDatabase(context)
 
     companion object {
         private lateinit var repository: ExerciseRepository
