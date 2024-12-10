@@ -15,13 +15,13 @@ import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.listener.ExerciseListener
 import com.gabrielportari.workoutplannerapp.data.model.Exercise
 import com.gabrielportari.workoutplannerapp.data.model.Workout
-import com.gabrielportari.workoutplannerapp.databinding.ActivityNewWorkoutBinding
+import com.gabrielportari.workoutplannerapp.databinding.ActivityWorkoutFormBinding
 import com.gabrielportari.workoutplannerapp.view.adapter.ExerciseAdapter
 import com.gabrielportari.workoutplannerapp.viewmodel.WorkoutFormViewModel
 
 class WorkoutFormActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityNewWorkoutBinding
+    private lateinit var binding : ActivityWorkoutFormBinding
     private lateinit var viewModel: WorkoutFormViewModel
 
     private var workoutId = 0
@@ -31,14 +31,14 @@ class WorkoutFormActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_new_workout)
+        setContentView(R.layout.activity_workout_form)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        binding = ActivityNewWorkoutBinding.inflate(layoutInflater)
+        binding = ActivityWorkoutFormBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this).get(WorkoutFormViewModel::class.java)
 
@@ -135,11 +135,7 @@ class WorkoutFormActivity : AppCompatActivity() {
 
                 val workout = Workout(workoutId, name, description, exercises, MyConstants.CONTROLLER.CONTROLLER_FALSE)
 
-                if(workoutId == 0) {
-                    viewModel.createWorkout(workout)
-                }else{
-                    viewModel.updateWorkout(workout)
-                }
+                viewModel.updateWorkout(workout)
 
                 finish()
             }else{

@@ -13,12 +13,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.model.Exercise
-import com.gabrielportari.workoutplannerapp.databinding.ActivityNewExerciseFormBinding
+import com.gabrielportari.workoutplannerapp.databinding.ActivityExerciseFormBinding
 import com.gabrielportari.workoutplannerapp.viewmodel.ExerciseFormViewModel
 
 class ExerciseFormActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityNewExerciseFormBinding
+    private lateinit var binding : ActivityExerciseFormBinding
     private lateinit var viewModel: ExerciseFormViewModel
     private var repCountSelected: String = ""
     private var exerciseId = 0
@@ -27,14 +27,14 @@ class ExerciseFormActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_new_exercise_form)
+        setContentView(R.layout.activity_exercise_form)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        binding = ActivityNewExerciseFormBinding.inflate(layoutInflater)
+        binding = ActivityExerciseFormBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this).get(ExerciseFormViewModel::class.java)
         loadSpinner()

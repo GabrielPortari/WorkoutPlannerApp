@@ -3,11 +3,13 @@ package com.gabrielportari.workoutplannerapp.data.repository
 import android.content.ContentValues
 import android.content.Context
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
+import com.gabrielportari.workoutplannerapp.data.model.Exercise
 import com.gabrielportari.workoutplannerapp.data.model.Week
 
 class WeekRepository private constructor(context: Context){
 
     private val database = PlannerDatabase(context)
+    val workoutRepository = WorkoutRepository.getInstance(context)
 
     companion object{
         private lateinit var repository: WeekRepository
@@ -31,7 +33,15 @@ class WeekRepository private constructor(context: Context){
 
             values.put(MyConstants.DATABASE.WEEK_COLUMNS.NAME, name)
             values.put(MyConstants.DATABASE.WEEK_COLUMNS.DESCRIPTION, description)
+            values.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SUNDAY, 0)
+            values.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_MONDAY, 0)
+            values.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_TUESDAY, 0)
+            values.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_WEDNESDAY, 0)
+            values.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_THURSDAY, 0)
+            values.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_FRIDAY, 0)
+            values.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SATURDAY, 0)
             values.put(MyConstants.DATABASE.WEEK_COLUMNS.CONTROLLER, controller)
+
 
             db.insert(MyConstants.DATABASE.WEEK_TABLE_NAME, null, values)
 
@@ -71,11 +81,152 @@ class WeekRepository private constructor(context: Context){
         }
     }
 
-    fun get(id: Int) : Week{
-        return Week(0, "", "", 0, 0, 0, 0, 0, 0, 0, 0)
+    fun get(id: Int) : Week?{
+        var week: Week? = null
+        var exercise: Exercise? = null
+        try {
+            val db = database.readableDatabase
+
+            val projection = arrayOf(
+                MyConstants.DATABASE.WEEK_COLUMNS.ID,
+                MyConstants.DATABASE.WEEK_COLUMNS.NAME,
+                MyConstants.DATABASE.WEEK_COLUMNS.DESCRIPTION,
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SUNDAY,
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_MONDAY,
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_TUESDAY,
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_WEDNESDAY,
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_THURSDAY,
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_FRIDAY,
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SATURDAY
+            )
+
+            val selection = MyConstants.DATABASE.WEEK_COLUMNS.ID + " = ?"
+            val args = arrayOf(id.toString())
+
+            val cursor = db.query(
+                MyConstants.DATABASE.WEEK_TABLE_NAME,
+                projection, selection, args, null, null, null
+            )
+            if(cursor != null && cursor.count > 0){
+                while(cursor.moveToNext()){
+                    val name = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.NAME))
+                    val description = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.DESCRIPTION))
+
+                    val workoutIdSunday = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SUNDAY))
+                    val workoutIdMonday = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_MONDAY))
+                    val workoutIdTuesday = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_TUESDAY))
+                    val workoutIdWednesday = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_WEDNESDAY))
+                    val workoutIdThursday = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_THURSDAY))
+                    val workoutIdFriday = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_FRIDAY))
+                    val workoutIdSaturday = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SATURDAY))
+
+                    //recuperar os exercícios
+                    val exercisesSunday = workoutRepository.get(workoutIdSunday)
+                    val exercisesMonday = workoutRepository.get(workoutIdMonday)
+                    val exercisesTuesday = workoutRepository.get(workoutIdTuesday)
+                    val exercisesWednesday = workoutRepository.get(workoutIdWednesday)
+                    val exercisesThursday = workoutRepository.get(workoutIdThursday)
+                    val exercisesFriday = workoutRepository.get(workoutIdFriday)
+                    val exercisesSaturday = workoutRepository.get(workoutIdSaturday)
+
+                    week = Week(
+                        id, name, description,
+                        exercisesSunday,
+                        exercisesMonday,
+                        exercisesTuesday,
+                        exercisesWednesday,
+                        exercisesThursday,
+                        exercisesFriday,
+                        exercisesSaturday,
+                        MyConstants.CONTROLLER.CONTROLLER_FALSE)
+
+
+                }
+            }
+            cursor.close()
+
+        }catch (e: Exception){
+            return week
+        }
+        return week
     }
 
     fun getAll() : List<Week>{
-        return emptyList()
+        var week: Week? = null
+        var exercise: Exercise? = null
+        var list = mutableListOf<Week>()
+
+        try {
+            val db = database.readableDatabase
+
+            val projection = arrayOf(
+                MyConstants.DATABASE.WEEK_COLUMNS.ID,
+                MyConstants.DATABASE.WEEK_COLUMNS.NAME,
+                MyConstants.DATABASE.WEEK_COLUMNS.DESCRIPTION,
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SUNDAY,
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_MONDAY,
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_TUESDAY,
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_WEDNESDAY,
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_THURSDAY,
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_FRIDAY,
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SATURDAY,
+                MyConstants.DATABASE.WEEK_COLUMNS.CONTROLLER
+            )
+
+
+            val cursor = db.query(
+                MyConstants.DATABASE.WEEK_TABLE_NAME,
+                projection, null, null, null, null, null
+            )
+
+            if(cursor != null && cursor.count > 0){
+                while(cursor.moveToNext()){
+
+                    val id = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.ID))
+                    val name = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.NAME))
+                    val description = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.DESCRIPTION))
+
+                    val workoutIdSunday = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SUNDAY))
+                    val workoutIdMonday = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_MONDAY))
+                    val workoutIdTuesday = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_TUESDAY))
+                    val workoutIdWednesday = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_WEDNESDAY))
+                    val workoutIdThursday = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_THURSDAY))
+                    val workoutIdFriday = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_FRIDAY))
+                    val workoutIdSaturday = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SATURDAY))
+
+                    val controller = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.CONTROLLER))
+
+
+                    //recuperar os exercícios
+                    val exercisesSunday = workoutRepository.get(workoutIdSunday)
+                    val exercisesMonday = workoutRepository.get(workoutIdMonday)
+                    val exercisesTuesday = workoutRepository.get(workoutIdTuesday)
+                    val exercisesWednesday = workoutRepository.get(workoutIdWednesday)
+                    val exercisesThursday = workoutRepository.get(workoutIdThursday)
+                    val exercisesFriday = workoutRepository.get(workoutIdFriday)
+                    val exercisesSaturday = workoutRepository.get(workoutIdSaturday)
+
+                    week = Week(
+                        id, name, description,
+                        exercisesSunday,
+                        exercisesMonday,
+                        exercisesTuesday,
+                        exercisesWednesday,
+                        exercisesThursday,
+                        exercisesFriday,
+                        exercisesSaturday,
+                        controller)
+
+                    list.add(0, week)
+
+
+                }
+            }
+            cursor.close()
+
+        }catch (e: Exception){
+            return list
+        }
+        return list
     }
 }

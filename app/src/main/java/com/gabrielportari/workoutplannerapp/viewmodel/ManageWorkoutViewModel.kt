@@ -16,19 +16,31 @@ class ManageWorkoutViewModel(application: Application) : AndroidViewModel(applic
     private val _workoutList = MutableLiveData<List<Workout>>()
     val workoutList: LiveData<List<Workout>> get() = _workoutList
 
-    private val _validation = MutableLiveData<Validation>()
-    val validation: LiveData<Validation> get() = _validation
+    private val _createValidation = MutableLiveData<Validation>()
+    val createValidation: LiveData<Validation> get() = _createValidation
+
+    private val _deleteValidation = MutableLiveData<Validation>()
+    val deleteValidation: LiveData<Validation> get() = _deleteValidation
 
     fun listWorkouts(){
         _workoutList.value = repository.getAll()
     }
 
+    fun createWorkout(workout: Workout){
+        if(repository.insert(workout)){
+            listWorkouts()
+            _createValidation.value = Validation()
+        }else{
+            _createValidation.value = Validation("Erro ao criar treino")
+        }
+    }
+
     fun deleteWorkout(id: Int){
         if(repository.delete(id)){
             listWorkouts()
-            _validation.value = Validation()
+            _deleteValidation.value = Validation()
         }else{
-            _validation.value = Validation("Falha ao deletar treino")
+            _deleteValidation.value = Validation("Falha ao deletar treino")
         }
     }
 

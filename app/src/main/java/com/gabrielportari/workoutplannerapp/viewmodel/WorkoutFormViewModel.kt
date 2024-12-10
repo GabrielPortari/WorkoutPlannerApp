@@ -27,13 +27,7 @@ class WorkoutFormViewModel(application: Application) : AndroidViewModel(applicat
     private val _deleteExercise = MutableLiveData<Validation>()
     val deleteExercise: LiveData<Validation> get() = _deleteExercise
 
-    fun createWorkout(workout: Workout){
-        if(workoutRepository.insert(workout)){
-            _validation.value = Validation()
-        }else{
-            _validation.value = Validation("Erro ao criar treino")
-        }
-    }
+
 
     fun loadWorkout(id: Int){
         if(workoutRepository.get(id) != null){

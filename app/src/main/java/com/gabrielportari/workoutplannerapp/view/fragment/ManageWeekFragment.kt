@@ -1,12 +1,14 @@
 package com.gabrielportari.workoutplannerapp.view.fragment
 
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,8 +43,27 @@ class ManageWeekFragment : Fragment() {
 
         val listener = object: WeekListener {
             override fun onNewClick() {
-                val intent = Intent(context, WeekFormActivity::class.java)
-                startActivity(intent)
+                val dialog : AlertDialog.Builder = AlertDialog.Builder(context)
+                dialog.setTitle("Adicionar Semana")
+                val view = layoutInflater.inflate(R.layout.dialog_form, null)
+                dialog.setView(view)
+                dialog.setPositiveButton("Adicionar") { _, _ ->
+                    val name = view.findViewById<EditText>(R.id.edit_name).text.toString()
+                    val description = view.findViewById<EditText>(R.id.edit_description).text.toString()
+                    if(name.isBlank() || description.isBlank() ) {
+                        showToast("Preencha todos os campos")
+                    }
+                    else {
+                        val week = Week(weekId, name, description,
+                            null, null, null, null, null, null, null,
+                            MyConstants.CONTROLLER.CONTROLLER_FALSE)
+                        viewModel.createWeek(week)
+                    }
+
+                }
+                dialog.setNegativeButton("Cancelar") { _, _ ->
+                }
+                dialog.show()
             }
             override fun onDeleteClick(id: Int) {
                 val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
@@ -74,8 +95,29 @@ class ManageWeekFragment : Fragment() {
         return binding.root
     }
 
-    fun observe(){
+    private fun observe() {
+        viewModel.deleteValidation.observe(viewLifecycleOwner) {
+            if (it.status()) {
+                showToast("Semana deletada com sucesso")
+            } else {
+                showToast(it.message())
+            }
+        }
 
+        viewModel.createValidation.observe(viewLifecycleOwner) {
+            if (it.status()) {
+                if(weekId == 0) {
+                    showToast("Semana criada com sucesso")
+                }else{
+                    showToast("Semana editada com sucesso")
+                }
+            } else {
+                showToast(it.message())
+            }
+        }
+        viewModel.weekList.observe(viewLifecycleOwner) {
+            adapter.updateWeeks(it)
+        }
     }
 
     override fun onResume() {

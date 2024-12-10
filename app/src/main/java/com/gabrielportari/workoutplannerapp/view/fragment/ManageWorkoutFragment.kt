@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.databinding.FragmentManageWorkoutBinding
 import com.gabrielportari.workoutplannerapp.data.listener.WorkoutListener
+import com.gabrielportari.workoutplannerapp.data.model.Week
 import com.gabrielportari.workoutplannerapp.data.model.Workout
 import com.gabrielportari.workoutplannerapp.view.activity.WorkoutFormActivity
 import com.gabrielportari.workoutplannerapp.view.adapter.WorkoutAdapter
@@ -42,8 +44,25 @@ class ManageWorkoutFragment : Fragment() {
 
         val listener = object: WorkoutListener {
             override fun onNewClick() {
-                val intent = Intent(context, WorkoutFormActivity::class.java)
-                startActivity(intent)
+                val dialog : AlertDialog.Builder = AlertDialog.Builder(context)
+                dialog.setTitle("Adicionar Treino")
+                val view = layoutInflater.inflate(R.layout.dialog_form, null)
+                dialog.setView(view)
+                dialog.setPositiveButton("Adicionar") { _, _ ->
+                    val name = view.findViewById<EditText>(R.id.edit_name).text.toString()
+                    val description = view.findViewById<EditText>(R.id.edit_description).text.toString()
+                    if(name.isBlank() || description.isBlank() ) {
+                        showToast("Preencha todos os campos")
+                    }
+                    else {
+                        val workout = Workout(workoutId, name, description, emptyList(), MyConstants.CONTROLLER.CONTROLLER_FALSE)
+                        viewModel.createWorkout(workout)
+                    }
+
+                }
+                dialog.setNegativeButton("Cancelar") { _, _ ->
+                }
+                dialog.show()
             }
 
             override fun onDeleteClick(id: Int) {
@@ -79,7 +98,7 @@ class ManageWorkoutFragment : Fragment() {
 
     private fun observe(){
 
-        viewModel.validation.observe(viewLifecycleOwner){
+        viewModel.createValidation.observe(viewLifecycleOwner){
             if(it.status()){
                 showToast("Treino deletado com sucesso")
             }else{
@@ -87,9 +106,16 @@ class ManageWorkoutFragment : Fragment() {
             }
         }
 
+        viewModel.deleteValidation.observe(viewLifecycleOwner) {
+            if (it.status()) {
+                showToast("Treino deletado com sucesso")
+            } else {
+                showToast(it.message())
+            }
+        }
+
         viewModel.workoutList.observe(viewLifecycleOwner){
             adapter.updateWorkouts(it)
-
         }
     }
 

@@ -35,6 +35,13 @@ class MyConstants private constructor() {
             const val ID = "id"
             const val NAME = "name"
             const val DESCRIPTION = "description"
+            const val WEEK_WORKOUT_ID_DAY_SUNDAY = "workout_sunday"
+            const val WEEK_WORKOUT_ID_DAY_MONDAY = "workout_monday"
+            const val WEEK_WORKOUT_ID_DAY_TUESDAY = "workout_tuesday"
+            const val WEEK_WORKOUT_ID_DAY_WEDNESDAY = "workout_wednesday"
+            const val WEEK_WORKOUT_ID_DAY_THURSDAY = "workout_thursday"
+            const val WEEK_WORKOUT_ID_DAY_FRIDAY = "workout_friday"
+            const val WEEK_WORKOUT_ID_DAY_SATURDAY = "workout_saturday"
             const val CONTROLLER = "controller"
         }
 
@@ -44,18 +51,6 @@ class MyConstants private constructor() {
             const val NAME = "name"
             const val DESCRIPTION = "description"
             const val CONTROLLER = "controller"
-        }
-
-        const val WEEK_WORKOUT_TABLE_NAME = "week_workout"
-        object WEEK_WORKOUT_COLUMNS{
-            const val WEEK_ID = "week_id"
-            const val WEEK_WORKOUT_ID_DAY_SUNDAY = "workout_sunday"
-            const val WEEK_WORKOUT_ID_DAY_MONDAY = "workout_monday"
-            const val WEEK_WORKOUT_ID_DAY_TUESDAY = "workout_tuesday"
-            const val WEEK_WORKOUT_ID_DAY_WEDNESDAY = "workout_wednesday"
-            const val WEEK_WORKOUT_ID_DAY_THURSDAY = "workout_thursday"
-            const val WEEK_WORKOUT_ID_DAY_FRIDAY = "workout_friday"
-            const val WEEK_WORKOUT_ID_DAY_SATURDAY = "workout_saturday"
         }
 
         const val EXERCISE_TABLE_NAME = "exercise"

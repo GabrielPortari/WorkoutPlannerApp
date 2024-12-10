@@ -24,6 +24,13 @@ class PlannerDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
                 MyConstants.DATABASE.WEEK_COLUMNS.ID + " integer primary key autoincrement, " +
                 MyConstants.DATABASE.WEEK_COLUMNS.NAME + " text, " +
                 MyConstants.DATABASE.WEEK_COLUMNS.DESCRIPTION + " text, " +
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SUNDAY + " integer, " +
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_MONDAY + " integer, " +
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_TUESDAY + " integer, " +
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_WEDNESDAY + " integer, " +
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_THURSDAY + " integer, " +
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_FRIDAY + " integer, " +
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SATURDAY + " integer, " +
                 MyConstants.DATABASE.WEEK_COLUMNS.CONTROLLER + " integer);"
 
         val sqlWorkoutTable = "CREATE TABLE " + MyConstants.DATABASE.WORKOUT_TABLE_NAME + "(" +
@@ -32,26 +39,6 @@ class PlannerDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
                 MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION + " text, " +
                 MyConstants.DATABASE.WORKOUT_COLUMNS.CONTROLLER + " integer);"
 
-        val sqlWeekWorkoutTable = "CREATE TABLE " + MyConstants.DATABASE.WEEK_WORKOUT_TABLE_NAME + "(" +
-                MyConstants.DATABASE.WEEK_WORKOUT_COLUMNS.WEEK_ID + " integer, " +
-
-                MyConstants.DATABASE.WEEK_WORKOUT_COLUMNS.WEEK_WORKOUT_ID_DAY_SUNDAY + " integer DEFAULT 0, " +
-                MyConstants.DATABASE.WEEK_WORKOUT_COLUMNS.WEEK_WORKOUT_ID_DAY_MONDAY + " integer DEFAULT 0, " +
-                MyConstants.DATABASE.WEEK_WORKOUT_COLUMNS.WEEK_WORKOUT_ID_DAY_TUESDAY + " integer DEFAULT 0, " +
-                MyConstants.DATABASE.WEEK_WORKOUT_COLUMNS.WEEK_WORKOUT_ID_DAY_WEDNESDAY + " integer DEFAULT 0, " +
-                MyConstants.DATABASE.WEEK_WORKOUT_COLUMNS.WEEK_WORKOUT_ID_DAY_THURSDAY + " integer DEFAULT 0, " +
-                MyConstants.DATABASE.WEEK_WORKOUT_COLUMNS.WEEK_WORKOUT_ID_DAY_FRIDAY + " integer DEFAULT 0, " +
-                MyConstants.DATABASE.WEEK_WORKOUT_COLUMNS.WEEK_WORKOUT_ID_DAY_SATURDAY + " integer DEFAULT 0, " +
-
-                "FOREIGN KEY (" + MyConstants.DATABASE.WEEK_WORKOUT_COLUMNS.WEEK_ID + ") REFERENCES " + MyConstants.DATABASE.WEEK_TABLE_NAME + "(" + MyConstants.DATABASE.WEEK_COLUMNS.ID + ")," +
-                "FOREIGN KEY (" + MyConstants.DATABASE.WEEK_WORKOUT_COLUMNS.WEEK_WORKOUT_ID_DAY_SUNDAY + ") REFERENCES " + MyConstants.DATABASE.WORKOUT_TABLE_NAME + "(" + MyConstants.DATABASE.WORKOUT_COLUMNS.ID + ")," +
-                "FOREIGN KEY (" + MyConstants.DATABASE.WEEK_WORKOUT_COLUMNS.WEEK_WORKOUT_ID_DAY_MONDAY + ") REFERENCES " + MyConstants.DATABASE.WORKOUT_TABLE_NAME + "(" + MyConstants.DATABASE.WORKOUT_COLUMNS.ID + ")," +
-                "FOREIGN KEY (" + MyConstants.DATABASE.WEEK_WORKOUT_COLUMNS.WEEK_WORKOUT_ID_DAY_TUESDAY + ") REFERENCES " + MyConstants.DATABASE.WORKOUT_TABLE_NAME + "(" + MyConstants.DATABASE.WORKOUT_COLUMNS.ID + ")," +
-                "FOREIGN KEY (" + MyConstants.DATABASE.WEEK_WORKOUT_COLUMNS.WEEK_WORKOUT_ID_DAY_WEDNESDAY + ") REFERENCES " + MyConstants.DATABASE.WORKOUT_TABLE_NAME + "(" + MyConstants.DATABASE.WORKOUT_COLUMNS.ID + ")," +
-                "FOREIGN KEY (" + MyConstants.DATABASE.WEEK_WORKOUT_COLUMNS.WEEK_WORKOUT_ID_DAY_THURSDAY + ") REFERENCES " + MyConstants.DATABASE.WORKOUT_TABLE_NAME + "(" + MyConstants.DATABASE.WORKOUT_COLUMNS.ID + ")," +
-                "FOREIGN KEY (" + MyConstants.DATABASE.WEEK_WORKOUT_COLUMNS.WEEK_WORKOUT_ID_DAY_FRIDAY + ") REFERENCES " + MyConstants.DATABASE.WORKOUT_TABLE_NAME + "(" + MyConstants.DATABASE.WORKOUT_COLUMNS.ID + ")," +
-                "FOREIGN KEY (" + MyConstants.DATABASE.WEEK_WORKOUT_COLUMNS.WEEK_WORKOUT_ID_DAY_SATURDAY + ") REFERENCES " + MyConstants.DATABASE.WORKOUT_TABLE_NAME + "(" + MyConstants.DATABASE.WORKOUT_COLUMNS.ID + ")" +
-                ");"
 
         val sqlExerciseTable = "CREATE TABLE " + MyConstants.DATABASE.EXERCISE_TABLE_NAME + "(" +
                 MyConstants.DATABASE.EXERCISE_COLUMNS.ID + " integer primary key autoincrement, " +
@@ -66,7 +53,6 @@ class PlannerDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         db?.execSQL(sqlUserName)
         db?.execSQL(sqlWeekTable)
         db?.execSQL(sqlWorkoutTable)
-        db?.execSQL(sqlWeekWorkoutTable)
         db?.execSQL(sqlExerciseTable)
 
         /* INSERÇÃO DO BOTÃO DE ADICIONAR TREINO */
@@ -79,6 +65,7 @@ class PlannerDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
 
         /* INSERÇÃO DOS BOTÃO DE ADICIONAR SEMANA */
         val weekValues = ContentValues()
+        weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.ID, 0)
         weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.NAME, "ADD WEEK BUTTON")
         weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.DESCRIPTION, "THERE IS NOTHING TO SHOW")
         weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_TRUE)
