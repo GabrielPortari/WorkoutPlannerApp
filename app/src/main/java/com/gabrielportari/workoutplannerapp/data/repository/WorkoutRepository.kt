@@ -99,7 +99,8 @@ class WorkoutRepository private constructor(context: Context){
             val projection = arrayOf(
                 MyConstants.DATABASE.WORKOUT_COLUMNS.ID,
                 MyConstants.DATABASE.WORKOUT_COLUMNS.NAME,
-                MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION
+                MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION,
+                MyConstants.DATABASE.WORKOUT_COLUMNS.CONTROLLER
             )
 
             val selection = MyConstants.DATABASE.WORKOUT_COLUMNS.ID + " = ?"
@@ -114,9 +115,10 @@ class WorkoutRepository private constructor(context: Context){
                 while(cursor.moveToNext()){
                     val name = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME))
                     val description = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION))
+                    val controller = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.CONTROLLER))
                     //get workout exercises
                     exercises = exerciseRepository.getAllFromWorkout(id)
-                    workout = Workout(id, name, description, exercises, MyConstants.CONTROLLER.CONTROLLER_FALSE)
+                    workout = Workout(id, name, description, exercises, controller)
 
                 }
             }

@@ -85,15 +85,11 @@ class WorkoutFormActivity : AppCompatActivity() {
             handleSave()
         }
 
-        if(workoutId != 0){
-            viewModel.listExercises(workoutId)
-        }
-
         observe()
         loadData()
     }
 
-    fun observe(){
+    private fun observe(){
         viewModel.validation.observe(this){
             if(it.status()){
                 if(workoutId == 0){

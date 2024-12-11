@@ -1,7 +1,7 @@
 package com.gabrielportari.workoutplannerapp.data.model
 
-class WorkoutDay(
-    day: String,
-    workout: Workout
+data class WorkoutDay(
+    val day: String,
+    val workout: Workout?
 ) {
 }

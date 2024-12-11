@@ -11,7 +11,7 @@
     android:paddingRight="8dp">
 
     <ImageView
-        android:id="@+id/image_new_workout_week"
+        android:id="@+id/image_new_week"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="center"
@@ -20,20 +20,20 @@
         app:srcCompat="@drawable/baseline_add_box_24" />
 
     <LinearLayout
-        android:id="@+id/layout_workout_week_item"
+        android:id="@+id/layout_week_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:id="@+id/layout_workout_week_edit"
+            android:id="@+id/layout_week_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/text_workout_week_name"
+                android:id="@+id/text_week_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nome da semana"
@@ -41,7 +41,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/text_workout_week_description"
+                android:id="@+id/text_week_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Descrição"
@@ -49,7 +49,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/image_delete_workout_week"
+            android:id="@+id/image_delete_week"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
