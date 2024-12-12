@@ -46,7 +46,7 @@ class WeekFormActivity : AppCompatActivity() {
 
         val listener = object: WorkoutDayListener {
             override fun onNewClick(day: String) {
-                //val intent = Intent(applicationContext, )
+                val intent = Intent(applicationContext, SelectWorkoutActivity::class.java)
                 val bundle = Bundle()
                 bundle.putInt(MyConstants.KEY.ID_KEY, weekId)
                 bundle.putString(MyConstants.KEY.DAY_KEY, day)
