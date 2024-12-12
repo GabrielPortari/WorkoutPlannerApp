@@ -1,5 +1,7 @@
 package com.gabrielportari.workoutplannerapp.view.activity
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -10,8 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
-import com.gabrielportari.workoutplannerapp.data.listener.WorkoutListener
-import com.gabrielportari.workoutplannerapp.data.model.Workout
+import com.gabrielportari.workoutplannerapp.data.listener.WorkoutDayListener
 import com.gabrielportari.workoutplannerapp.data.model.WorkoutDay
 import com.gabrielportari.workoutplannerapp.databinding.ActivityWeekFormBinding
 import com.gabrielportari.workoutplannerapp.view.adapter.WorkoutDayAdapter
@@ -43,18 +44,30 @@ class WeekFormActivity : AppCompatActivity() {
         binding.recyclerWorkoutDay.adapter = adapter
         adapter.updateWorkouts(workoutDays)
 
-        val listener = object: WorkoutListener {
-            override fun onNewClick() {
-                TODO("Not yet implemented")
+        val listener = object: WorkoutDayListener {
+            override fun onNewClick(day: String) {
+                //val intent = Intent(applicationContext, )
+                val bundle = Bundle()
+                bundle.putInt(MyConstants.KEY.ID_KEY, weekId)
+                bundle.putString(MyConstants.KEY.DAY_KEY, day)
+                intent.putExtras(bundle)
+                startActivity(intent)
             }
 
-            override fun onDeleteClick(id: Int) {
-                TODO("Not yet implemented")
+            override fun onDeleteClick(day: String, id: Int) {
+                val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(applicationContext)
+                dialogBuilder.setTitle("Deletar Treino")
+                dialogBuilder.setMessage("Tem certeza que deseja excluir esse treino?")
+                dialogBuilder.setPositiveButton("Sim") { _, _ ->
+                    viewModel.deleteWorkout(weekId, day)
+                }
+                dialogBuilder.setNegativeButton("Nao") { _, _ ->
+
+                }
+                val dialog = dialogBuilder.create()
+                dialog.show()
             }
 
-            override fun onEditClick(workout: Workout) {
-                TODO("Not yet implemented")
-            }
         }
 
         adapter.attachListener(listener)

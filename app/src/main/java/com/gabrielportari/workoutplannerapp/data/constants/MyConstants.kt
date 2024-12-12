@@ -9,17 +9,18 @@ class MyConstants private constructor() {
 
     object KEY{
         const val ID_KEY = "id"
+        const val DAY_KEY = "day"
         const val WORKOUT_ID_KEY = "exerciseId"
     }
 
     object WEEK_DAYS{
-        const val SUNDAY: Int = 1
-        const val MONDAY: Int = 2
-        const val TUESDAY: Int = 3
-        const val WEDNESDAY: Int = 4
-        const val THURSDAY: Int = 5
-        const val FRIDAY: Int = 6
-        const val SATURDAY: Int = 7
+        const val SUNDAY: String = "sunday"
+        const val MONDAY: String = "monday"
+        const val TUESDAY: String = "tuesday"
+        const val WEDNESDAY: String = "wednesday"
+        const val THURSDAY: String = "thursday"
+        const val FRIDAY: String = "friday"
+        const val SATURDAY: String = "saturday"
     }
 
     object DATABASE{

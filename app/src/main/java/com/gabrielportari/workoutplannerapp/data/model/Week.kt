@@ -4,13 +4,13 @@ data class Week(
     val id: Int,
     val name: String,
     val description: String,
-    val workoutDaySunday: Workout?,
-    val workoutdDayMonday: Workout?,
-    val workoutDayTuesday: Workout?,
-    val workoutDayWednesday: Workout?,
-    val workoutdDayThursday: Workout?,
-    val workoutDayFriday: Workout?,
-    val workoutdDaySaturday: Workout?,
+    var workoutDaySunday: Workout?,
+    var workoutdDayMonday: Workout?,
+    var workoutDayTuesday: Workout?,
+    var workoutDayWednesday: Workout?,
+    var workoutdDayThursday: Workout?,
+    var workoutDayFriday: Workout?,
+    var workoutdDaySaturday: Workout?,
     val controller: Int
     ){
 

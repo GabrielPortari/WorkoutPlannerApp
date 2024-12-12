@@ -3,11 +3,12 @@ package com.gabrielportari.workoutplannerapp.view.viewholder
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
+import com.gabrielportari.workoutplannerapp.data.listener.WorkoutDayListener
 import com.gabrielportari.workoutplannerapp.data.listener.WorkoutListener
 import com.gabrielportari.workoutplannerapp.data.model.WorkoutDay
 import com.gabrielportari.workoutplannerapp.databinding.WorkoutDayItemBinding
 
-class WorkoutDayViewHolder(private val itemBinding: WorkoutDayItemBinding, val listener: WorkoutListener) :
+class WorkoutDayViewHolder(private val itemBinding: WorkoutDayItemBinding, val listener: WorkoutDayListener) :
 RecyclerView.ViewHolder(itemBinding.root){
 
     fun bind(workoutDay: WorkoutDay){
@@ -27,15 +28,14 @@ RecyclerView.ViewHolder(itemBinding.root){
             itemBinding.layoutWorkoutDayItem.visibility = View.GONE
         }
 
-        itemBinding.imageDeleteWorkoutDay.setOnClickListener {
-            listener.onDeleteClick(workoutDay.workout?.id!!)
-        }
-        itemBinding.layoutWorkoutDayEdit.setOnClickListener {
-            listener.onEditClick(workoutDay.workout!!)
-        }
         itemBinding.imageNewWorkoutDay.setOnClickListener {
-            listener.onNewClick()
+            listener.onNewClick(workoutDay.key)
         }
+
+        itemBinding.imageDeleteWorkoutDay.setOnClickListener {
+            listener.onDeleteClick(workoutDay.key, workoutDay.workout?.id!!)
+        }
+
 
     }
 }

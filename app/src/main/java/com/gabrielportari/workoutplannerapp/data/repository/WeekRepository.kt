@@ -67,6 +67,36 @@ class WeekRepository private constructor(context: Context){
         }
     }
 
+    fun deleteWorkoutDay(week: Week, day: String) : Boolean{
+        return try {
+            val db = database.writableDatabase
+
+            val values = ContentValues()
+            values.put(MyConstants.DATABASE.WEEK_COLUMNS.ID, week.id)
+
+            when(day){
+                MyConstants.WEEK_DAYS.SUNDAY -> values.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SUNDAY, 0)
+                MyConstants.WEEK_DAYS.MONDAY -> values.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_MONDAY, 0)
+                MyConstants.WEEK_DAYS.TUESDAY -> values.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_TUESDAY, 0)
+                MyConstants.WEEK_DAYS.WEDNESDAY -> values.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_WEDNESDAY, 0)
+                MyConstants.WEEK_DAYS.THURSDAY -> values.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_THURSDAY, 0)
+                MyConstants.WEEK_DAYS.FRIDAY -> values.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_FRIDAY, 0)
+                MyConstants.WEEK_DAYS.SATURDAY -> values.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SATURDAY, 0)
+                else -> return false
+            }
+
+            val selection = MyConstants.DATABASE.WEEK_COLUMNS.ID + " = ?"
+            val args = arrayOf(week.id.toString())
+
+            db.update(MyConstants.DATABASE.WEEK_TABLE_NAME, values, selection, args)
+
+
+            true
+        }catch (e: Exception){
+            false
+        }
+    }
+
     fun delete(id: Int) : Boolean{
         return try{
             val db = database.writableDatabase

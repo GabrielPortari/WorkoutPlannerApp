@@ -3,6 +3,7 @@ package com.gabrielportari.workoutplannerapp.view.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.gabrielportari.workoutplannerapp.data.listener.WorkoutDayListener
 import com.gabrielportari.workoutplannerapp.data.listener.WorkoutListener
 import com.gabrielportari.workoutplannerapp.data.model.WorkoutDay
 import com.gabrielportari.workoutplannerapp.databinding.WorkoutDayItemBinding
@@ -11,7 +12,7 @@ import com.gabrielportari.workoutplannerapp.view.viewholder.WorkoutDayViewHolder
 class WorkoutDayAdapter : RecyclerView.Adapter<WorkoutDayViewHolder>(){
 
     private var workoutsDay: List<WorkoutDay> = listOf()
-    private lateinit var listener: WorkoutListener
+    private lateinit var listener: WorkoutDayListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkoutDayViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -29,7 +30,7 @@ class WorkoutDayAdapter : RecyclerView.Adapter<WorkoutDayViewHolder>(){
         return workoutsDay.size
     }
 
-    fun attachListener(workoutListener: WorkoutListener) {
+    fun attachListener(workoutListener: WorkoutDayListener) {
         listener = workoutListener
     }
 

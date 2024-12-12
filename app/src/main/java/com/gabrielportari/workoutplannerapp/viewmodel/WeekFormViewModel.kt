@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.model.Validation
 import com.gabrielportari.workoutplannerapp.data.model.Week
 import com.gabrielportari.workoutplannerapp.data.model.Workout
@@ -27,21 +28,19 @@ class WeekFormViewModel(application: Application) : AndroidViewModel(application
     private val _workouts = MutableLiveData<List<WorkoutDay>>()
     val workouts: LiveData<List<WorkoutDay>> get() = _workouts
 
-    private val _deleteWorkout = MutableLiveData<Validation>()
-    val deleteWorkout: LiveData<Validation> get() = _deleteWorkout
 
     fun loadWeek(id: Int){
         if(weekRepository.get(id) != null){
             _week.value = weekRepository.get(id)
 
             workoutDays.clear()
-            workoutDays.add(WorkoutDay("Domingo", _week.value?.workoutDaySunday))
-            workoutDays.add(WorkoutDay("Segunda-Feira", _week.value?.workoutdDayMonday))
-            workoutDays.add(WorkoutDay("Terça-Feira", _week.value?.workoutDayTuesday))
-            workoutDays.add(WorkoutDay("Quarta-Feira", _week.value?.workoutDayWednesday))
-            workoutDays.add(WorkoutDay("Quinta-Feira", _week.value?.workoutdDayThursday))
-            workoutDays.add(WorkoutDay("Sexta-Feira", _week.value?.workoutDayFriday))
-            workoutDays.add(WorkoutDay("Sabado", _week.value?.workoutdDaySaturday))
+            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.SUNDAY, "Domingo", _week.value?.workoutDaySunday))
+            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.MONDAY, "Segunda-Feira", _week.value?.workoutdDayMonday))
+            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.TUESDAY, "Terça-Feira", _week.value?.workoutDayTuesday))
+            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.WEDNESDAY, "Quarta-Feira", _week.value?.workoutDayWednesday))
+            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.THURSDAY, "Quinta-Feira", _week.value?.workoutdDayThursday))
+            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.FRIDAY, "Sexta-Feira", _week.value?.workoutDayFriday))
+            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.SATURDAY, "Sabado", _week.value?.workoutdDaySaturday))
 
             _workouts.value = workoutDays
 
@@ -49,6 +48,18 @@ class WeekFormViewModel(application: Application) : AndroidViewModel(application
         }else{
             _validation.value = Validation("Erro ao carregar treino")
         }
+    }
 
+    fun deleteWorkout(id: Int, day: String){
+        val week: Week? = weekRepository.get(id)
+        if(week != null) {
+            if (weekRepository.deleteWorkoutDay(week, day)) {
+                _validation.value = Validation()
+            } else {
+                _validation.value = Validation("Erro ao deletar treino")
+            }
+        }else{
+            _validation.value = Validation("Ocorreu um erro")
+        }
     }
 }
