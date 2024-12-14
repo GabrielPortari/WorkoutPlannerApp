@@ -33,7 +33,7 @@ RecyclerView.ViewHolder(itemBinding.root){
         }
 
         itemBinding.imageDeleteWorkoutDay.setOnClickListener {
-            listener.onDeleteClick(workoutDay.key, workoutDay.workout?.id!!)
+            listener.onDeleteClick(workoutDay.key, workoutDay.workout!!.id)
         }
 
 

@@ -178,4 +178,50 @@ class WorkoutRepository private constructor(context: Context){
         return list
     }
 
+    fun getAllExceptButton(): List<Workout>{
+        val list = mutableListOf<Workout>()
+
+        try{
+            val db = database.readableDatabase
+
+            /*o que será recuperado*/
+            val projection = arrayOf(
+                MyConstants.DATABASE.WORKOUT_COLUMNS.ID,
+                MyConstants.DATABASE.WORKOUT_COLUMNS.NAME,
+                MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION,
+                MyConstants.DATABASE.WORKOUT_COLUMNS.CONTROLLER
+            )
+
+            val cursor = db.query(
+                MyConstants.DATABASE.WORKOUT_TABLE_NAME, projection,
+                null, null, null, null, null
+            )
+
+            while(cursor.moveToNext()){
+                val id =
+                    cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.ID))
+                val name =
+                    cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME))
+                val description =
+                    cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION))
+                val controller =
+                    cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.CONTROLLER))
+
+                if(controller == MyConstants.CONTROLLER.CONTROLLER_FALSE){
+                    val exercises = emptyList<Exercise>()
+                    val workout = Workout(id, name, description, exercises, controller)
+                    list.add(0, workout)
+                }
+
+            }
+
+            cursor.close()
+
+        }catch (e: Exception){
+            return list
+        }
+
+        return list
+    }
+
 }

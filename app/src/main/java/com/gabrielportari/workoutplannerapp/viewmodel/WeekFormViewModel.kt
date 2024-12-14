@@ -50,8 +50,21 @@ class WeekFormViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
+    fun update(name: String, description: String, id: Int){
+        val workout = Workout(0, "", "", emptyList(), 1)
+
+        val week = Week(id, name, description,
+            workout, workout, workout, workout, workout, workout, workout
+            , MyConstants.CONTROLLER.CONTROLLER_TRUE)
+
+        if(weekRepository.update(week)){
+            _validation.value = Validation()
+        }else{
+            _validation.value = Validation("Erro ao atualizar treino")
+        }
+    }
     fun deleteWorkout(id: Int, day: String){
-        val week: Week? = weekRepository.get(id)
+        val week = weekRepository.get(id)
         if(week != null) {
             if (weekRepository.deleteWorkoutDay(week, day)) {
                 _validation.value = Validation()

@@ -55,11 +55,12 @@ class WeekFormActivity : AppCompatActivity() {
             }
 
             override fun onDeleteClick(day: String, id: Int) {
-                val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(applicationContext)
+                val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(this@WeekFormActivity)
                 dialogBuilder.setTitle("Deletar Treino")
                 dialogBuilder.setMessage("Tem certeza que deseja excluir esse treino?")
                 dialogBuilder.setPositiveButton("Sim") { _, _ ->
                     viewModel.deleteWorkout(weekId, day)
+                    viewModel.loadWeek(weekId)
                 }
                 dialogBuilder.setNegativeButton("Nao") { _, _ ->
 
@@ -73,7 +74,8 @@ class WeekFormActivity : AppCompatActivity() {
         adapter.attachListener(listener)
 
         binding.buttonSaveWeek.setOnClickListener{
-
+            handleSave()
+            finish()
         }
 
         observe()
@@ -104,6 +106,11 @@ class WeekFormActivity : AppCompatActivity() {
 
     }
 
+    private fun handleSave() {
+        val name = binding.editWeekName.text.toString()
+        val description = binding.editWeekDescription.text.toString()
+        viewModel.update(name, description, weekId)
+    }
     private fun loadData(){
         val bundle = intent.extras
         if(bundle != null){

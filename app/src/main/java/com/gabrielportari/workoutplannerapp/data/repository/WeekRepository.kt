@@ -21,7 +21,6 @@ class WeekRepository private constructor(context: Context){
         }
     }
 
-    //todo TERMINAR A IMPLEMENTAÇÃO DO REPOSITORY
     fun insert(week: Week) : Boolean{
         return try{
             val db = database.writableDatabase
@@ -60,9 +59,44 @@ class WeekRepository private constructor(context: Context){
             val description = week.description
 
             val values = ContentValues()
+            values.put(MyConstants.DATABASE.WEEK_COLUMNS.ID, id)
+            values.put(MyConstants.DATABASE.WEEK_COLUMNS.NAME, name)
+            values.put(MyConstants.DATABASE.WEEK_COLUMNS.DESCRIPTION, description)
+
+            val selection = MyConstants.DATABASE.WEEK_COLUMNS.ID + " = ?"
+            val args = arrayOf(id.toString())
+            db.update(MyConstants.DATABASE.WEEK_TABLE_NAME, values, selection, args)
 
             true
         }catch (e: Exception){
+            false
+        }
+    }
+
+    fun insertWorkoutDay(day: String, weekId: Int, id: Int): Boolean{
+        return try{
+            val db = database.writableDatabase
+
+            val values = ContentValues()
+            values.put(MyConstants.DATABASE.WEEK_COLUMNS.ID, weekId)
+
+            when(day){
+                MyConstants.WEEK_DAYS.SUNDAY -> values.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SUNDAY, id)
+                MyConstants.WEEK_DAYS.MONDAY -> values.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_MONDAY, id)
+                MyConstants.WEEK_DAYS.TUESDAY -> values.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_TUESDAY, id)
+                MyConstants.WEEK_DAYS.WEDNESDAY -> values.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_WEDNESDAY, id)
+                MyConstants.WEEK_DAYS.THURSDAY -> values.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_THURSDAY, id)
+                MyConstants.WEEK_DAYS.FRIDAY -> values.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_FRIDAY, id)
+                MyConstants.WEEK_DAYS.SATURDAY -> values.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SATURDAY, id)
+                else -> return false
+            }
+            val selection = MyConstants.DATABASE.WEEK_COLUMNS.ID + " = ?"
+            val args = arrayOf(weekId.toString())
+
+            db.update(MyConstants.DATABASE.WEEK_TABLE_NAME, values, selection, args)
+
+            true
+        }catch(e: Exception){
             false
         }
     }
