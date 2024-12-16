@@ -85,11 +85,15 @@ class WeekFormActivity : AppCompatActivity() {
     private fun observe(){
         viewModel.validation.observe(this){
             if(it.status()){
-                if(weekId == 0){
-                    showToast("Semana criada com sucesso")
-                }else{
-                    showToast("Semana editada com sucesso")
-                }
+                showToast("Semana editada com sucesso")
+            }else{
+                showToast(it.message())
+            }
+        }
+
+        viewModel.delValidation.observe(this){
+            if(it.status()){
+                showToast("Treino deletado com sucesso")
             }else{
                 showToast(it.message())
             }
@@ -107,10 +111,20 @@ class WeekFormActivity : AppCompatActivity() {
     }
 
     private fun handleSave() {
-        val name = binding.editWeekName.text.toString()
-        val description = binding.editWeekDescription.text.toString()
-        viewModel.update(name, description, weekId)
+        if(!binding.editWeekName.text.isNullOrBlank()){
+            if(!binding.editWeekDescription.text.isNullOrBlank()){
+                val name = binding.editWeekName.text.toString()
+                val description = binding.editWeekDescription.text.toString()
+                viewModel.update(name, description, weekId)
+            }else{
+                showToast("Preencha a descrição da semana")
+            }
+        }else{
+            showToast("Preencha o nome da semana")
+
+        }
     }
+
     private fun loadData(){
         val bundle = intent.extras
         if(bundle != null){

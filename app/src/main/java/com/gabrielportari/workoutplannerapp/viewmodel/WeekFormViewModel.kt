@@ -1,7 +1,6 @@
 package com.gabrielportari.workoutplannerapp.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,16 +10,17 @@ import com.gabrielportari.workoutplannerapp.data.model.Week
 import com.gabrielportari.workoutplannerapp.data.model.Workout
 import com.gabrielportari.workoutplannerapp.data.model.WorkoutDay
 import com.gabrielportari.workoutplannerapp.data.repository.WeekRepository
-import com.gabrielportari.workoutplannerapp.data.repository.WorkoutRepository
 
 class WeekFormViewModel(application: Application) : AndroidViewModel(application) {
     private val weekRepository = WeekRepository.getInstance(application.applicationContext)
-    private val workoutRepository = WorkoutRepository.getInstance(application.applicationContext)
 
     private val workoutDays = mutableListOf<WorkoutDay>()
 
     private val _validation = MutableLiveData<Validation>()
     val validation: LiveData<Validation> get() = _validation
+
+    private val _delValidation = MutableLiveData<Validation>()
+    val delValidation: LiveData<Validation> get() = _delValidation
 
     private val _week = MutableLiveData<Week>()
     val week: LiveData<Week> get() = _week
@@ -44,7 +44,6 @@ class WeekFormViewModel(application: Application) : AndroidViewModel(application
 
             _workouts.value = workoutDays
 
-            _validation.value = Validation()
         }else{
             _validation.value = Validation("Erro ao carregar treino")
         }
@@ -63,16 +62,17 @@ class WeekFormViewModel(application: Application) : AndroidViewModel(application
             _validation.value = Validation("Erro ao atualizar treino")
         }
     }
+
     fun deleteWorkout(id: Int, day: String){
         val week = weekRepository.get(id)
         if(week != null) {
             if (weekRepository.deleteWorkoutDay(week, day)) {
-                _validation.value = Validation()
+                _delValidation.value = Validation()
             } else {
-                _validation.value = Validation("Erro ao deletar treino")
+                _delValidation.value = Validation("Erro ao deletar treino")
             }
         }else{
-            _validation.value = Validation("Ocorreu um erro")
+            _delValidation.value = Validation("Ocorreu um erro")
         }
     }
 }
