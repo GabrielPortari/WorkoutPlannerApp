@@ -32,4 +32,10 @@ class HomeAdapter : RecyclerView.Adapter<HomeViewHolder>() {
     fun attachListener(workoutListener: SelectWorkoutListener) {
         listener = workoutListener
     }
+
+    fun updateWorkouts(list: List<WorkoutDay>) {
+        workouts = list
+        notifyDataSetChanged()
+    }
+
 }

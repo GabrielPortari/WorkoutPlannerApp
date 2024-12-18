@@ -7,6 +7,9 @@ class MyConstants private constructor() {
         const val CONTROLLER_TRUE: Int = 1
     }
 
+    object USER_ID{
+        const val ID = 0
+    }
     object KEY{
         const val ID_KEY = "id"
         const val DAY_KEY = "day"
