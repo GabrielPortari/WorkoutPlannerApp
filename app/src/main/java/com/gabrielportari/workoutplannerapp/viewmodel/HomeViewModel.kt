@@ -55,9 +55,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun updateName(name: String){
-        val user = User(0, name)
-
+    fun updateName(user: User){
         if(userRepository.update(user)){
             _validation.value = Validation()
         }else{

@@ -18,7 +18,8 @@ class PlannerDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         /* CRIAÇÃO DAS TABELAS */
         val sqlUserName = "CREATE TABLE " + MyConstants.DATABASE.USER_TABLE + "(" +
                 MyConstants.DATABASE.USER_COLUMNS.ID + " integer primary key, " +
-                MyConstants.DATABASE.USER_COLUMNS.NAME + " text);"
+                MyConstants.DATABASE.USER_COLUMNS.NAME + " text," +
+                MyConstants.DATABASE.USER_COLUMNS.ACTIVE_WEEK + " integer);"
 
         val sqlWeekTable = "CREATE TABLE " + MyConstants.DATABASE.WEEK_TABLE_NAME + "(" +
                 MyConstants.DATABASE.WEEK_COLUMNS.ID + " integer primary key autoincrement, " +
@@ -75,6 +76,7 @@ class PlannerDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         val userValues = ContentValues()
         userValues.put(MyConstants.DATABASE.USER_COLUMNS.ID, MyConstants.USER_ID.ID)
         userValues.put(MyConstants.DATABASE.USER_COLUMNS.NAME, "User")
+        userValues.put(MyConstants.DATABASE.USER_COLUMNS.ACTIVE_WEEK, 0)
         db?.insert(MyConstants.DATABASE.USER_TABLE, null, userValues)
 
     }

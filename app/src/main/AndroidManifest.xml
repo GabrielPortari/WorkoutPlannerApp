@@ -13,6 +13,9 @@
         android:theme="@style/Theme.WorkoutPlannerApp"
         tools:targetApi="31">
         <activity
+            android:name=".view.activity.SelectWeekActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.SelectWorkoutActivity"
             android:exported="false" />
         <activity

@@ -32,6 +32,7 @@ class MyConstants private constructor() {
         object USER_COLUMNS{
             const val ID = "id"
             const val NAME = "name"
+            const val ACTIVE_WEEK = "active_week"
         }
 
         const val WEEK_TABLE_NAME = "week"
