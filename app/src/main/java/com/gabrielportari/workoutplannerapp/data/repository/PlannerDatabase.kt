@@ -72,7 +72,7 @@ class PlannerDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_TRUE)
         db?.insert(MyConstants.DATABASE.WEEK_TABLE_NAME, null, weekValues)
 
-        /*INSERÇÃO DO USUÁRIO QUE SERÁ LIDO COMO NOME*/
+        /*INSERÇÃO DO USUÁRIO PADRÃO*/
         val userValues = ContentValues()
         userValues.put(MyConstants.DATABASE.USER_COLUMNS.ID, MyConstants.USER_ID.ID)
         userValues.put(MyConstants.DATABASE.USER_COLUMNS.NAME, "User")

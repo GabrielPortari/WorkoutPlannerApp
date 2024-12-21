@@ -28,11 +28,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val _validation = MutableLiveData<Validation>()
     val validation: LiveData<Validation> get() = _validation
 
-    private val _userName = MutableLiveData<String>()
-    val userName: LiveData<String> get() = _userName
+    private val _user = MutableLiveData<User>()
+    val user: LiveData<User> get() = _user
 
-    fun loadUserName(id: Int){
-        _userName.value = userRepository.get(id)?.name
+    fun loadUser(){
+        _user.value = userRepository.get(MyConstants.USER_ID.ID)
     }
 
     fun loadWeek(id: Int){

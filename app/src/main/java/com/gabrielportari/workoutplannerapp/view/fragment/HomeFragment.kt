@@ -28,7 +28,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private var userName = "user"
+    private var user: User = User(MyConstants.USER_ID.ID, "User", 0)
     private var weekIds = 0
 
 
@@ -59,11 +59,11 @@ class HomeFragment : Fragment() {
             dialog.setPositiveButton("Alterar") { _, _ ->
                 val name = view.findViewById<EditText>(R.id.edit_user_name).text.toString()
                 if(name.isBlank()) {
-                    showToast("Preencha todos os campos")
-                }
-                else {
-                    val user = User(MyConstants.USER_ID.ID, name)
+                    showToast("Preencha o nome antes de continuar.")
+                } else {
+                    user.name = name
                     viewModel.updateName(user)
+                    viewModel.loadUser()
                 }
             }
             dialog.setNegativeButton("Cancelar") { _, _ ->
@@ -73,18 +73,19 @@ class HomeFragment : Fragment() {
 
         adapter.attachListener(listener)
 
-        viewModel.loadUserName(MyConstants.USER_ID.ID)
-        viewModel.loadWeek(weekIds)
+        viewModel.loadUser()
+        viewModel.loadWeek(user.selectedWeek)
 
         observe()
         return binding.root
     }
 
     private fun observe(){
-        viewModel.userName.observe(viewLifecycleOwner){
-            userName = it
-            binding.textHelloUser.text = "Olá $userName,"
+        viewModel.user.observe(viewLifecycleOwner){
+            user = it
+            binding.textHelloUser.text = "Olá ${it.name},"
         }
+
         viewModel.weekName.observe(viewLifecycleOwner){
             binding.textHomeWeekName.text = it
         }
@@ -97,7 +98,7 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.loadUserName(MyConstants.USER_ID.ID)
+        viewModel.loadUser()
         viewModel.loadWeek(weekIds)
     }
 
