@@ -293,4 +293,76 @@ class WeekRepository private constructor(context: Context){
         }
         return list
     }
+
+    fun getAllExceptButton() : List<Week>{
+        var week: Week? = null
+        var exercise: Exercise? = null
+        var list = mutableListOf<Week>()
+
+        try {
+            val db = database.readableDatabase
+
+            val projection = arrayOf(
+                MyConstants.DATABASE.WEEK_COLUMNS.ID,
+                MyConstants.DATABASE.WEEK_COLUMNS.NAME,
+                MyConstants.DATABASE.WEEK_COLUMNS.DESCRIPTION,
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SUNDAY,
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_MONDAY,
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_TUESDAY,
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_WEDNESDAY,
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_THURSDAY,
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_FRIDAY,
+                MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SATURDAY,
+                MyConstants.DATABASE.WEEK_COLUMNS.CONTROLLER
+            )
+
+
+            val cursor = db.query(
+                MyConstants.DATABASE.WEEK_TABLE_NAME,
+                projection, null, null, null, null, null
+            )
+
+            if(cursor != null && cursor.count > 0){
+                while(cursor.moveToNext()){
+
+                    val id = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.ID))
+                    val name = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.NAME))
+                    val description = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.DESCRIPTION))
+                    val controller = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.CONTROLLER))
+
+
+                    //não há necessidade de recuperar os exercicios
+                    val exercisesSunday = workoutRepository.get(0)
+                    val exercisesMonday = workoutRepository.get(0)
+                    val exercisesTuesday = workoutRepository.get(0)
+                    val exercisesWednesday = workoutRepository.get(0)
+                    val exercisesThursday = workoutRepository.get(0)
+                    val exercisesFriday = workoutRepository.get(0)
+                    val exercisesSaturday = workoutRepository.get(0)
+
+                    if(controller == MyConstants.CONTROLLER.CONTROLLER_FALSE) {
+                        week = Week(
+                            id, name, description,
+                            exercisesSunday,
+                            exercisesMonday,
+                            exercisesTuesday,
+                            exercisesWednesday,
+                            exercisesThursday,
+                            exercisesFriday,
+                            exercisesSaturday,
+                            controller
+                        )
+
+                        list.add(0, week)
+                    }
+                }
+            }
+            cursor.close()
+
+        }catch (e: Exception){
+            return list
+        }
+        return list
+    }
+
 }

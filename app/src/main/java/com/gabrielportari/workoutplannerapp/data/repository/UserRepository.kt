@@ -25,7 +25,8 @@ class UserRepository private constructor(context: Context){
             val db = database.readableDatabase
             val projection = arrayOf(
                 MyConstants.DATABASE.USER_COLUMNS.ID,
-                MyConstants.DATABASE.USER_COLUMNS.NAME
+                MyConstants.DATABASE.USER_COLUMNS.NAME,
+                MyConstants.DATABASE.USER_COLUMNS.ACTIVE_WEEK
             )
             val selection = MyConstants.DATABASE.USER_COLUMNS.ID + " = ?"
             val selectionArgs = arrayOf(id.toString())
@@ -42,8 +43,11 @@ class UserRepository private constructor(context: Context){
                 while(cursor.moveToNext()){
                     val id = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.USER_COLUMNS.ID))
                     val name = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.USER_COLUMNS.NAME))
-                    user = User(id, name)
+                    val weekId = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.USER_COLUMNS.ACTIVE_WEEK))
+
+                    user = User(id, name, weekId)
                 }
+                cursor.close()
             }
 
         }catch (e: Exception){
@@ -69,4 +73,19 @@ class UserRepository private constructor(context: Context){
         }
     }
 
+    fun selectWeek(id: Int): Boolean{
+        return try {
+            val db = database.readableDatabase
+
+            val weekId = id
+            val values = ContentValues()
+            values.put(MyConstants.DATABASE.USER_COLUMNS.ID, id)
+            values.put(MyConstants.DATABASE.USER_COLUMNS.ACTIVE_WEEK, weekId)
+
+            db.update(MyConstants.DATABASE.USER_TABLE, values, null, null)
+            true
+        }catch (e: Exception){
+            false
+        }
+    }
 }

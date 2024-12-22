@@ -1,6 +1,7 @@
 package com.gabrielportari.workoutplannerapp.view.activity
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -8,8 +9,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gabrielportari.workoutplannerapp.R
+import com.gabrielportari.workoutplannerapp.data.listener.SelectWeekListener
 import com.gabrielportari.workoutplannerapp.data.model.Week
 import com.gabrielportari.workoutplannerapp.databinding.ActivitySelectWeekBinding
+import com.gabrielportari.workoutplannerapp.view.adapter.SelectWeekAdapter
 import com.gabrielportari.workoutplannerapp.viewmodel.SelectWeekViewModel
 
 class SelectWeekActivity : AppCompatActivity() {
@@ -37,10 +40,12 @@ class SelectWeekActivity : AppCompatActivity() {
 
         val listener = object: SelectWeekListener {
             override fun onSelect(id: Int) {
-
+                viewModel.selectWeek(id)
+                finish()
             }
         }
         adapter.attachListener(listener)
+        viewModel.list()
         observe()
     }
 
@@ -56,5 +61,14 @@ class SelectWeekActivity : AppCompatActivity() {
                 showToast(it.message())
             }
         }
+    }
+
+    private fun showToast(message: String){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.list()
     }
 }

@@ -7,7 +7,7 @@ import com.gabrielportari.workoutplannerapp.data.model.Workout
 import com.gabrielportari.workoutplannerapp.databinding.SelectWorkoutItemBinding
 
 class SelectWorkoutViewHolder(private val itemBinding: SelectWorkoutItemBinding, val listener: SelectWorkoutListener) :
-RecyclerView.ViewHolder(itemBinding.root) {
+    RecyclerView.ViewHolder(itemBinding.root) {
 
     fun bind(workout: Workout) {
         if(workout.controller != MyConstants.CONTROLLER.CONTROLLER_TRUE) {

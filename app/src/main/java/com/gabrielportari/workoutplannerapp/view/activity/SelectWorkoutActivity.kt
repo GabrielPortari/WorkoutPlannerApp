@@ -52,9 +52,8 @@ class SelectWorkoutActivity : AppCompatActivity() {
         }
 
         adapter.attachListener(listener)
-
-        observe()
         loadData()
+        observe()
     }
 
     private fun observe(){
