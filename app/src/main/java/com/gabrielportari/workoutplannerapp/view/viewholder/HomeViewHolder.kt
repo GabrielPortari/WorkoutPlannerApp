@@ -14,32 +14,19 @@ class HomeViewHolder(private val itemBinding: WorkoutOfDayItemBinding, val liste
 RecyclerView.ViewHolder(itemBinding.root){
 
     fun bind(workout: WorkoutDay){
-        itemBinding.textDayOfWeek.text = workout.day
-        itemBinding.textWorkoutOfDayName.text = workout.workout?.name
-        itemBinding.textWorkoutOfDayDescription.text = workout.workout?.description
-        if(isToday(workout.day)){
-            itemBinding.textIsToday.visibility = View.VISIBLE
-            itemBinding.layoutWorkoutDayItem.gravity = Gravity.TOP
-        }else{
-            itemBinding.textIsToday.visibility = View.GONE
-            itemBinding.layoutWorkoutDayItem.gravity = Gravity.CENTER
-        }
+        if(workout.workout?.controller == MyConstants.CONTROLLER.CONTROLLER_TRUE){
+            itemBinding.textDayOfWeek.text = workout.day
+            itemBinding.textWorkoutOfDayName.text = "Descanso"
+            itemBinding.textWorkoutOfDayDescription.text = "Dia de ficar em casa"
+        }else {
+            itemBinding.textDayOfWeek.text = workout.day
+            itemBinding.textWorkoutOfDayName.text = workout.workout?.name
+            itemBinding.textWorkoutOfDayDescription.text = workout.workout?.description
 
-        itemBinding.layoutWorkoutDayItem.setOnClickListener{
-            listener.onSelect(workout.workout!!.id)
+            itemBinding.layoutWorkoutDayItem.setOnClickListener {
+                listener.onSelect(workout.workout!!.id)
+            }
         }
     }
 
-    private fun isToday(day: String) : Boolean{
-        return when(day){
-            MyConstants.WEEK_DAYS.MONDAY -> Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY
-            MyConstants.WEEK_DAYS.TUESDAY -> Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.TUESDAY
-            MyConstants.WEEK_DAYS.WEDNESDAY -> Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY
-            MyConstants.WEEK_DAYS.THURSDAY -> Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY
-            MyConstants.WEEK_DAYS.FRIDAY -> Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY
-            MyConstants.WEEK_DAYS.SATURDAY -> Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
-            MyConstants.WEEK_DAYS.SUNDAY -> Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY
-            else -> false
-        }
-    }
 }

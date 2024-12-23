@@ -26,7 +26,7 @@ class HomeAdapter : RecyclerView.Adapter<HomeViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return Integer.MAX_VALUE
+        return workouts.size
     }
 
     fun attachListener(workoutListener: SelectWorkoutListener) {

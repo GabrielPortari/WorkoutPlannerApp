@@ -28,9 +28,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private var user: User = User(MyConstants.USER_ID.ID, "User", 0)
-    private var weekIds = 0
-
+    private var user: User = User(MyConstants.USER_ID.ID, "User", 1)
 
     private val adapter = HomeAdapter()
 
@@ -46,8 +44,7 @@ class HomeFragment : Fragment() {
 
         val listener = object: SelectWorkoutListener {
             override fun onSelect(id: Int) {
-                val intent = Intent(context, SelectWeekActivity::class.java)
-                startActivity(intent)
+                TODO("IMPLEMENTAR OS EXERCÍCIOS MOSTRADOS DE UM TREINO")
             }
         }
 
@@ -72,6 +69,11 @@ class HomeFragment : Fragment() {
         }
 
         adapter.attachListener(listener)
+
+        binding.buttonSelectWeek.setOnClickListener{
+            val intent = Intent(context, SelectWeekActivity::class.java)
+            startActivity(intent)
+        }
 
         viewModel.loadUser()
         viewModel.loadWeek(user.selectedWeek)
@@ -99,7 +101,7 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.loadUser()
-        viewModel.loadWeek(weekIds)
+        viewModel.loadWeek(user.selectedWeek)
     }
 
     override fun onDestroyView() {
