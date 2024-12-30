@@ -11,6 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
         android:ems="10"
-        android:hint="Nome"
+        android:hint="@string/name"
         android:inputType="text" />
 </LinearLayout>

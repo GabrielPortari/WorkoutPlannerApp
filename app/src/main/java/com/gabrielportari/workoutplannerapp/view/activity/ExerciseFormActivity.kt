@@ -89,21 +89,36 @@ class ExerciseFormActivity : AppCompatActivity() {
     private fun handleSave(){
         if(!binding.textInputExerciseName.text.isNullOrBlank()){
             if(!binding.textInputExerciseDescription.text.isNullOrBlank()){
-                val name = binding.textInputExerciseName.text.toString()
-                val description = binding.textInputExerciseDescription.text.toString()
-                val exercise = Exercise(exerciseId, workoutId, name, description, repCountSelected, MyConstants.CONTROLLER.CONTROLLER_FALSE)
+                if(!binding.editSetsCount.text.isNullOrBlank()) {
 
-                if(exerciseId == 0) {
-                    viewModel.createExercise(exercise)
+                    val name = binding.textInputExerciseName.text.toString()
+                    val description = binding.textInputExerciseDescription.text.toString()
+
+                    val sets = binding.editSetsCount.text.toString()
+                    val exerciseCount = "$sets sets, $repCountSelected"
+
+                    val exercise = Exercise(
+                        exerciseId,
+                        workoutId,
+                        name,
+                        description,
+                        exerciseCount,
+                        MyConstants.CONTROLLER.CONTROLLER_FALSE
+                    )
+
+                    if (exerciseId == 0) {
+                        viewModel.createExercise(exercise)
+                    } else {
+                        viewModel.updateExercise(exercise)
+                    }
                 }else{
-                    viewModel.updateExercise(exercise)
+                    showToast("Preencha o número de séries")
                 }
-
             }else{
-                Toast.makeText(this, "Preencha a descrição do exercicio", Toast.LENGTH_SHORT).show()
+                showToast("Preencha a descrição do exercicio")
             }
         }else{
-            Toast.makeText(this, "Preencha o nome do exercicio", Toast.LENGTH_SHORT).show()
+            showToast("Preencha o nome do exercicio")
         }
         finish()
     }
@@ -131,7 +146,7 @@ class ExerciseFormActivity : AppCompatActivity() {
         binding.spinnerRepCount.adapter = adapter
     }
 
-    fun showToast(msg: String){
+    private fun showToast(msg: String){
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 }

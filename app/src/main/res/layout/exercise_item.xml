@@ -39,7 +39,7 @@
                 android:id="@+id/text_exercise_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nome do exercicio"
+                android:text="@string/exercise_name"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -47,14 +47,14 @@
                 android:id="@+id/text_exercise_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Descricao do exercicio"
+                android:text="@string/description"
                 android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/text_exercise_reps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="10 - 20 repeticoes"
+                android:text="@string/reps"
                 android:textSize="16sp" />
         </LinearLayout>
 

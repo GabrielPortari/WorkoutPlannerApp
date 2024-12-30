@@ -31,7 +31,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="2dp"
                 android:gravity="center"
-                android:text="Segunda-feira" />
+                android:text="@string/week_day" />
 
             <View
                 android:id="@+id/divider9"
@@ -46,7 +46,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="2dp"
                 android:gravity="center"
-                android:text="Treino A"
+                android:text="@string/workout_name"
                 android:textAlignment="center" />
 
             <View
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="2dp"
-                android:text="Treino focado em piriri pororo"
+                android:text="@string/description"
                 android:textAlignment="center" />
         </LinearLayout>
 

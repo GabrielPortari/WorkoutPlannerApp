@@ -9,7 +9,7 @@
         android:id="@+id/text_workout_day_week_day"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dia da semana" />
+        android:text="@string/week_day" />
 
     <ImageView
         android:id="@+id/image_new_workout_day"
@@ -37,7 +37,7 @@
                 android:id="@+id/text_workout_day_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nome da semana"
+                android:text="@string/week_name"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -45,7 +45,7 @@
                 android:id="@+id/text_workout_day_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Descrição"
+                android:text="@string/description"
                 android:textSize="14sp" />
         </LinearLayout>
 

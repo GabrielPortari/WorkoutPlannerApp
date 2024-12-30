@@ -33,7 +33,7 @@
                 android:id="@+id/text_select_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nome treino"
+                android:text="@string/workout_name"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -41,7 +41,7 @@
                 android:id="@+id/text_select_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Descricao"
+                android:text="@string/description"
                 android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>

@@ -86,7 +86,7 @@ class HomeFragment : Fragment() {
     private fun observe(){
         viewModel.user.observe(viewLifecycleOwner){
             user = it
-            binding.textHelloUser.text = "Olá ${it.name},"
+            binding.textHelloUser.text = getString(R.string.hello_user, it.name)
         }
 
         viewModel.weekName.observe(viewLifecycleOwner){

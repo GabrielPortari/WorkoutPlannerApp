@@ -36,7 +36,7 @@
                 android:id="@+id/text_workout_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nome do treino"
+                android:text="@string/workout_name"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -44,7 +44,7 @@
                 android:id="@+id/text_workout_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Descrição"
+                android:text="@string/description"
                 android:textSize="14sp" />
 
         </LinearLayout>
