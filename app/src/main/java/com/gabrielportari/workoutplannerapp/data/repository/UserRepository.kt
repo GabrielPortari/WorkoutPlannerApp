@@ -77,10 +77,9 @@ class UserRepository private constructor(context: Context){
         return try {
             val db = database.readableDatabase
 
-            val weekId = id
             val values = ContentValues()
-            values.put(MyConstants.DATABASE.USER_COLUMNS.ID, id)
-            values.put(MyConstants.DATABASE.USER_COLUMNS.ACTIVE_WEEK, weekId)
+            values.put(MyConstants.DATABASE.USER_COLUMNS.ID, MyConstants.USER_ID.ID)
+            values.put(MyConstants.DATABASE.USER_COLUMNS.ACTIVE_WEEK, id)
 
             db.update(MyConstants.DATABASE.USER_TABLE, values, null, null)
             true

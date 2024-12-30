@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
+import com.gabrielportari.workoutplannerapp.data.model.User
 import com.gabrielportari.workoutplannerapp.data.model.Validation
 import com.gabrielportari.workoutplannerapp.data.model.Week
 import com.gabrielportari.workoutplannerapp.data.repository.UserRepository
@@ -19,8 +21,15 @@ class SelectWeekViewModel(application: Application) : AndroidViewModel(applicati
     private val _validation = MutableLiveData<Validation>()
     val validation: LiveData<Validation> get() = _validation
 
+    private val _user = MutableLiveData<User>()
+    val user: LiveData<User> get() = _user
+
     fun list(){
         _weeks.value = weekRepository.getAllExceptButton()
+    }
+
+    fun loadUser(){
+        _user.value = userRepository.get(MyConstants.USER_ID.ID)
     }
 
     fun selectWeek(id: Int){

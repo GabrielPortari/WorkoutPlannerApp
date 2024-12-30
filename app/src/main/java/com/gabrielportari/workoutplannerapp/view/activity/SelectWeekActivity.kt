@@ -9,7 +9,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gabrielportari.workoutplannerapp.R
+import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.listener.SelectWeekListener
+import com.gabrielportari.workoutplannerapp.data.model.User
 import com.gabrielportari.workoutplannerapp.data.model.Week
 import com.gabrielportari.workoutplannerapp.databinding.ActivitySelectWeekBinding
 import com.gabrielportari.workoutplannerapp.view.adapter.SelectWeekAdapter
@@ -22,6 +24,8 @@ class SelectWeekActivity : AppCompatActivity() {
     private val adapter = SelectWeekAdapter()
     private var weeks = listOf<Week>()
 
+    private var user: User = User(MyConstants.USER_ID.ID, "User", 1)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -31,6 +35,7 @@ class SelectWeekActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         binding = ActivitySelectWeekBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this).get(SelectWeekViewModel::class.java)
@@ -44,7 +49,9 @@ class SelectWeekActivity : AppCompatActivity() {
                 finish()
             }
         }
+
         adapter.attachListener(listener)
+        viewModel.loadUser()
         viewModel.list()
         observe()
     }
@@ -52,6 +59,10 @@ class SelectWeekActivity : AppCompatActivity() {
     private fun observe(){
         viewModel.weeks.observe(this){
             adapter.updateWeeks(it)
+        }
+
+        viewModel.user.observe(this){
+            user = it
         }
 
         viewModel.validation.observe(this) {

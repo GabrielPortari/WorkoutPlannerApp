@@ -44,7 +44,8 @@ class HomeFragment : Fragment() {
 
         val listener = object: SelectWorkoutListener {
             override fun onSelect(id: Int) {
-                TODO("IMPLEMENTAR OS EXERCÍCIOS MOSTRADOS DE UM TREINO")
+                val intent = Intent(context, SelectWeekActivity::class.java)
+                startActivity(intent)
             }
         }
 
