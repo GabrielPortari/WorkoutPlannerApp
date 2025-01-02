@@ -56,13 +56,13 @@ class WeekFormActivity : AppCompatActivity() {
 
             override fun onDeleteClick(day: String, id: Int) {
                 val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(this@WeekFormActivity)
-                dialogBuilder.setTitle("Deletar Treino")
-                dialogBuilder.setMessage("Tem certeza que deseja excluir esse treino?")
-                dialogBuilder.setPositiveButton("Sim") { _, _ ->
+                dialogBuilder.setTitle(R.string.delete_workout_title)
+                dialogBuilder.setMessage(R.string.delete_workout_message)
+                dialogBuilder.setPositiveButton(R.string.yes) { _, _ ->
                     viewModel.deleteWorkout(weekId, day)
                     viewModel.loadWeek(weekId)
                 }
-                dialogBuilder.setNegativeButton("Nao") { _, _ ->
+                dialogBuilder.setNegativeButton(R.string.no) { _, _ ->
 
                 }
                 val dialog = dialogBuilder.create()
@@ -75,7 +75,6 @@ class WeekFormActivity : AppCompatActivity() {
 
         binding.buttonSaveWeek.setOnClickListener{
             handleSave()
-            finish()
         }
 
         observe()
@@ -85,7 +84,7 @@ class WeekFormActivity : AppCompatActivity() {
     private fun observe(){
         viewModel.validation.observe(this){
             if(it.status()){
-                showToast("Semana editada com sucesso")
+                showToast(R.string.success_edit_week.toString())
             }else{
                 showToast(it.message())
             }
@@ -93,7 +92,7 @@ class WeekFormActivity : AppCompatActivity() {
 
         viewModel.delValidation.observe(this){
             if(it.status()){
-                showToast("Treino deletado com sucesso")
+                showToast(R.string.success_delete_week.toString())
             }else{
                 showToast(it.message())
             }
@@ -116,11 +115,12 @@ class WeekFormActivity : AppCompatActivity() {
                 val name = binding.editWeekName.text.toString()
                 val description = binding.editWeekDescription.text.toString()
                 viewModel.update(name, description, weekId)
+                finish()
             }else{
-                showToast("Preencha a descrição da semana")
+                showToast(R.string.fill_week_description.toString())
             }
         }else{
-            showToast("Preencha o nome da semana")
+            showToast(R.string.fill_week_name.toString())
 
         }
     }

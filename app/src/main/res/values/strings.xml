@@ -14,6 +14,7 @@
         <item>8-12 reps</item>
         <item>12-15 reps</item>
         <item>15-20 reps</item>
+        <item>20+ reps</item>
     </string-array>
 
     <!-- button values -->
@@ -24,6 +25,7 @@
 
     <!-- default values -->
     <string name="name">Name</string>
+    <string name="user_name">User Name</string>
     <string name="exercise_name">Exercise name</string>
     <string name="workout_name">Workout name</string>
     <string name="week_name">Week name</string>
@@ -31,7 +33,7 @@
     <string name="description">Description</string>
     <string name="reps">Repetitions</string>
     <string name="sets">Number of sets</string>
-    <string name="setsNum">2</string>
+    <string name="setsNumDefault">1</string>
 
     <!-- home fragment -->
     <string name="hello_user">Hello %1$s,</string>
@@ -39,4 +41,81 @@
     <string name="ready_to_do">Ready to do what you love today?</string>
     <string name="what_week">What week of training are you using?</string>
 
+    <!-- Week days -->
+    <string name="sunday">Sunday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+
+    <!-- Validation messages -->
+    <string name="failure_update_name">Error updating name</string>
+    <string name="failure_default">An error occurred</string>
+
+    <string name="success_create_workout">Workout created successfully</string>"
+    <string name="success_edit_workout">Workout edited successfully</string>"
+    <string name="success_delete_workout">Workout deleted successfully</string>"
+    <string name="failure_create_workout">Error creating the workout</string>
+    <string name="failure_delete_workout">Error deleting the workout</string>
+    <string name="failure_edit_workout">Error editing the workout</string>
+    <string name="failure_load_workout">Error loading the workout</string>
+
+    <string name="success_create_week">Week created successfully</string>"
+    <string name="success_edit_week">Week edited successfully</string>"
+    <string name="success_delete_week">Week deleted successfully</string>"
+    <string name="failure_create_week">Error creating the week</string>
+    <string name="failure_delete_week">Error deleting the week</string>
+    <string name="failure_edit_week">Error editing the week</string>
+    <string name="failure_load_week">Error loading the week</string>
+
+    <string name="success_create_exercise">Exercise created successfully</string>"
+    <string name="success_edit_exercise">Exercise edited successfully</string>"
+    <string name="success_delete_exercise">Exercise deleted successfully</string>"
+    <string name="failure_delete_exercise">Error deleting the exercise</string>"
+    <string name="failure_load_exercise">Error loading the exercise</string>"
+    <string name="failure_edit_exercise">Error editing the exercise</string>"
+
+    <!-- EditText error messages -->
+    <string name="fill_name">Fill the name before continue</string>"
+
+
+    <string name="fill_sets">Fill the number of sets</string>"
+    <string name="fill_exercise_name">Fill the exercise name</string>"
+    <string name="fill_exercise_description">Fill the exercise description</string>"
+
+    <string name="fill_week_name">Fill the week name</string>"
+    <string name="fill_week_description">Fill the week description</string>"
+
+    <string name="fill_workout_name">Fill the workout name</string>"
+    <string name="fill_workout_description">Fill the workout description</string>"
+
+    <!-- Dialog messages-->
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="fill_all_fields">Fill all fields before continue</string>"
+
+    <string name="update_name">Update your name</string>
+
+    <string name="update">Update</string>
+    <string name="create">Create</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="new_workout_title">Create workout</string>
+    <string name="delete_workout_title">Delete workout</string>
+    <string name="delete_workout_message">Are you sure you want to delete this workout?</string>
+
+    <string name="new_exercise_title">Create exercise</string>
+    <string name="delete_exercise_title">Delete exercise</string>
+    <string name="delete_exercise_message">Are you sure you want to delete this exercise?</string>
+
+    <string name="new_week_title">Create week</string>
+    <string name="delete_week_title">Delete week</string>
+    <string name="delete_week_message">Are you sure you want to delete this week?</string>
+
+    <!-- ViewHolder messages -->
+    <string name="rest_day">Rest Day</string>
+    <string name="rest_day_description">Stay at home day</string>
 </resources>

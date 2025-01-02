@@ -1,7 +1,6 @@
 package com.gabrielportari.workoutplannerapp.view.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -58,12 +57,13 @@ class SelectWorkoutActivity : AppCompatActivity() {
 
     private fun observe(){
         viewModel.workouts.observe(this){
-            adapter.updateWorkouts(it)
+            workouts = it
+            adapter.updateWorkouts(workouts)
         }
 
         viewModel.validation.observe(this) {
             if (it.status()) {
-                showToast("Sucesso ao adicionar treino")
+                showToast(R.string.success_create_workout.toString())
             } else {
                 showToast(it.message())
             }

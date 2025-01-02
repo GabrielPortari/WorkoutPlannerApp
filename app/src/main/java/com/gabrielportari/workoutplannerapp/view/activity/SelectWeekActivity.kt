@@ -67,7 +67,7 @@ class SelectWeekActivity : AppCompatActivity() {
 
         viewModel.validation.observe(this) {
             if (it.status()) {
-                showToast("Sucesso ao adicionar semana")
+                showToast(R.string.success_edit_week.toString())
             } else {
                 showToast(it.message())
             }

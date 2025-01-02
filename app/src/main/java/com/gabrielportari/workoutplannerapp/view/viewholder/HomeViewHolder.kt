@@ -3,6 +3,7 @@ package com.gabrielportari.workoutplannerapp.view.viewholder
 import android.view.Gravity
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.listener.SelectWorkoutListener
 import com.gabrielportari.workoutplannerapp.data.model.Workout
@@ -16,8 +17,8 @@ RecyclerView.ViewHolder(itemBinding.root){
     fun bind(workout: WorkoutDay){
         if(workout.workout?.controller == MyConstants.CONTROLLER.CONTROLLER_TRUE){
             itemBinding.textDayOfWeek.text = workout.day
-            itemBinding.textWorkoutOfDayName.text = "Descanso"
-            itemBinding.textWorkoutOfDayDescription.text = "Dia de ficar em casa"
+            itemBinding.textWorkoutOfDayName.text = R.string.rest_day.toString()
+            itemBinding.textWorkoutOfDayDescription.text = R.string.rest_day_description.toString()
         }else {
             itemBinding.textDayOfWeek.text = workout.day
             itemBinding.textWorkoutOfDayName.text = workout.workout?.name

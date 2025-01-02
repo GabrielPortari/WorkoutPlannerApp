@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.model.User
 import com.gabrielportari.workoutplannerapp.data.model.Validation
@@ -42,13 +43,13 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
             workoutDays.clear()
 
-            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.SUNDAY, "Domingo", _week.value?.workoutDaySunday))
-            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.MONDAY, "Segunda-Feira", _week.value?.workoutdDayMonday))
-            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.TUESDAY, "Terça-Feira", _week.value?.workoutDayTuesday))
-            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.WEDNESDAY, "Quarta-Feira", _week.value?.workoutDayWednesday))
-            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.THURSDAY, "Quinta-Feira", _week.value?.workoutdDayThursday))
-            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.FRIDAY, "Sexta-Feira", _week.value?.workoutDayFriday))
-            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.SATURDAY, "Sabado", _week.value?.workoutdDaySaturday))
+            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.SUNDAY, R.string.sunday.toString(), _week.value?.workoutDaySunday))
+            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.MONDAY, R.string.monday.toString(), _week.value?.workoutdDayMonday))
+            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.TUESDAY, R.string.tuesday.toString(), _week.value?.workoutDayTuesday))
+            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.WEDNESDAY, R.string.wednesday.toString(), _week.value?.workoutDayWednesday))
+            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.THURSDAY, R.string.thursday.toString(), _week.value?.workoutdDayThursday))
+            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.FRIDAY, R.string.friday.toString(), _week.value?.workoutDayFriday))
+            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.SATURDAY, R.string.saturday.toString(), _week.value?.workoutdDaySaturday))
 
             _workouts.value = workoutDays
 
@@ -59,7 +60,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         if(userRepository.update(user)){
             _validation.value = Validation()
         }else{
-            _validation.value = Validation("Erro ao atualizar nome")
+            _validation.value = Validation(R.string.failure_update_name.toString())
         }
     }
 }

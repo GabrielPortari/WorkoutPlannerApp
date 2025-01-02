@@ -40,7 +40,7 @@ class WorkoutFormActivity : AppCompatActivity() {
 
         binding = ActivityWorkoutFormBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = ViewModelProvider(this).get(WorkoutFormViewModel::class.java)
+        viewModel = ViewModelProvider(this)[WorkoutFormViewModel::class.java]
 
         binding.recyclerViewExercises.layoutManager = LinearLayoutManager(this)
         binding.recyclerViewExercises.adapter = adapter
@@ -57,13 +57,13 @@ class WorkoutFormActivity : AppCompatActivity() {
 
             override fun onDeleteClick(id: Int) {
                 val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(this@WorkoutFormActivity)
-                dialogBuilder.setTitle("Excluir exercicio")
-                dialogBuilder.setMessage("Tem certeza que deseja excluir esse exercicio?")
-                dialogBuilder.setPositiveButton("Sim") { _, _ ->
+                dialogBuilder.setTitle(R.string.delete_exercise_title)
+                dialogBuilder.setMessage(R.string.delete_exercise_message)
+                dialogBuilder.setPositiveButton(R.string.yes) { _, _ ->
                     viewModel.deleteExercise(id)
                 }
 
-                dialogBuilder.setNegativeButton("Nao") { _, _ ->
+                dialogBuilder.setNegativeButton(R.string.no) { _, _ ->
 
                 }
                 val dialog = dialogBuilder.create()
@@ -93,9 +93,9 @@ class WorkoutFormActivity : AppCompatActivity() {
         viewModel.validation.observe(this){
             if(it.status()){
                 if(workoutId == 0){
-                    showToast("Treino criado com sucesso")
+                    showToast(R.string.success_create_workout.toString())
                 }else{
-                    showToast("Treino editado com sucesso")
+                    showToast(R.string.success_edit_workout.toString())
                 }
             }else{
                 showToast(it.message())
@@ -114,7 +114,7 @@ class WorkoutFormActivity : AppCompatActivity() {
         viewModel.deleteExercise.observe(this){
             if(it.status()){
                 viewModel.listExercises(workoutId)
-                showToast("Exercicio deletado com sucesso")
+                showToast(R.string.success_delete_exercise.toString())
             }else{
                 showToast(it.message())
             }
@@ -135,10 +135,10 @@ class WorkoutFormActivity : AppCompatActivity() {
 
                 finish()
             }else{
-                Toast.makeText(this, "Preencha a descrição do treino", Toast.LENGTH_SHORT).show()
+                showToast(R.string.fill_workout_description.toString())
             }
         }else{
-            Toast.makeText(this, "Preencha o nome do treino", Toast.LENGTH_SHORT).show()
+            showToast(R.string.fill_workout_name.toString())
         }
     }
 

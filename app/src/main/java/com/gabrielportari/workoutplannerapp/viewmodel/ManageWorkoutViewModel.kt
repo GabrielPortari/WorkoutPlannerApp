@@ -5,6 +5,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.data.model.Validation
 import com.gabrielportari.workoutplannerapp.data.model.Workout
 import com.gabrielportari.workoutplannerapp.data.repository.WorkoutRepository
@@ -31,7 +32,7 @@ class ManageWorkoutViewModel(application: Application) : AndroidViewModel(applic
             listWorkouts()
             _createValidation.value = Validation()
         }else{
-            _createValidation.value = Validation("Erro ao criar treino")
+            _createValidation.value = Validation(R.string.failure_create_workout.toString())
         }
     }
 
@@ -40,7 +41,7 @@ class ManageWorkoutViewModel(application: Application) : AndroidViewModel(applic
             listWorkouts()
             _deleteValidation.value = Validation()
         }else{
-            _deleteValidation.value = Validation("Falha ao deletar treino")
+            _deleteValidation.value = Validation(R.string.failure_delete_workout.toString())
         }
     }
 

@@ -18,6 +18,7 @@ import com.gabrielportari.workoutplannerapp.data.model.User
 import com.gabrielportari.workoutplannerapp.data.model.Week
 import com.gabrielportari.workoutplannerapp.databinding.FragmentHomeBinding
 import com.gabrielportari.workoutplannerapp.view.activity.SelectWeekActivity
+import com.gabrielportari.workoutplannerapp.view.activity.ShowWorkoutActivity
 import com.gabrielportari.workoutplannerapp.view.adapter.HomeAdapter
 import com.gabrielportari.workoutplannerapp.viewmodel.HomeViewModel
 
@@ -28,7 +29,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private var user: User = User(MyConstants.USER_ID.ID, "User", 1)
+    private var user: User = User(MyConstants.USER_ID.ID, R.string.user_name.toString(), 1)
 
     private val adapter = HomeAdapter()
 
@@ -44,27 +45,28 @@ class HomeFragment : Fragment() {
 
         val listener = object: SelectWorkoutListener {
             override fun onSelect(id: Int) {
-                val intent = Intent(context, SelectWeekActivity::class.java)
+                val intent = Intent(context, ShowWorkoutActivity::class.java)
+                intent.putExtra(MyConstants.KEY.WORKOUT_ID_KEY, id)
                 startActivity(intent)
             }
         }
 
         binding.imageNameChange.setOnClickListener{
             val dialog : AlertDialog.Builder = AlertDialog.Builder(context)
-            dialog.setTitle("Atualizar seu nome")
+            dialog.setTitle(R.string.update_name)
             val view = layoutInflater.inflate(R.layout.dialog_name_form, null)
             dialog.setView(view)
-            dialog.setPositiveButton("Alterar") { _, _ ->
+            dialog.setPositiveButton(R.string.update) { _, _ ->
                 val name = view.findViewById<EditText>(R.id.edit_user_name).text.toString()
                 if(name.isBlank()) {
-                    showToast("Preencha o nome antes de continuar.")
+                    showToast(R.string.fill_name.toString())
                 } else {
                     user.name = name
                     viewModel.updateName(user)
                     viewModel.loadUser()
                 }
             }
-            dialog.setNegativeButton("Cancelar") { _, _ ->
+            dialog.setNegativeButton(R.string.cancel) { _, _ ->
             }
             dialog.show()
         }

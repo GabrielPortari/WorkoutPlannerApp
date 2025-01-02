@@ -44,14 +44,14 @@ class ManageWeekFragment : Fragment() {
         val listener = object: WeekListener {
             override fun onNewClick() {
                 val dialog : AlertDialog.Builder = AlertDialog.Builder(context)
-                dialog.setTitle("Adicionar Semana")
+                dialog.setTitle(R.string.new_week_title)
                 val view = layoutInflater.inflate(R.layout.dialog_form, null)
                 dialog.setView(view)
-                dialog.setPositiveButton("Adicionar") { _, _ ->
+                dialog.setPositiveButton(R.string.create) { _, _ ->
                     val name = view.findViewById<EditText>(R.id.edit_name).text.toString()
                     val description = view.findViewById<EditText>(R.id.edit_description).text.toString()
                     if(name.isBlank() || description.isBlank() ) {
-                        showToast("Preencha todos os campos")
+                        showToast(R.string.fill_all_fields.toString())
                     }
                     else {
                         val week = Week(weekId, name, description,
@@ -61,18 +61,18 @@ class ManageWeekFragment : Fragment() {
                     }
 
                 }
-                dialog.setNegativeButton("Cancelar") { _, _ ->
+                dialog.setNegativeButton(R.string.cancel) { _, _ ->
                 }
                 dialog.show()
             }
             override fun onDeleteClick(id: Int) {
                 val dialogBuilder: AlertDialog.Builder = AlertDialog.Builder(context)
-                dialogBuilder.setTitle("Deletar Treino")
-                dialogBuilder.setMessage("Tem certeza que deseja excluir esse treino?")
-                dialogBuilder.setPositiveButton("Sim") { _, _ ->
+                dialogBuilder.setTitle(R.string.delete_workout_title)
+                dialogBuilder.setMessage(R.string.delete_workout_message)
+                dialogBuilder.setPositiveButton(R.string.yes) { _, _ ->
                     viewModel.deleteWeek(id)
                 }
-                dialogBuilder.setNegativeButton("Nao") { _, _ ->
+                dialogBuilder.setNegativeButton(R.string.no) { _, _ ->
 
                 }
                 val dialog = dialogBuilder.create()
@@ -98,7 +98,7 @@ class ManageWeekFragment : Fragment() {
     private fun observe() {
         viewModel.deleteValidation.observe(viewLifecycleOwner) {
             if (it.status()) {
-                showToast("Semana deletada com sucesso")
+                showToast(R.string.success_delete_week.toString())
             } else {
                 showToast(it.message())
             }
@@ -107,9 +107,9 @@ class ManageWeekFragment : Fragment() {
         viewModel.createValidation.observe(viewLifecycleOwner) {
             if (it.status()) {
                 if(weekId == 0) {
-                    showToast("Semana criada com sucesso")
+                    showToast(R.string.success_create_week.toString())
                 }else{
-                    showToast("Semana editada com sucesso")
+                    showToast(R.string.success_edit_week.toString())
                 }
             } else {
                 showToast(it.message())

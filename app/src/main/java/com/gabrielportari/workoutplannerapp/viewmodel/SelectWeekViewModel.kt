@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.model.User
 import com.gabrielportari.workoutplannerapp.data.model.Validation
@@ -36,7 +37,7 @@ class SelectWeekViewModel(application: Application) : AndroidViewModel(applicati
         if(userRepository.selectWeek(id)){
             _validation.value = Validation()
         }else{
-            _validation.value = Validation("Ocorreu um erro")
+            _validation.value = Validation(R.string.failure_default.toString())
         }
     }
 }

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.data.model.Exercise
 import com.gabrielportari.workoutplannerapp.data.model.Validation
 import com.gabrielportari.workoutplannerapp.data.repository.ExerciseRepository
@@ -26,7 +27,7 @@ class ExerciseFormViewModel(application: Application) : AndroidViewModel(applica
         if(exerciseRepository.insert(exercise)){
             _validation.value = Validation()
         }else{
-            _validation.value = Validation("Erro ao criar exercicio")
+            _validation.value = Validation(R.string.failure_delete_exercise.toString())
         }
     }
 
@@ -34,7 +35,7 @@ class ExerciseFormViewModel(application: Application) : AndroidViewModel(applica
         if (exerciseRepository.getExercise(id) != null) {
             _exercise.value = exerciseRepository.getExercise(id)
         } else {
-            _exerciseLoad.value = Validation("Erro ao carregar exercicio")
+            _exerciseLoad.value = Validation(R.string.failure_load_exercise.toString())
         }
     }
 
@@ -42,7 +43,7 @@ class ExerciseFormViewModel(application: Application) : AndroidViewModel(applica
         if (exerciseRepository.update(exercise)) {
             _validation.value = Validation()
         } else {
-            _validation.value = Validation("Erro ao editar exercicio")
+            _validation.value = Validation(R.string.failure_edit_exercise.toString())
         }
     }
 

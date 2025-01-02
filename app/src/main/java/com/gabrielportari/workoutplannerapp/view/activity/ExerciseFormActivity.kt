@@ -63,9 +63,9 @@ class ExerciseFormActivity : AppCompatActivity() {
         viewModel.validation.observe(this){
             if(it.status()){
                 if(exerciseId == 0){
-                    showToast("Exercicio criado com sucesso")
+                    showToast(R.string.success_create_exercise.toString())
                 }else{
-                    showToast("Exercicio editado com sucesso")
+                    showToast(R.string.success_edit_exercise.toString())
                 }
             }else{
                 showToast(it.message())
@@ -111,16 +111,18 @@ class ExerciseFormActivity : AppCompatActivity() {
                     } else {
                         viewModel.updateExercise(exercise)
                     }
+
+                    finish()
+
                 }else{
-                    showToast("Preencha o número de séries")
+                    showToast(R.string.fill_sets.toString())
                 }
             }else{
-                showToast("Preencha a descrição do exercicio")
+                showToast(R.string.fill_exercise_description.toString())
             }
         }else{
-            showToast("Preencha o nome do exercicio")
+            showToast(R.string.fill_exercise_name.toString())
         }
-        finish()
     }
 
     private fun loadData(){
@@ -140,7 +142,9 @@ class ExerciseFormActivity : AppCompatActivity() {
 
     private fun loadSpinner(){
         binding.spinnerRepCount
-        val repRanges = arrayOf("1-2 reps.", "2-4 reps.", "4-6 reps.", "6-8 reps.", "8-12 reps", "10-15 reps", "15-20 reps")
+
+        val repRanges = resources.getStringArray(R.array.spinner_items)
+
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, repRanges)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerRepCount.adapter = adapter
