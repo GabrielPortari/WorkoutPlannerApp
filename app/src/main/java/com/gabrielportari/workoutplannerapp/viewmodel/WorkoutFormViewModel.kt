@@ -34,7 +34,7 @@ class WorkoutFormViewModel(application: Application) : AndroidViewModel(applicat
         if(workoutRepository.get(id) != null){
             _workout.value = workoutRepository.get(id)
         }else{
-            _validation.value = Validation(R.string.failure_load_workout.toString()))
+            _validation.value = Validation(R.string.failure_load_workout.toString())
         }
     }
 
