@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.listener.WeekListener
+import com.gabrielportari.workoutplannerapp.data.model.User
 import com.gabrielportari.workoutplannerapp.data.model.Week
 import com.gabrielportari.workoutplannerapp.databinding.FragmentManageWeekBinding
 import com.gabrielportari.workoutplannerapp.view.activity.WeekFormActivity
@@ -29,6 +30,8 @@ class ManageWeekFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var weekId = 0
+    private var user: User = User(MyConstants.USER_ID.ID, R.string.user_name.toString(), 1)
+
     private val adapter = WeekAdapter()
 
     override fun onCreateView(
@@ -70,7 +73,11 @@ class ManageWeekFragment : Fragment() {
                 dialogBuilder.setTitle(R.string.delete_workout_title)
                 dialogBuilder.setMessage(R.string.delete_workout_message)
                 dialogBuilder.setPositiveButton(R.string.yes) { _, _ ->
-                    viewModel.deleteWeek(id)
+                    if(id != user.selectedWeek) {
+                        viewModel.deleteWeek(id)
+                    }else{
+                        showToast(getString(R.string.cant_delete_active_week))
+                    }
                 }
                 dialogBuilder.setNegativeButton(R.string.no) { _, _ ->
 
@@ -91,11 +98,16 @@ class ManageWeekFragment : Fragment() {
         adapter.attachListener(listener)
 
         viewModel.listWeeks()
+        viewModel.loadUser()
         observe()
         return binding.root
     }
 
     private fun observe() {
+        viewModel.user.observe(viewLifecycleOwner) {
+            user = it
+        }
+
         viewModel.deleteValidation.observe(viewLifecycleOwner) {
             if (it.status()) {
                 showToast(R.string.success_delete_week.toString())

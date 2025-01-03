@@ -6,16 +6,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
+import com.gabrielportari.workoutplannerapp.data.model.User
 import com.gabrielportari.workoutplannerapp.data.model.Validation
 import com.gabrielportari.workoutplannerapp.data.model.Week
+import com.gabrielportari.workoutplannerapp.data.repository.UserRepository
 import com.gabrielportari.workoutplannerapp.data.repository.WeekRepository
 
 class ManageWeekViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = WeekRepository.getInstance(application.applicationContext)
+    private val userRepository = UserRepository.getInstance(application.applicationContext)
 
     private val _weekList = MutableLiveData<List<Week>>()
     val weekList: LiveData<List<Week>> get() = _weekList
+
+    private val _user = MutableLiveData<User>()
+    val user: LiveData<User> get() = _user
 
     private val _createValidation = MutableLiveData<Validation>()
     val createValidation: LiveData<Validation> get() = _createValidation
@@ -25,6 +31,10 @@ class ManageWeekViewModel(application: Application) : AndroidViewModel(applicati
 
     fun listWeeks(){
         _weekList.value = repository.getAll()
+    }
+
+    fun loadUser(){
+        _user.value = userRepository.get(MyConstants.USER_ID.ID)
     }
 
     fun createWeek(week: Week){

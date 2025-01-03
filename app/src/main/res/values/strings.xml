@@ -53,6 +53,7 @@
     <!-- Validation messages -->
     <string name="failure_update_name">Error updating name</string>
     <string name="failure_default">An error occurred</string>
+    <string name="cant_delete_active_week">You can't delete the active week</string>
 
     <string name="success_create_workout">Workout created successfully</string>"
     <string name="success_edit_workout">Workout edited successfully</string>"
