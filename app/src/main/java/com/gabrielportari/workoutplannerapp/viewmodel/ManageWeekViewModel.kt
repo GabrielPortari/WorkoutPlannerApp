@@ -16,6 +16,7 @@ class ManageWeekViewModel(application: Application) : AndroidViewModel(applicati
 
     private val repository = WeekRepository.getInstance(application.applicationContext)
     private val userRepository = UserRepository.getInstance(application.applicationContext)
+    private val resources = application.resources
 
     private val _weekList = MutableLiveData<List<Week>>()
     val weekList: LiveData<List<Week>> get() = _weekList
@@ -42,7 +43,7 @@ class ManageWeekViewModel(application: Application) : AndroidViewModel(applicati
             listWeeks()
             _createValidation.value = Validation()
         }else{
-            _createValidation.value = Validation(R.string.failure_create_week.toString())
+            _createValidation.value = Validation(resources.getString(R.string.failure_create_week))
         }
     }
 
@@ -51,7 +52,7 @@ class ManageWeekViewModel(application: Application) : AndroidViewModel(applicati
             listWeeks()
             _deleteValidation.value = Validation()
         }else{
-            _deleteValidation.value = Validation(R.string.failure_delete_week.toString())
+            _deleteValidation.value = Validation(resources.getString(R.string.failure_delete_week))
         }
     }
 }

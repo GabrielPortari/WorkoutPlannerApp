@@ -1,6 +1,5 @@
 package com.gabrielportari.workoutplannerapp.viewmodel
 
-import android.app.AlertDialog
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -13,6 +12,7 @@ import com.gabrielportari.workoutplannerapp.data.repository.WorkoutRepository
 class ManageWorkoutViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = WorkoutRepository.getInstance(application.applicationContext)
+    private val resources = application.resources
 
     private val _workoutList = MutableLiveData<List<Workout>>()
     val workoutList: LiveData<List<Workout>> get() = _workoutList
@@ -32,7 +32,7 @@ class ManageWorkoutViewModel(application: Application) : AndroidViewModel(applic
             listWorkouts()
             _createValidation.value = Validation()
         }else{
-            _createValidation.value = Validation(R.string.failure_create_workout.toString())
+            _createValidation.value = Validation(resources.getString(R.string.failure_create_workout))
         }
     }
 
@@ -41,7 +41,7 @@ class ManageWorkoutViewModel(application: Application) : AndroidViewModel(applic
             listWorkouts()
             _deleteValidation.value = Validation()
         }else{
-            _deleteValidation.value = Validation(R.string.failure_delete_workout.toString())
+            _deleteValidation.value = Validation(resources.getString(R.string.failure_delete_workout))
         }
     }
 

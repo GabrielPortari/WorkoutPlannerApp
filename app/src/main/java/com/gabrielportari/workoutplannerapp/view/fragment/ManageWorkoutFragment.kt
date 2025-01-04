@@ -52,7 +52,7 @@ class ManageWorkoutFragment : Fragment() {
                     val name = view.findViewById<EditText>(R.id.edit_name).text.toString()
                     val description = view.findViewById<EditText>(R.id.edit_description).text.toString()
                     if(name.isBlank() || description.isBlank() ) {
-                        showToast(R.string.fill_all_fields.toString())
+                        showToast(resources.getString(R.string.fill_all_fields))
                     }
                     else {
                         val workout = Workout(workoutId, name, description, emptyList(), MyConstants.CONTROLLER.CONTROLLER_FALSE)
@@ -100,7 +100,7 @@ class ManageWorkoutFragment : Fragment() {
 
         viewModel.createValidation.observe(viewLifecycleOwner){
             if(it.status()){
-                showToast(R.string.success_create_workout.toString())
+                showToast(resources.getString(R.string.success_create_workout))
             }else{
                 showToast(it.message())
             }
@@ -108,7 +108,7 @@ class ManageWorkoutFragment : Fragment() {
 
         viewModel.deleteValidation.observe(viewLifecycleOwner) {
             if (it.status()) {
-                showToast(R.string.success_delete_week.toString())
+                showToast(resources.getString(R.string.success_delete_week))
             } else {
                 showToast(it.message())
             }

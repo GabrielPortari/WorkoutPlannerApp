@@ -14,6 +14,7 @@ import com.gabrielportari.workoutplannerapp.data.repository.WeekRepository
 
 class WeekFormViewModel(application: Application) : AndroidViewModel(application) {
     private val weekRepository = WeekRepository.getInstance(application.applicationContext)
+    private val resources = application.resources
 
     private val workoutDays = mutableListOf<WorkoutDay>()
 
@@ -35,18 +36,18 @@ class WeekFormViewModel(application: Application) : AndroidViewModel(application
             _week.value = weekRepository.get(id)
 
             workoutDays.clear()
-            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.SUNDAY, R.string.sunday.toString(), _week.value?.workoutDaySunday))
-            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.MONDAY, R.string.monday.toString(), _week.value?.workoutdDayMonday))
-            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.TUESDAY, R.string.tuesday.toString(), _week.value?.workoutDayTuesday))
-            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.WEDNESDAY, R.string.wednesday.toString(), _week.value?.workoutDayWednesday))
-            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.THURSDAY, R.string.thursday.toString(), _week.value?.workoutdDayThursday))
-            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.FRIDAY, R.string.friday.toString(), _week.value?.workoutDayFriday))
-            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.SATURDAY, R.string.saturday.toString(), _week.value?.workoutdDaySaturday))
+            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.SUNDAY, resources.getString(R.string.sunday), _week.value?.workoutDaySunday))
+            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.MONDAY, resources.getString(R.string.monday), _week.value?.workoutdDayMonday))
+            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.TUESDAY, resources.getString(R.string.tuesday), _week.value?.workoutDayTuesday))
+            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.WEDNESDAY, resources.getString(R.string.wednesday), _week.value?.workoutDayWednesday))
+            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.THURSDAY, resources.getString(R.string.thursday), _week.value?.workoutdDayThursday))
+            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.FRIDAY, resources.getString(R.string.friday), _week.value?.workoutDayFriday))
+            workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.SATURDAY, resources.getString(R.string.saturday), _week.value?.workoutdDaySaturday))
 
             _workouts.value = workoutDays
 
         }else{
-            _validation.value = Validation(R.string.failure_load_week.toString())
+            _validation.value = Validation(resources.getString(R.string.failure_load_week))
         }
     }
 
@@ -60,7 +61,7 @@ class WeekFormViewModel(application: Application) : AndroidViewModel(application
         if(weekRepository.update(week)){
             _validation.value = Validation()
         }else{
-            _validation.value = Validation(R.string.failure_edit_week.toString())
+            _validation.value = Validation(resources.getString(R.string.failure_edit_week))
         }
     }
 
@@ -70,10 +71,10 @@ class WeekFormViewModel(application: Application) : AndroidViewModel(application
             if (weekRepository.deleteWorkoutDay(week, day)) {
                 _delValidation.value = Validation()
             } else {
-                _delValidation.value = Validation(R.string.failure_delete_workout.toString())
+                _delValidation.value = Validation(resources.getString(R.string.failure_delete_workout))
             }
         }else{
-            _delValidation.value = Validation(R.string.failure_default.toString())
+            _delValidation.value = Validation(resources.getString(R.string.failure_default))
         }
     }
 }

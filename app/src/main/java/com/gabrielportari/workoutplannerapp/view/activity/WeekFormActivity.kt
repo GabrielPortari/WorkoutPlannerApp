@@ -38,7 +38,7 @@ class WeekFormActivity : AppCompatActivity() {
 
         binding = ActivityWeekFormBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = ViewModelProvider(this).get(WeekFormViewModel::class.java)
+        viewModel = ViewModelProvider(this)[WeekFormViewModel::class.java]
 
         binding.recyclerWorkoutDay.layoutManager = LinearLayoutManager(this)
         binding.recyclerWorkoutDay.adapter = adapter
@@ -84,7 +84,7 @@ class WeekFormActivity : AppCompatActivity() {
     private fun observe(){
         viewModel.validation.observe(this){
             if(it.status()){
-                showToast(R.string.success_edit_week.toString())
+                showToast(resources.getString(R.string.success_edit_week))
             }else{
                 showToast(it.message())
             }
@@ -92,7 +92,7 @@ class WeekFormActivity : AppCompatActivity() {
 
         viewModel.delValidation.observe(this){
             if(it.status()){
-                showToast(R.string.success_delete_week.toString())
+                showToast(resources.getString(R.string.success_delete_week))
             }else{
                 showToast(it.message())
             }
@@ -117,10 +117,10 @@ class WeekFormActivity : AppCompatActivity() {
                 viewModel.update(name, description, weekId)
                 finish()
             }else{
-                showToast(R.string.fill_week_description.toString())
+                showToast(resources.getString(R.string.fill_week_description))
             }
         }else{
-            showToast(R.string.fill_week_name.toString())
+            showToast(resources.getString(R.string.fill_week_name))
 
         }
     }

@@ -38,7 +38,7 @@ class SelectWeekActivity : AppCompatActivity() {
 
         binding = ActivitySelectWeekBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = ViewModelProvider(this).get(SelectWeekViewModel::class.java)
+        viewModel = ViewModelProvider(this)[SelectWeekViewModel::class.java]
         binding.recyclerSelectWeek.layoutManager = LinearLayoutManager(this)
         binding.recyclerSelectWeek.adapter = adapter
         adapter.updateWeeks(weeks)
@@ -67,7 +67,7 @@ class SelectWeekActivity : AppCompatActivity() {
 
         viewModel.validation.observe(this) {
             if (it.status()) {
-                showToast(R.string.success_edit_week.toString())
+                showToast(resources.getString(R.string.success_edit_week))
             } else {
                 showToast(it.message())
             }

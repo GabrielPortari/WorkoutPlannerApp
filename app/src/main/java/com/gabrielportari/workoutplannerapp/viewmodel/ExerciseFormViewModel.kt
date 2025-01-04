@@ -12,6 +12,7 @@ import com.gabrielportari.workoutplannerapp.data.repository.ExerciseRepository
 class ExerciseFormViewModel(application: Application) : AndroidViewModel(application) {
 
     private val exerciseRepository = ExerciseRepository.getInstance(application.applicationContext)
+    private val resources = application.resources
 
     private val _validation = MutableLiveData<Validation>()
     val validation: LiveData<Validation> get() = _validation
@@ -27,7 +28,7 @@ class ExerciseFormViewModel(application: Application) : AndroidViewModel(applica
         if(exerciseRepository.insert(exercise)){
             _validation.value = Validation()
         }else{
-            _validation.value = Validation(R.string.failure_delete_exercise.toString())
+            _validation.value = Validation(resources.getString(R.string.failure_delete_exercise))
         }
     }
 
@@ -35,7 +36,7 @@ class ExerciseFormViewModel(application: Application) : AndroidViewModel(applica
         if (exerciseRepository.getExercise(id) != null) {
             _exercise.value = exerciseRepository.getExercise(id)
         } else {
-            _exerciseLoad.value = Validation(R.string.failure_load_exercise.toString())
+            _exerciseLoad.value = Validation(resources.getString(R.string.failure_load_exercise))
         }
     }
 
@@ -43,7 +44,7 @@ class ExerciseFormViewModel(application: Application) : AndroidViewModel(applica
         if (exerciseRepository.update(exercise)) {
             _validation.value = Validation()
         } else {
-            _validation.value = Validation(R.string.failure_edit_exercise.toString())
+            _validation.value = Validation(resources.getString(R.string.failure_edit_exercise))
         }
     }
 

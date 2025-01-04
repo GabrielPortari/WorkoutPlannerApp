@@ -15,6 +15,7 @@ class WorkoutFormViewModel(application: Application) : AndroidViewModel(applicat
 
     private val workoutRepository = WorkoutRepository.getInstance(application.applicationContext)
     private val exerciseRepository = ExerciseRepository.getInstance(application.applicationContext)
+    private val resources = application.resources
 
     private val _validation = MutableLiveData<Validation>()
     val validation: LiveData<Validation> get() = _validation
@@ -34,7 +35,7 @@ class WorkoutFormViewModel(application: Application) : AndroidViewModel(applicat
         if(workoutRepository.get(id) != null){
             _workout.value = workoutRepository.get(id)
         }else{
-            _validation.value = Validation(R.string.failure_load_workout.toString())
+            _validation.value = Validation(resources.getString(R.string.failure_load_workout))
         }
     }
 
@@ -42,7 +43,7 @@ class WorkoutFormViewModel(application: Application) : AndroidViewModel(applicat
         if(workoutRepository.update(workout)){
             _validation.value = Validation()
         }else{
-            _validation.value = Validation(R.string.failure_edit_workout.toString())
+            _validation.value = Validation(resources.getString(R.string.failure_edit_workout))
         }
     }
 
@@ -50,7 +51,7 @@ class WorkoutFormViewModel(application: Application) : AndroidViewModel(applicat
         if(exerciseRepository.delete(id)){
             _deleteExercise.value = Validation()
         }else{
-            _deleteExercise.value = Validation(R.string.failure_delete_exercise.toString())
+            _deleteExercise.value = Validation(resources.getString(R.string.failure_delete_exercise))
         }
     }
 

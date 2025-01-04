@@ -74,6 +74,7 @@ class WeekRepository private constructor(context: Context){
     }
 
     fun insertWorkoutDay(day: String, weekId: Int, id: Int): Boolean{
+        // TODO: ALTERAR O TREINO PARA BUTTON QUANDO UM TREINO FOR EXCLUÍDO
         return try{
             val db = database.writableDatabase
 
@@ -147,7 +148,7 @@ class WeekRepository private constructor(context: Context){
 
     fun get(id: Int) : Week?{
         var week: Week? = null
-        var exercise: Exercise? = null
+
         try {
             val db = database.readableDatabase
 
@@ -217,7 +218,6 @@ class WeekRepository private constructor(context: Context){
 
     fun getAll() : List<Week>{
         var week: Week? = null
-        var exercise: Exercise? = null
         var list = mutableListOf<Week>()
 
         try {
@@ -296,7 +296,6 @@ class WeekRepository private constructor(context: Context){
 
     fun getAllExceptButton() : List<Week>{
         var week: Week? = null
-        var exercise: Exercise? = null
         var list = mutableListOf<Week>()
 
         try {

@@ -35,7 +35,7 @@ class ShowWorkoutActivity : AppCompatActivity() {
 
         binding = ActivityShowWorkoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = ViewModelProvider(this).get(ShowWorkoutViewModel::class.java)
+        viewModel = ViewModelProvider(this)[ShowWorkoutViewModel::class.java]
 
         binding.recyclerShowExercise.layoutManager = LinearLayoutManager(this)
         binding.recyclerShowExercise.adapter = adapter

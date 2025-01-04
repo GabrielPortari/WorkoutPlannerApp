@@ -93,9 +93,10 @@ class WorkoutFormActivity : AppCompatActivity() {
         viewModel.validation.observe(this){
             if(it.status()){
                 if(workoutId == 0){
-                    showToast(R.string.success_create_workout.toString())
+
+                    (resources.getString(R.string.success_create_workout))
                 }else{
-                    showToast(R.string.success_edit_workout.toString())
+                    showToast(resources.getString(R.string.success_edit_workout))
                 }
             }else{
                 showToast(it.message())
@@ -114,7 +115,7 @@ class WorkoutFormActivity : AppCompatActivity() {
         viewModel.deleteExercise.observe(this){
             if(it.status()){
                 viewModel.listExercises(workoutId)
-                showToast(R.string.success_delete_exercise.toString())
+                showToast(resources.getString(R.string.success_delete_exercise))
             }else{
                 showToast(it.message())
             }
@@ -135,10 +136,10 @@ class WorkoutFormActivity : AppCompatActivity() {
 
                 finish()
             }else{
-                showToast(R.string.fill_workout_description.toString())
+                showToast(resources.getString(R.string.fill_workout_description))
             }
         }else{
-            showToast(R.string.fill_workout_name.toString())
+            showToast(resources.getString(R.string.fill_workout_name))
         }
     }
 

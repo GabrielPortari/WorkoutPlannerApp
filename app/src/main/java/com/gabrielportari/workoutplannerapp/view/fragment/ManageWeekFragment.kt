@@ -54,7 +54,7 @@ class ManageWeekFragment : Fragment() {
                     val name = view.findViewById<EditText>(R.id.edit_name).text.toString()
                     val description = view.findViewById<EditText>(R.id.edit_description).text.toString()
                     if(name.isBlank() || description.isBlank() ) {
-                        showToast(R.string.fill_all_fields.toString())
+                        showToast(resources.getString(R.string.fill_all_fields))
                     }
                     else {
                         val week = Week(weekId, name, description,
@@ -76,7 +76,7 @@ class ManageWeekFragment : Fragment() {
                     if(id != user.selectedWeek) {
                         viewModel.deleteWeek(id)
                     }else{
-                        showToast(getString(R.string.cant_delete_active_week))
+                        showToast(resources.getString(R.string.cant_delete_active_week))
                     }
                 }
                 dialogBuilder.setNegativeButton(R.string.no) { _, _ ->
@@ -110,7 +110,7 @@ class ManageWeekFragment : Fragment() {
 
         viewModel.deleteValidation.observe(viewLifecycleOwner) {
             if (it.status()) {
-                showToast(R.string.success_delete_week.toString())
+                showToast(resources.getString(R.string.success_delete_week))
             } else {
                 showToast(it.message())
             }
@@ -119,9 +119,9 @@ class ManageWeekFragment : Fragment() {
         viewModel.createValidation.observe(viewLifecycleOwner) {
             if (it.status()) {
                 if(weekId == 0) {
-                    showToast(R.string.success_create_week.toString())
+                    showToast(resources.getString(R.string.success_create_week))
                 }else{
-                    showToast(R.string.success_edit_week.toString())
+                    showToast(resources.getString(R.string.success_edit_week))
                 }
             } else {
                 showToast(it.message())

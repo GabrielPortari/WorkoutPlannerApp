@@ -15,7 +15,6 @@ import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.listener.SelectWorkoutListener
 import com.gabrielportari.workoutplannerapp.data.model.User
-import com.gabrielportari.workoutplannerapp.data.model.Week
 import com.gabrielportari.workoutplannerapp.databinding.FragmentHomeBinding
 import com.gabrielportari.workoutplannerapp.view.activity.SelectWeekActivity
 import com.gabrielportari.workoutplannerapp.view.activity.ShowWorkoutActivity
@@ -59,7 +58,7 @@ class HomeFragment : Fragment() {
             dialog.setPositiveButton(R.string.update) { _, _ ->
                 val name = view.findViewById<EditText>(R.id.edit_user_name).text.toString()
                 if(name.isBlank()) {
-                    showToast(R.string.fill_name.toString())
+                    showToast(resources.getString(R.string.fill_name))
                 } else {
                     user.name = name
                     viewModel.updateName(user)

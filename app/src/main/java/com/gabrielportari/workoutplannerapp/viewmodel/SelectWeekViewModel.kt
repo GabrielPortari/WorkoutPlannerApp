@@ -15,6 +15,7 @@ import com.gabrielportari.workoutplannerapp.data.repository.WeekRepository
 class SelectWeekViewModel(application: Application) : AndroidViewModel(application) {
     private val weekRepository = WeekRepository.getInstance(application.applicationContext)
     private val userRepository = UserRepository.getInstance(application.applicationContext)
+    private val resources = application.resources
 
     private val _weeks = MutableLiveData<List<Week>>()
     val weeks: LiveData<List<Week>> get() = _weeks
@@ -37,7 +38,7 @@ class SelectWeekViewModel(application: Application) : AndroidViewModel(applicati
         if(userRepository.selectWeek(id)){
             _validation.value = Validation()
         }else{
-            _validation.value = Validation(R.string.failure_default.toString())
+            _validation.value = Validation(resources.getString(R.string.failure_default))
         }
     }
 }

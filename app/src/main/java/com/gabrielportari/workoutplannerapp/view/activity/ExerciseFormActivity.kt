@@ -36,7 +36,7 @@ class ExerciseFormActivity : AppCompatActivity() {
 
         binding = ActivityExerciseFormBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = ViewModelProvider(this).get(ExerciseFormViewModel::class.java)
+        viewModel = ViewModelProvider(this)[ExerciseFormViewModel::class.java]
         loadSpinner()
 
         binding.spinnerRepCount.setSelection(0)
@@ -63,9 +63,9 @@ class ExerciseFormActivity : AppCompatActivity() {
         viewModel.validation.observe(this){
             if(it.status()){
                 if(exerciseId == 0){
-                    showToast(R.string.success_create_exercise.toString())
+                    showToast(resources.getString(R.string.success_create_exercise))
                 }else{
-                    showToast(R.string.success_edit_exercise.toString())
+                    showToast(resources.getString(R.string.success_edit_exercise))
                 }
             }else{
                 showToast(it.message())
@@ -115,13 +115,13 @@ class ExerciseFormActivity : AppCompatActivity() {
                     finish()
 
                 }else{
-                    showToast(R.string.fill_sets.toString())
+                    showToast(resources.getString(R.string.fill_sets))
                 }
             }else{
-                showToast(R.string.fill_exercise_description.toString())
+                showToast(resources.getString(R.string.fill_exercise_description))
             }
         }else{
-            showToast(R.string.fill_exercise_name.toString())
+            showToast(resources.getString(R.string.fill_exercise_name))
         }
     }
 

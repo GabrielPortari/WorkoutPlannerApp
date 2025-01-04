@@ -37,7 +37,7 @@ class SelectWorkoutActivity : AppCompatActivity() {
         }
         binding = ActivitySelectWorkoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = ViewModelProvider(this).get(SelectWorkoutViewModel::class.java)
+        viewModel = ViewModelProvider(this)[SelectWorkoutViewModel::class.java]
 
         binding.recyclerSelectWorkout.layoutManager = LinearLayoutManager(this)
         binding.recyclerSelectWorkout.adapter = adapter
@@ -63,7 +63,7 @@ class SelectWorkoutActivity : AppCompatActivity() {
 
         viewModel.validation.observe(this) {
             if (it.status()) {
-                showToast(R.string.success_create_workout.toString())
+                showToast(resources.getString(R.string.success_create_workout))
             } else {
                 showToast(it.message())
             }
