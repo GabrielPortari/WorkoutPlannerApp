@@ -7,11 +7,16 @@ import androidx.lifecycle.MutableLiveData
 import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.data.model.Validation
 import com.gabrielportari.workoutplannerapp.data.model.Workout
+import com.gabrielportari.workoutplannerapp.data.repository.ExerciseRepository
+import com.gabrielportari.workoutplannerapp.data.repository.WeekRepository
 import com.gabrielportari.workoutplannerapp.data.repository.WorkoutRepository
 
 class ManageWorkoutViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = WorkoutRepository.getInstance(application.applicationContext)
+    private val workoutRepository = WorkoutRepository.getInstance(application.applicationContext)
+    private val weekRepository = WeekRepository.getInstance(application.applicationContext)
+    private val exerciseRepository = ExerciseRepository.getInstance(application.applicationContext)
+
     private val resources = application.resources
 
     private val _workoutList = MutableLiveData<List<Workout>>()
@@ -24,11 +29,11 @@ class ManageWorkoutViewModel(application: Application) : AndroidViewModel(applic
     val deleteValidation: LiveData<Validation> get() = _deleteValidation
 
     fun listWorkouts(){
-        _workoutList.value = repository.getAll()
+        _workoutList.value = workoutRepository.getAll()
     }
 
     fun createWorkout(workout: Workout){
-        if(repository.insert(workout)){
+        if(workoutRepository.insert(workout)){
             listWorkouts()
             _createValidation.value = Validation()
         }else{
@@ -37,7 +42,9 @@ class ManageWorkoutViewModel(application: Application) : AndroidViewModel(applic
     }
 
     fun deleteWorkout(id: Int){
-        if(repository.delete(id)){
+        if(workoutRepository.delete(id)){
+            exerciseRepository.workoutDeleted(id)
+            weekRepository.workoutDeleted(id)
             listWorkouts()
             _deleteValidation.value = Validation()
         }else{

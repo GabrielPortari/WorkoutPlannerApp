@@ -77,7 +77,6 @@ class WorkoutRepository private constructor(context: Context){
 
 
     fun delete(id: Int): Boolean{
-        // TODO: REMOVER OS EXERCÍCIOS QUANDO UM TREINO FOR EXCLUÍDO
         return try {
             val db = database.writableDatabase
 

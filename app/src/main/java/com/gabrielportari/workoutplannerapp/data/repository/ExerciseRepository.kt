@@ -76,6 +76,20 @@ class ExerciseRepository private constructor(context: Context) {
         }
     }
 
+    fun workoutDeleted(id: Int): Boolean{
+        return try {
+            val db = database.writableDatabase
+
+            val selection = MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID + " = ?"
+            val args = arrayOf(id.toString())
+            db.delete(MyConstants.DATABASE.EXERCISE_TABLE_NAME, selection, args)
+
+            true
+        }catch (e: Exception){
+            false
+        }
+    }
+
     fun getExercise(id: Int): Exercise?{
         var exercise: Exercise? = null
 

@@ -73,8 +73,47 @@ class WeekRepository private constructor(context: Context){
         }
     }
 
+    fun workoutDeleted(id: Int) : Boolean{
+        return try {
+            val db = database.writableDatabase
+
+            val values = ContentValues().apply {
+                put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SUNDAY, 0)
+                put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_MONDAY, 0)
+                put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_TUESDAY, 0)
+                put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_WEDNESDAY, 0)
+                put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_THURSDAY, 0)
+                put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_FRIDAY, 0)
+                put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SATURDAY, 0)
+            }
+
+            val selection = MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SUNDAY + " = ? OR " +
+                    MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_MONDAY + " = ? OR " +
+                    MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_TUESDAY + " = ? OR " +
+                    MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_WEDNESDAY + " = ? OR " +
+                    MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_THURSDAY + " = ? OR " +
+                    MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_FRIDAY + " = ? OR " +
+                    MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SATURDAY + " = ?"
+
+            val args = arrayOf(
+                id.toString(),
+                id.toString(),
+                id.toString(),
+                id.toString(),
+                id.toString(),
+                id.toString(),
+                id.toString()
+            )
+
+            db.update(MyConstants.DATABASE.WEEK_TABLE_NAME, values, selection, args)
+
+            true
+        }catch (e: Exception){
+            false
+        }
+    }
+
     fun insertWorkoutDay(day: String, weekId: Int, id: Int): Boolean{
-        // TODO: ALTERAR O TREINO PARA BUTTON QUANDO UM TREINO FOR EXCLUÍDO
         return try{
             val db = database.writableDatabase
 
