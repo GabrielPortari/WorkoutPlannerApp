@@ -16,6 +16,10 @@ class MyConstants private constructor() {
         const val WORKOUT_ID_KEY = "exerciseId"
     }
 
+    object BUTTON{
+        const val ADD_BUTTON = "ADD BUTTON"
+        const val ADD_BUTTON_DESC = "NO DESCRIPTION"
+    }
     object WEEK_DAYS{
         const val SUNDAY: String = "sunday"
         const val MONDAY: String = "monday"

@@ -121,4 +121,70 @@
     <!-- ViewHolder messages -->
     <string name="rest_day">Rest Day</string>
     <string name="rest_day_description">Stay at home day</string>
+
+    <!-- Database default values -->
+    <string name="abc_workout">ABC Workout sheet</string>
+    <string name="abc_workout_description">Workout plan for beginners, three days a week.</string>
+
+    <!-- A WORKOUT -->
+    <string name="A_workout">A Workout</string>
+    <string name="A_workout_description">Push workout for beginners, focus on chest, shoulders and triceps.</string>
+
+    <string name="lat_pulldown">Lat pulldown</string>
+    <string name="lat_pulldown_description">Focus on back, rest 45 to 90 seconds.</string>
+    <string name="lat_pulldown_sets_and_reps">6 sets, 10 to 15 reps</string>
+
+    <string name="low_row">Low row</string>
+    <string name="low_row_description">Focus on lower back, rest 60 to 75 seconds.</string>
+    <string name="low_row_sets_and_reps">6 sets, 8 to 12 reps</string>
+
+    <string name="hammer_curl">Hammer curl</string>
+    <string name="hammer_curl_description">Focus on biceps brachial, rest 30 to 50 seconds.</string>
+    <string name="hammer_curl_sets_and_reps">4 sets, 6 to 8 reps</string>
+
+    <string name="seated_reverse_fly">Seated reverse fly</string>
+    <string name="seated_reverse_fly_description">Focus on the back of the shoulders, rest 45 to 60 seconds</string>
+    <string name="seated_reverse_fly_sets_and_reps">4 sets, 12 to 15 reps</string>
+
+    <!-- B WORKOUT -->
+    <string name="B_workout">B Workout</string>
+    <string name="B_workout_description">Back workout for beginners, focus on back, biceps and abs.</string>
+
+    <string name="bench_press">Bench press</string>
+    <string name="bench_press_description">Focus on chest, rest 60 to 90 seconds.</string>
+    <string name="bench_press_sets_and_reps">6 sets, 6 to 8 reps</string>
+
+    <string name="inclined_bench_press">Inclined bench press</string>
+    <string name="inclined_bench_press_description">Focus on chest, rest 60 to 90 seconds.</string>
+    <string name="inclined_bench_press_sets_and_reps">4 sets, 8 to 12 reps</string>
+
+    <string name="cable_triceps_extension">Cable triceps extension</string>
+    <string name="cable_triceps_extension_description">Focus on triceps, rest 45 to 60 seconds.</string>
+    <string name="cable_triceps_extension_sets_and_reps">4 sets, 10 to 12 reps</string>
+
+    <string name="lateral_raise">Lateral raise</string>
+    <string name="lateral_raise_description">Focus on shoulders, rest 60 to 90 seconds.</string>
+    <string name="lateral_raise_sets_and_reps">3 sets, 15 to 20 reps</string>
+
+    <!-- C WORKOUT -->
+    <string name="C_workout">C Workout</string>
+    <string name="C_workout_description">Legs workout for beginners, focus on legs, hips and quads.</string>
+
+    <string name="squat">Squat</string>
+    <string name="squat_description">Focus on quads and glutes, rest 60 to 90 seconds.</string>
+    <string name="squat_sets_and_reps">8 sets, 6 to 8 reps</string>
+
+    <string name="stiff">Stiff</string>
+    <string name="stiff_description">Focus on hamstrings, rest 60 to 90 seconds.</string>
+    <string name="stiff_sets_and_reps">6 sets, 10 to 12 reps</string>
+
+    <string name="leg_press">Leg press</string>
+    <string name="leg_press_description">Focus on quads, rest 90 to 120 seconds.</string>
+    <string name="leg_press_sets_and_reps">4 sets, 12 to 15 reps</string>
+
+    <string name="seated_calves">Seated calves</string>
+    <string name="seated_calves_description">Focus on calves, rest 45 to 60 seconds.</string>
+    <string name="seated_calves_sets_and_reps">4 sets, 15 to 20 reps</string>
+
+
 </resources>

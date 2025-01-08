@@ -1,10 +1,14 @@
 package com.gabrielportari.workoutplannerapp.data.repository
 
 import android.content.ContentValues
+import android.content.res.Resources
 import android.database.sqlite.SQLiteDatabase
+import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 
 class DefaultDataManager{
+
+    private val resources = Resources.getSystem()
 
     fun createTables(db: SQLiteDatabase?){
         val sqlUserName = "CREATE TABLE " + MyConstants.DATABASE.USER_TABLE + "(" +
@@ -61,16 +65,16 @@ class DefaultDataManager{
     fun createButtons(db: SQLiteDatabase?){
         val values = ContentValues()
         values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.ID, 0)
-        values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME, "ADD WORKOUT BUTTON")
-        values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION, "THERE IS NOTHING TO SHOW")
+        values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME, MyConstants.BUTTON.ADD_BUTTON)
+        values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION, MyConstants.BUTTON.ADD_BUTTON_DESC)
         values.put(MyConstants.DATABASE.WORKOUT_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_TRUE)
         db?.insert(MyConstants.DATABASE.WORKOUT_TABLE_NAME, null, values)
 
         /* INSERÇÃO DOS BOTÃO DE ADICIONAR SEMANA */
         val weekValues = ContentValues()
         weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.ID, 0)
-        weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.NAME, "ADD WEEK BUTTON")
-        weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.DESCRIPTION, "THERE IS NOTHING TO SHOW")
+        weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.NAME, MyConstants.BUTTON.ADD_BUTTON)
+        weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.DESCRIPTION, MyConstants.BUTTON.ADD_BUTTON_DESC)
         weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_TRUE)
         db?.insert(MyConstants.DATABASE.WEEK_TABLE_NAME, null, weekValues)
     }
@@ -79,20 +83,20 @@ class DefaultDataManager{
         /*CRIAÇÃO DE TREINOS PADRÃO (ABC - PUSH PULL LEGS) */
         val workoutValues = ContentValues()
         workoutValues.put(MyConstants.DATABASE.WORKOUT_COLUMNS.ID, 1)
-        workoutValues.put(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME, "Treino A")
-        workoutValues.put(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION, "Treino com foco em peitoral, ombro e triceps.")
+        workoutValues.put(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME, resources.getString(R.string.A_workout))
+        workoutValues.put(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION, resources.getString(R.string.A_workout_description))
         workoutValues.put(MyConstants.DATABASE.WORKOUT_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_FALSE)
 
         val workoutValues2 = ContentValues()
         workoutValues2.put(MyConstants.DATABASE.WORKOUT_COLUMNS.ID, 2)
-        workoutValues2.put(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME, "Treino B")
-        workoutValues2.put(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION, "Treino com foco em costas, biceps e abdomem.")
+        workoutValues2.put(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME, resources.getString(R.string.B_workout))
+        workoutValues2.put(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION, resources.getString(R.string.B_workout_description))
         workoutValues2.put(MyConstants.DATABASE.WORKOUT_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_FALSE)
 
         val workoutValues3 = ContentValues()
         workoutValues3.put(MyConstants.DATABASE.WORKOUT_COLUMNS.ID, 3)
-        workoutValues3.put(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME, "Treino C")
-        workoutValues3.put(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION, "Treino com foco em pernas e panturrilhas.")
+        workoutValues3.put(MyConstants.DATABASE.WORKOUT_COLUMNS.NAME, resources.getString(R.string.C_workout))
+        workoutValues3.put(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION, resources.getString(R.string.C_workout_description))
         workoutValues3.put(MyConstants.DATABASE.WORKOUT_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_FALSE)
 
         db?.insert(MyConstants.DATABASE.WORKOUT_TABLE_NAME, null, workoutValues)
@@ -104,30 +108,30 @@ class DefaultDataManager{
     private fun createDefaultChestExercises(db: SQLiteDatabase?){
         val exerciseValues1 = ContentValues()
         exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID, 1)
-        exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, "Supino Inclinado")
-        exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, "Foco em superior de peito, descansar de 45-90 segundos.")
-        exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, "4 series, 1-3 reps")
+        exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, resources.getString(R.string.bench_press))
+        exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, resources.getString(R.string.bench_press_description))
+        exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, resources.getString(R.string.bench_press_sets_and_reps))
         exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_FALSE)
 
         val exerciseValues2 = ContentValues()
         exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID, 1)
-        exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, "Supino Reto")
-        exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, "Foco em peito completo, descansar de 45-90 segundos.")
-        exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, "6 series, 10-15 reps")
+        exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, resources.getString(R.string.inclined_bench_press))
+        exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, resources.getString(R.string.inclined_bench_press_description))
+        exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, resources.getString(R.string.inclined_bench_press_sets_and_reps))
         exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_FALSE)
 
         val exerciseValues3 = ContentValues()
         exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID, 1)
-        exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, "Tríceps Corda")
-        exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, "Foco em triceps, descansar de 45-90 segundos.")
-        exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, "4 series, 8-10 reps")
+        exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, resources.getString(R.string.cable_triceps_extension))
+        exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, resources.getString(R.string.cable_triceps_extension_description))
+        exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, resources.getString(R.string.cable_triceps_extension_sets_and_reps))
         exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_FALSE)
 
         val exerciseValues4 = ContentValues()
         exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID, 1)
-        exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, "Elevação lateral")
-        exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, "Foco no deltoide lateral, descansar de 45-90 segundos.")
-        exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, "4 series, 12-15 reps")
+        exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, resources.getString(R.string.lateral_raise))
+        exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, resources.getString(R.string.lateral_raise_description))
+        exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, resources.getString(R.string.lateral_raise_sets_and_reps))
         exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_FALSE)
 
         db?.insert(MyConstants.DATABASE.EXERCISE_TABLE_NAME, null, exerciseValues1)
@@ -140,30 +144,30 @@ class DefaultDataManager{
     private fun createDefaultBackExercises(db: SQLiteDatabase?){
         val exerciseValues1 = ContentValues()
         exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID, 2)
-        exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, "Puxada Alta")
-        exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, "Foco nas dorsais, descansar de 45-90 segundos.")
-        exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, "6 series, 10-15 reps")
+        exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, resources.getString(R.string.lat_pulldown))
+        exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, resources.getString(R.string.lat_pulldown_description))
+        exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, resources.getString(R.string.lat_pulldown_sets_and_reps))
         exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_FALSE)
 
         val exerciseValues2 = ContentValues()
         exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID, 2)
-        exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, "Remada Baixa")
-        exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, "Foco no miolo das costas, descansar de 45-90 segundos.")
-        exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, "6 series, 6-10 reps")
+        exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, resources.getString(R.string.low_row))
+        exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, resources.getString(R.string.low_row_description))
+        exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, resources.getString(R.string.low_row_sets_and_reps))
         exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_FALSE)
 
         val exerciseValues3 = ContentValues()
         exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID, 2)
-        exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, "Rosca Martelo")
-        exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, "Foco em biceps braquial, descansar de 45-90 segundos.")
-        exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, "4 series, 8-10 reps")
+        exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, resources.getString(R.string.hammer_curl))
+        exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, resources.getString(R.string.hammer_curl_description))
+        exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, resources.getString(R.string.hammer_curl_sets_and_reps))
         exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_FALSE)
 
         val exerciseValues4 = ContentValues()
         exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID, 2)
-        exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, "Crucifixo Invertido")
-        exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, "Foco em deltoide posterior, descansar de 45-90 segundos.")
-        exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, "4 series, 12-15 reps")
+        exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, resources.getString(R.string.seated_reverse_fly))
+        exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, resources.getString(R.string.seated_reverse_fly_description))
+        exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, resources.getString(R.string.seated_reverse_fly_sets_and_reps))
         exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_FALSE)
 
         db?.insert(MyConstants.DATABASE.EXERCISE_TABLE_NAME, null, exerciseValues1)
@@ -175,30 +179,30 @@ class DefaultDataManager{
     private fun createDefaultLegsExercises(db: SQLiteDatabase?){
         val exerciseValues1 = ContentValues()
         exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID, 3)
-        exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, "Agachamento Livre")
-        exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, "Foco no quadriceps e glúteo, descansar de 90-120 segundos.")
-        exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, "8 series, 6-8 reps")
+        exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, resources.getString(R.string.squat))
+        exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, resources.getString(R.string.squat_description))
+        exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, resources.getString(R.string.squat_sets_and_reps))
         exerciseValues1.put(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_FALSE)
 
         val exerciseValues2 = ContentValues()
         exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID,3)
-        exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, "Stiff")
-        exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, "Foco no posterior de coxas, descansar de 45-90 segundos.")
-        exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, "6 series, 10-12 reps")
+        exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, resources.getString(R.string.stiff))
+        exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, resources.getString(R.string.stiff_description))
+        exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, resources.getString(R.string.stiff_sets_and_reps))
         exerciseValues2.put(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_FALSE)
 
         val exerciseValues3 = ContentValues()
         exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID, 3)
-        exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, "Leg Press")
-        exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, "Foco em quadríceps, descansar de 60-90 segundos.")
-        exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, "4 series, 8-10 reps")
+        exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, resources.getString(R.string.leg_press))
+        exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, resources.getString(R.string.leg_press_description))
+        exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, resources.getString(R.string.leg_press_sets_and_reps))
         exerciseValues3.put(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_FALSE)
 
         val exerciseValues4 = ContentValues()
         exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID, 3)
-        exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, "Panturrilha Sentado")
-        exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, "Foco em panturrilha, descansar de 45-90 segundos.")
-        exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, "4 series, 15-20 reps")
+        exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME, resources.getString(R.string.seated_calves))
+        exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION, resources.getString(R.string.seated_calves_description))
+        exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT, resources.getString(R.string.seated_calves_sets_and_reps))
         exerciseValues4.put(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER, MyConstants.CONTROLLER.CONTROLLER_FALSE)
 
         db?.insert(MyConstants.DATABASE.EXERCISE_TABLE_NAME, null, exerciseValues1)
@@ -210,8 +214,8 @@ class DefaultDataManager{
     private fun createDefaultWeek(db: SQLiteDatabase?){
         val weekValues = ContentValues()
         weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.ID, 1)
-        weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.NAME, "Semana ABC Padrão")
-        weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.DESCRIPTION, "Treino ABC")
+        weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.NAME, resources.getString(R.string.abc_workout))
+        weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.DESCRIPTION, resources.getString(R.string.abc_workout_description))
         weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SUNDAY, 0)
         weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_MONDAY, 1)
         weekValues.put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_TUESDAY, 0)
@@ -228,7 +232,7 @@ class DefaultDataManager{
     private fun createDefaultUser(db: SQLiteDatabase?){
         val userValues = ContentValues()
         userValues.put(MyConstants.DATABASE.USER_COLUMNS.ID, MyConstants.USER_ID.ID)
-        userValues.put(MyConstants.DATABASE.USER_COLUMNS.NAME, "Usuário")
+        userValues.put(MyConstants.DATABASE.USER_COLUMNS.NAME, resources.getString(R.string.user_name))
         userValues.put(MyConstants.DATABASE.USER_COLUMNS.ACTIVE_WEEK, 1)
 
         db?.insert(MyConstants.DATABASE.USER_TABLE, null, userValues)
