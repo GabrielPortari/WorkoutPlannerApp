@@ -9,6 +9,7 @@ class MyConstants private constructor() {
 
     object USER_ID{
         const val ID = 0
+        const val NAME = "User"
     }
     object KEY{
         const val ID_KEY = "id"

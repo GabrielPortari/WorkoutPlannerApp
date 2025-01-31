@@ -41,11 +41,11 @@ class UserRepository private constructor(context: Context){
             )
             if(cursor != null && cursor.count > 0){
                 while(cursor.moveToNext()){
-                    val id = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.USER_COLUMNS.ID))
+                    val userId = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.USER_COLUMNS.ID))
                     val name = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.USER_COLUMNS.NAME))
                     val weekId = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.USER_COLUMNS.ACTIVE_WEEK))
 
-                    user = User(id, name, weekId)
+                    user = User(userId, name, weekId)
                 }
                 cursor.close()
             }

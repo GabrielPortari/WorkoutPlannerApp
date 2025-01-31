@@ -28,7 +28,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private var user: User = User(MyConstants.USER_ID.ID, R.string.user_name.toString(), 1)
+    private lateinit var user: User
 
     private val adapter = HomeAdapter()
 
@@ -78,8 +78,6 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.loadUser()
-        viewModel.loadWeek(user.selectedWeek)
-
         observe()
         return binding.root
     }
@@ -88,6 +86,7 @@ class HomeFragment : Fragment() {
         viewModel.user.observe(viewLifecycleOwner){
             user = it
             binding.textHelloUser.text = getString(R.string.hello_user, it.name)
+            viewModel.loadWeek(user.selectedWeek)
         }
 
         viewModel.weekName.observe(viewLifecycleOwner){
@@ -103,7 +102,6 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.loadUser()
-        viewModel.loadWeek(user.selectedWeek)
     }
 
     override fun onDestroyView() {

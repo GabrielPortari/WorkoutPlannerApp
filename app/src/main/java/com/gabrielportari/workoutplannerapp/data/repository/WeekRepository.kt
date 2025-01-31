@@ -322,7 +322,6 @@ class WeekRepository private constructor(context: Context){
 
                     list.add(0, week)
 
-
                 }
             }
             cursor.close()

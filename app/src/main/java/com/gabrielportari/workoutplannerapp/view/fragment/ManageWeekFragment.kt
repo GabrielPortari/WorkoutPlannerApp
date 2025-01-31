@@ -30,7 +30,7 @@ class ManageWeekFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var weekId = 0
-    private var user: User = User(MyConstants.USER_ID.ID, R.string.user_name.toString(), 1)
+    private lateinit var user: User
 
     private val adapter = WeekAdapter()
 
