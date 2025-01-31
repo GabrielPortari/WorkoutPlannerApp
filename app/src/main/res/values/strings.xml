@@ -35,7 +35,7 @@
     <string name="description">Description</string>
     <string name="reps">Repetitions</string>
     <string name="sets">Number of sets</string>
-    <string name="setsNumDefault">1</string>
+    <string name="setsNumDefault" translatable="false">1</string>
 
     <!-- home fragment -->
     <string name="hello_user">Hello %1$s,</string>
@@ -84,15 +84,15 @@
     <string name="fill_name">Fill the name before continue</string>"
 
 
-    <string name="fill_sets">Fill the number of sets</string>"
-    <string name="fill_exercise_name">Fill the exercise name</string>"
-    <string name="fill_exercise_description">Fill the exercise description</string>"
+    <string name="fill_sets">Fill the number of sets before continue</string>"
+    <string name="fill_exercise_name">Fill the exercise name before continue</string>"
+    <string name="fill_exercise_description">Fill the exercise description before continue</string>"
 
-    <string name="fill_week_name">Fill the week name</string>"
-    <string name="fill_week_description">Fill the week description</string>"
+    <string name="fill_week_name">Fill the week name before continue</string>"
+    <string name="fill_week_description">Fill the week description before continue</string>"
 
-    <string name="fill_workout_name">Fill the workout name</string>"
-    <string name="fill_workout_description">Fill the workout description</string>"
+    <string name="fill_workout_name">Fill the workout name before continue</string>"
+    <string name="fill_workout_description">Fill the workout description before continue</string>"
 
     <!-- Dialog messages-->
     <string name="yes">Yes</string>
@@ -128,7 +128,7 @@
 
     <!-- A WORKOUT -->
     <string name="A_workout">A Workout</string>
-    <string name="A_workout_description">Push workout for beginners, focus on chest, shoulders and triceps.</string>
+    <string name="A_workout_description">Back workout for beginners, focus on back, biceps and shoulder.</string>
 
     <string name="lat_pulldown">Lat pulldown</string>
     <string name="lat_pulldown_description">Focus on back, rest 45 to 90 seconds.</string>
@@ -143,19 +143,19 @@
     <string name="hammer_curl_sets_and_reps">4 sets, 6 to 8 reps</string>
 
     <string name="seated_reverse_fly">Seated reverse fly</string>
-    <string name="seated_reverse_fly_description">Focus on the back of the shoulders, rest 45 to 60 seconds</string>
+    <string name="seated_reverse_fly_description">Focus on the back of the shoulders, rest 45 to 60 seconds.</string>
     <string name="seated_reverse_fly_sets_and_reps">4 sets, 12 to 15 reps</string>
 
     <!-- B WORKOUT -->
     <string name="B_workout">B Workout</string>
-    <string name="B_workout_description">Back workout for beginners, focus on back, biceps and abs.</string>
+    <string name="B_workout_description">Push workout for beginners, focus on chest, shoulders and triceps.</string>
 
     <string name="bench_press">Bench press</string>
     <string name="bench_press_description">Focus on chest, rest 60 to 90 seconds.</string>
     <string name="bench_press_sets_and_reps">6 sets, 6 to 8 reps</string>
 
     <string name="inclined_bench_press">Inclined bench press</string>
-    <string name="inclined_bench_press_description">Focus on chest, rest 60 to 90 seconds.</string>
+    <string name="inclined_bench_press_description">Focus on upper chest, rest 60 to 90 seconds.</string>
     <string name="inclined_bench_press_sets_and_reps">4 sets, 8 to 12 reps</string>
 
     <string name="cable_triceps_extension">Cable triceps extension</string>
@@ -168,7 +168,7 @@
 
     <!-- C WORKOUT -->
     <string name="C_workout">C Workout</string>
-    <string name="C_workout_description">Legs workout for beginners, focus on legs, hips and quads.</string>
+    <string name="C_workout_description">Legs workout for beginners, focus on quadriceps, hamstrings and calves.</string>
 
     <string name="squat">Squat</string>
     <string name="squat_description">Focus on quads and glutes, rest 60 to 90 seconds.</string>
