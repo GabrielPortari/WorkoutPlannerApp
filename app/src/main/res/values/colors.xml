@@ -4,4 +4,5 @@
     <color name="gray">#AFAFAF</color>
     <color name="dark_gray">#8E8E8E</color>
     <color name="black">#FF000000</color>
+    <color name="link_blue">#392BCA</color>
 </resources>

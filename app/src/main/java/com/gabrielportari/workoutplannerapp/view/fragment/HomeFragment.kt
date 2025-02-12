@@ -16,6 +16,7 @@ import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.listener.SelectWorkoutListener
 import com.gabrielportari.workoutplannerapp.data.model.User
 import com.gabrielportari.workoutplannerapp.databinding.FragmentHomeBinding
+import com.gabrielportari.workoutplannerapp.view.activity.HelpActivity
 import com.gabrielportari.workoutplannerapp.view.activity.SelectWeekActivity
 import com.gabrielportari.workoutplannerapp.view.activity.ShowWorkoutActivity
 import com.gabrielportari.workoutplannerapp.view.adapter.HomeAdapter
@@ -68,6 +69,11 @@ class HomeFragment : Fragment() {
             dialog.setNegativeButton(R.string.cancel) { _, _ ->
             }
             dialog.show()
+        }
+
+        binding.textNeedHelp.setOnClickListener{
+            val intent = Intent(context, HelpActivity::class.java)
+            startActivity(intent)
         }
 
         adapter.attachListener(listener)
