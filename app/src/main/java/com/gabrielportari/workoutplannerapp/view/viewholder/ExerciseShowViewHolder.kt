@@ -14,7 +14,12 @@ class ExerciseShowViewHolder(private val itemBinding: ExerciseShowItemBinding) :
             itemBinding.layoutExerciseShow.visibility = View.GONE
         }else{
             itemBinding.textShowExerciseName.text = exercise.name
-            itemBinding.textShowExerciseDescription.text = exercise.description
+            if(exercise.description == ""){
+                itemBinding.textShowExerciseDescription.visibility = View.GONE
+            }else{
+                itemBinding.textShowExerciseDescription.visibility = View.VISIBLE
+                itemBinding.textShowExerciseDescription.text = exercise.description
+            }
             itemBinding.textShowExerciseReps.text = exercise.repCount
         }
     }

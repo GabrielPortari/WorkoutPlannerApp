@@ -15,6 +15,7 @@ import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.listener.SelectWorkoutListener
 import com.gabrielportari.workoutplannerapp.data.model.User
+import com.gabrielportari.workoutplannerapp.data.model.Week
 import com.gabrielportari.workoutplannerapp.databinding.FragmentHomeBinding
 import com.gabrielportari.workoutplannerapp.view.activity.HelpActivity
 import com.gabrielportari.workoutplannerapp.view.activity.SelectWeekActivity
@@ -95,8 +96,9 @@ class HomeFragment : Fragment() {
             viewModel.loadWeek(user.selectedWeek)
         }
 
-        viewModel.weekName.observe(viewLifecycleOwner){
-            binding.textHomeWeekName.text = it
+        viewModel.week.observe(viewLifecycleOwner){
+            binding.textHomeWeekName.text = it.name
+            binding.textHomeDescription.text = it.description
         }
 
         viewModel.workouts.observe(viewLifecycleOwner) {

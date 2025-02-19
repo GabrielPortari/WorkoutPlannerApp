@@ -108,7 +108,7 @@ class ManageWorkoutFragment : Fragment() {
 
         viewModel.deleteValidation.observe(viewLifecycleOwner) {
             if (it.status()) {
-                showToast(resources.getString(R.string.success_delete_week))
+                showToast(resources.getString(R.string.success_delete_workout))
             } else {
                 showToast(it.message())
             }

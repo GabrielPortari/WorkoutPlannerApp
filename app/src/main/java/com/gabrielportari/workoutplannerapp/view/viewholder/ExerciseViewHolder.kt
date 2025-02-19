@@ -18,7 +18,12 @@ class ExerciseViewHolder(private val itemBinding: ExerciseItemBinding, val liste
             itemBinding.layoutExerciseItem.visibility = View.VISIBLE
 
             itemBinding.textExerciseName.text = exercise.name
-            itemBinding.textExerciseDescription.text = exercise.description
+            if(exercise.description == ""){
+                itemBinding.textExerciseDescription.visibility = View.GONE
+            }else{
+                itemBinding.textExerciseDescription.visibility = View.VISIBLE
+                itemBinding.textExerciseDescription.text = exercise.description
+            }
             itemBinding.textExerciseReps.text = exercise.repCount
         }else{
             itemBinding.imageNewExercise.visibility = View.VISIBLE

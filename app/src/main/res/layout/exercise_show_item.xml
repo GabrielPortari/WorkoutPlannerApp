@@ -4,27 +4,34 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:paddingStart="8dp"
+    android:paddingTop="8dp"
+    android:paddingEnd="8dp">
 
     <TextView
         android:id="@+id/text_show_exercise_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/exercise_name"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/text_show_exercise_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/description"
-        android:textSize="16sp" />
+        android:text="@string/description" />
 
     <TextView
         android:id="@+id/text_show_exercise_reps"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/reps"
-        android:textSize="16sp" />
+        android:text="@string/reps" />
+
+    <View
+        android:id="@+id/divider16"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/listDivider" />
 </LinearLayout>

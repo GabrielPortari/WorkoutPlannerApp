@@ -11,12 +11,14 @@
     <string name="name">Nome</string>
     <string name="weeks">Semanas</string>
     <string name="workouts">Treinos</string>
+    <string name="exercises">Exercícios</string>
     <string name="user_name">Nome de usuário</string>
     <string name="exercise_name">Nome do exercício</string>
     <string name="workout_name">Nome do treino</string>
     <string name="week_name">Nome da semana</string>
     <string name="week_day">Dia da semana</string>
     <string name="description">Descrição</string>
+    <string name="description_opt">Descrição (Opcional)</string>
     <string name="reps">Repetições</string>
     <string name="sets">Quantidade de séries</string>
     <string name="hello_user">Olá %1$s,</string>

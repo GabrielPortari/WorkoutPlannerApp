@@ -181,4 +181,52 @@ class ExerciseRepository private constructor(context: Context) {
 
         return list
     }
+
+    fun getAllFromWorkoutExceptButton(idWorkout: Int): List<Exercise>{
+        val list = mutableListOf<Exercise>()
+
+        try{
+            val db = database.readableDatabase
+
+            /*o que será recuperado*/
+            val projection = arrayOf(
+                MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID,
+                MyConstants.DATABASE.EXERCISE_COLUMNS.ID,
+                MyConstants.DATABASE.EXERCISE_COLUMNS.NAME,
+                MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION,
+                MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT,
+                MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER
+            )
+
+            val selection = MyConstants.DATABASE.EXERCISE_COLUMNS.WORKOUT_ID + " = ?"
+            val selectionArgs = arrayOf(idWorkout.toString())
+
+            val cursor = db.query(
+                MyConstants.DATABASE.EXERCISE_TABLE_NAME,
+                projection, selection, selectionArgs,
+                null, null, null
+            )
+
+            while(cursor.moveToNext()){
+
+                val id = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.EXERCISE_COLUMNS.ID))
+                val name = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.EXERCISE_COLUMNS.NAME))
+                val description = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.EXERCISE_COLUMNS.DESCRIPTION))
+                val repCount = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.EXERCISE_COLUMNS.REP_COUNT))
+                val controller = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.EXERCISE_COLUMNS.CONTROLLER))
+
+                if(controller == MyConstants.CONTROLLER.CONTROLLER_FALSE) {
+                    val exercise = Exercise(id, idWorkout, name, description, repCount, controller)
+                    list.add(0, exercise)
+                }
+            }
+
+            cursor.close()
+
+        }catch (e: Exception){
+            return list
+        }
+
+        return list
+    }
 }

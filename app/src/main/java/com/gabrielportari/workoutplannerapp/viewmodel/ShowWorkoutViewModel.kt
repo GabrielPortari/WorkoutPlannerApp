@@ -24,7 +24,7 @@ class ShowWorkoutViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun listExercises(id: Int){
-        _exerciseList.value = exerciseRepository.getAllFromWorkout(id)
+        _exerciseList.value = exerciseRepository.getAllFromWorkoutExceptButton(id).reversed()
     }
 
 }

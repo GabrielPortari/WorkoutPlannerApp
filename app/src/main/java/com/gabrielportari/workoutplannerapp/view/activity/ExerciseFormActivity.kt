@@ -48,11 +48,14 @@ class ExerciseFormActivity : AppCompatActivity() {
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Nothing to do here")
             }
-
         }
 
         binding.buttonSave.setOnClickListener{
             handleSave()
+        }
+
+        binding.editSetsCount.setOnClickListener{
+            binding.editSetsCount.text.clear()
         }
 
         loadData()
@@ -88,37 +91,38 @@ class ExerciseFormActivity : AppCompatActivity() {
 
     private fun handleSave(){
         if(!binding.textInputExerciseName.text.isNullOrBlank()){
-            if(!binding.textInputExerciseDescription.text.isNullOrBlank()){
-                if(!binding.editSetsCount.text.isNullOrBlank()) {
+            if (!binding.editSetsCount.text.isNullOrBlank()) {
 
-                    val name = binding.textInputExerciseName.text.toString()
-                    val description = binding.textInputExerciseDescription.text.toString()
+                val name = binding.textInputExerciseName.text.toString()
 
-                    val sets = binding.editSetsCount.text.toString()
-                    val exerciseCount = "$sets sets, $repCountSelected"
-
-                    val exercise = Exercise(
-                        exerciseId,
-                        workoutId,
-                        name,
-                        description,
-                        exerciseCount,
-                        MyConstants.CONTROLLER.CONTROLLER_FALSE
-                    )
-
-                    if (exerciseId == 0) {
-                        viewModel.createExercise(exercise)
-                    } else {
-                        viewModel.updateExercise(exercise)
-                    }
-
-                    finish()
-
+                val description: String = if(binding.textInputExerciseDescription.text.isNullOrBlank()){
+                    ""
                 }else{
-                    showToast(resources.getString(R.string.fill_sets))
+                    binding.textInputExerciseDescription.text.toString()
                 }
-            }else{
-                showToast(resources.getString(R.string.fill_exercise_description))
+
+                val sets = binding.editSetsCount.text.toString()
+                val exerciseCount = "$sets sets, $repCountSelected"
+
+                val exercise = Exercise(
+                    exerciseId,
+                    workoutId,
+                    name,
+                    description,
+                    exerciseCount,
+                    MyConstants.CONTROLLER.CONTROLLER_FALSE
+                )
+
+                if (exerciseId == 0) {
+                    viewModel.createExercise(exercise)
+                } else {
+                    viewModel.updateExercise(exercise)
+                }
+
+                finish()
+
+            } else {
+                showToast(resources.getString(R.string.fill_sets))
             }
         }else{
             showToast(resources.getString(R.string.fill_exercise_name))

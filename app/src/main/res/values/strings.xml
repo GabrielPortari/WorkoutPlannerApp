@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WorkoutPlannerApp</string>
+    <string name="app_name">Workout Planner</string>
 
     <!-- menu items -->
     <string name="menu_home">Home</string>
@@ -8,12 +8,12 @@
 
     <!-- rep range spinner -->
     <string-array name="spinner_items">
-        <item>1-3 reps</item>
-        <item>3-6 reps</item>
-        <item>6-10 reps</item>
-        <item>8-12 reps</item>
-        <item>12-15 reps</item>
-        <item>15-20 reps</item>
+        <item>1–3 reps</item>
+        <item>3–6 reps</item>
+        <item>6–10 reps</item>
+        <item>8–12 reps</item>
+        <item>12–15 reps</item>
+        <item>15–20 reps</item>
         <item>20+ reps</item>
     </string-array>
 
@@ -27,12 +27,14 @@
     <string name="name">Name</string>
     <string name="weeks">Weeks</string>
     <string name="workouts">Workouts</string>
+    <string name="exercises">Exercises</string>
     <string name="user_name">User Name</string>
     <string name="exercise_name">Exercise name</string>
     <string name="workout_name">Workout name</string>
     <string name="week_name">Week name</string>
     <string name="week_day">Week day</string>
     <string name="description">Description</string>
+    <string name="description_opt">Description (Optional)</string>
     <string name="reps">Repetitions</string>
     <string name="sets">Number of sets</string>
     <string name="setsNumDefault" translatable="false">1</string>

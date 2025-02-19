@@ -20,19 +20,17 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val resources = application.resources
 
     private val workoutDays = mutableListOf<WorkoutDay>()
-    private val _workouts = MutableLiveData<List<WorkoutDay>>()
 
+    private val _workouts = MutableLiveData<List<WorkoutDay>>()
     val workouts: LiveData<List<WorkoutDay>> get() = _workouts
+
     private val _week = MutableLiveData<Week>()
     val week: LiveData<Week> get() = _week
-    private val _weekName = MutableLiveData<String>()
 
-    val weekName: LiveData<String> get() = _weekName
     private val _validation = MutableLiveData<Validation>()
-
     val validation: LiveData<Validation> get() = _validation
-    private val _user = MutableLiveData<User>()
 
+    private val _user = MutableLiveData<User>()
     val user: LiveData<User> get() = _user
 
     fun loadUser(){
@@ -42,7 +40,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun loadWeek(id: Int){
         if(weekRepository.get(id) != null){
             _week.value = weekRepository.get(id)
-            _weekName.value = _week.value?.name
 
             workoutDays.clear()
 
