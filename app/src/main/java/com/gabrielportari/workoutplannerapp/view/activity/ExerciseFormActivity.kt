@@ -1,5 +1,6 @@
 package com.gabrielportari.workoutplannerapp.view.activity
 
+import android.icu.lang.UCharacter.toLowerCase
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -102,7 +103,7 @@ class ExerciseFormActivity : AppCompatActivity() {
                 }
 
                 val sets = binding.editSetsCount.text.toString()
-                val exerciseCount = "$sets sets, $repCountSelected"
+                val exerciseCount = "$sets " + toLowerCase(getString(R.string.sets)) + ", $repCountSelected"
 
                 val exercise = Exercise(
                     exerciseId,

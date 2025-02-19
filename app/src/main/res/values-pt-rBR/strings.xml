@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Planejador de treino</string>
-    <string name="menu_home">Inicio</string>
+    <string name="menu_home">Início</string>
     <string name="menu_manage_workouts">Gerenciar treinos</string>
     <string name="menu_manage_week">Gerenciar semana</string>
     <string name="button_save">Salvar</string>
     <string name="button_select">Selecionar</string>
     <string name="button_update">Atualizar</string>
     <string name="button_cancel">Cancelar</string>
+    <string-array name="spinner_items">
+        <item>1–3 repetições</item>
+        <item>3–6 repetições</item>
+        <item>6–10 repetições</item>
+        <item>8–12 repetições</item>
+        <item>12–15 repetições</item>
+        <item>15–20 repetições</item>
+        <item>20+ repetições</item>
+    </string-array>
     <string name="name">Nome</string>
     <string name="weeks">Semanas</string>
     <string name="workouts">Treinos</string>
@@ -20,7 +29,7 @@
     <string name="description">Descrição</string>
     <string name="description_opt">Descrição (Opcional)</string>
     <string name="reps">Repetições</string>
-    <string name="sets">Quantidade de séries</string>
+    <string name="sets">Séries</string>
     <string name="hello_user">Olá %1$s,</string>
     <string name="welcome_back">bem vindo de volta.</string>
     <string name="ready_to_do">Pronto para fazer o que ama hoje?</string>

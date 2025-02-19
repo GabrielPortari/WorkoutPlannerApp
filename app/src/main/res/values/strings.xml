@@ -36,7 +36,7 @@
     <string name="description">Description</string>
     <string name="description_opt">Description (Optional)</string>
     <string name="reps">Repetitions</string>
-    <string name="sets">Number of sets</string>
+    <string name="sets">Sets</string>
     <string name="setsNumDefault" translatable="false">1</string>
 
     <!-- home fragment -->
