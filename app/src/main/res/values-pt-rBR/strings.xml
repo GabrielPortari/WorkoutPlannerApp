@@ -68,11 +68,9 @@
     <string name="fill_name">Preencha o nome antes de continuar</string>
     <string name="fill_sets">Preencha a quantidade de séries antes de continuar</string>
     <string name="fill_exercise_name">Preencha o nome do exercício antes de continuar</string>
-    <string name="fill_exercise_description">Preencha a descrição do exercício antes de continuar</string>
     <string name="fill_week_name">Preencha o nome da semana antes de continuar</string>
     <string name="fill_week_description">Preencha a descrição da semana antes de continuar</string>
     <string name="fill_workout_name">Preencha o nome do treino antes de continuar</string>
-    <string name="fill_workout_description">Preencha a descrição do treino antes de continuar</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
     <string name="fill_all_fields">Preencha todos os campos antes de continuar</string>
@@ -95,4 +93,6 @@
     <string name="ans_what_is">Planejador de treino é um aplicativo para você criar treinos de forma facilitada e usá-los na academia, sem necessidade de fichas de treino físicas.</string>
     <string name="ans_getting_started">Para iniciar, crie seu primeiro treino, e adicione os exercícios que deseja fazer nele. Após criar alguns treinos, crie uma semana e atribua os treinos criados à seus respectivos  dias, então selecione a semana  que ficará ativa no menu home.</string>
     <string name="q_getting_started">Como começar</string>
+    <string name="selected_week_updated">Semana selecionada atualizada</string>
+    <string name="fill_workout_description">Preencha a descrição antes de continuar</string>
 </resources>

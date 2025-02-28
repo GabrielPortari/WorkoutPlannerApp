@@ -46,6 +46,8 @@
     <string name="what_week">What week of training are you using?</string>
     <string name="need_help"><u>Need help?</u></string>
 
+    <string name="selected_week_updated">Selected week updated</string>
+
     <!-- help -->
     <string name="q_what_is">What is a workout planner?</string>
     <string name="ans_what_is">Workout planner is an application for you to easily create workouts and use them at the gym, without the need for physical training sheets.</string>
@@ -93,10 +95,8 @@
     <!-- EditText error messages -->
     <string name="fill_name">Fill the name before continue</string>"
 
-
     <string name="fill_sets">Fill the number of sets before continue</string>"
     <string name="fill_exercise_name">Fill the exercise name before continue</string>"
-    <string name="fill_exercise_description">Fill the exercise description before continue</string>"
 
     <string name="fill_week_name">Fill the week name before continue</string>"
     <string name="fill_week_description">Fill the week description before continue</string>"
