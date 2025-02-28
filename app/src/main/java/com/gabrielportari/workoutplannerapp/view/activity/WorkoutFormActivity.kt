@@ -126,8 +126,8 @@ class WorkoutFormActivity : AppCompatActivity() {
     private fun handleSave(){
         if(!binding.textInputWorkoutName.text.isNullOrBlank()){
             if(!binding.textInputWorkoutDescription.text.isNullOrBlank()){
-                val name = binding.textInputWorkoutName.text.toString()
-                val description = binding.textInputWorkoutDescription.text.toString()
+                val name = binding.textInputWorkoutName.text.toString().trim().replace("\n", "")
+                val description = binding.textInputWorkoutDescription.text.toString().trim().replace("\n", "")
                 val exercises = listOf<Exercise>()
 
                 val workout = Workout(workoutId, name, description, exercises, MyConstants.CONTROLLER.CONTROLLER_FALSE)

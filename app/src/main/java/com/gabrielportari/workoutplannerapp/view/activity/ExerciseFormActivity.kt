@@ -94,12 +94,12 @@ class ExerciseFormActivity : AppCompatActivity() {
         if(!binding.textInputExerciseName.text.isNullOrBlank()){
             if (!binding.editSetsCount.text.isNullOrBlank()) {
 
-                val name = binding.textInputExerciseName.text.toString()
+                val name = binding.textInputExerciseName.text.toString().trim().replace("\n", "")
 
                 val description: String = if(binding.textInputExerciseDescription.text.isNullOrBlank()){
                     ""
                 }else{
-                    binding.textInputExerciseDescription.text.toString()
+                    binding.textInputExerciseDescription.text.toString().trim().replace("\n", "")
                 }
 
                 val sets = binding.editSetsCount.text.toString()

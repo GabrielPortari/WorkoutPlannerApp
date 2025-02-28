@@ -68,7 +68,6 @@ class WeekFormActivity : AppCompatActivity() {
                 val dialog = dialogBuilder.create()
                 dialog.show()
             }
-
         }
 
         adapter.attachListener(listener)
@@ -112,8 +111,8 @@ class WeekFormActivity : AppCompatActivity() {
     private fun handleSave() {
         if(!binding.editWeekName.text.isNullOrBlank()){
             if(!binding.editWeekDescription.text.isNullOrBlank()){
-                val name = binding.editWeekName.text.toString()
-                val description = binding.editWeekDescription.text.toString()
+                val name = binding.editWeekName.text.toString().trim().replace("\n", "")
+                val description = binding.editWeekDescription.text.toString().trim().replace("\n", " ")
                 viewModel.update(name, description, weekId)
                 finish()
             }else{
