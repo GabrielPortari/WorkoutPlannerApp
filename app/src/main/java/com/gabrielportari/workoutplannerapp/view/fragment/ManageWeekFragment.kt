@@ -57,7 +57,9 @@ class ManageWeekFragment : Fragment() {
                         showToast(resources.getString(R.string.fill_all_fields))
                     }
                     else {
-                        val week = Week(weekId, name, description,
+                        val week = Week(weekId,
+                            name.trim().replace("\n", ""),
+                            description.trim().replace("\n", ""),
                             null, null, null, null, null, null, null,
                             MyConstants.CONTROLLER.CONTROLLER_FALSE)
                         viewModel.createWeek(week)

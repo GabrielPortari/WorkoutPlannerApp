@@ -55,7 +55,11 @@ class ManageWorkoutFragment : Fragment() {
                         showToast(resources.getString(R.string.fill_all_fields))
                     }
                     else {
-                        val workout = Workout(workoutId, name, description, emptyList(), MyConstants.CONTROLLER.CONTROLLER_FALSE)
+                        val workout = Workout(workoutId,
+                            name.trim().replace("\n", ""),
+                            description.trim().replace("\n", ""),
+                            emptyList(),
+                            MyConstants.CONTROLLER.CONTROLLER_FALSE)
                         viewModel.createWorkout(workout)
                     }
 
