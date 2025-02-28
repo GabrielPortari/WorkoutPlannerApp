@@ -4,25 +4,27 @@ import android.content.ContentValues
 import android.content.Context
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.model.User
+import com.gabrielportari.workoutplannerapp.data.repository.dao.IUserDAO
 
-class UserRepository private constructor(context: Context){
+class UserDAO private constructor(context: Context) : IUserDAO{
 
     private val database = PlannerDatabase(context)
 
     companion object{
-        private lateinit var repository: UserRepository
-        fun getInstance(context: Context): UserRepository{
+        private lateinit var repository: UserDAO
+        fun getInstance(context: Context): UserDAO{
             if(!Companion::repository.isInitialized){
-                repository = UserRepository(context)
+                repository = UserDAO(context)
             }
             return repository
         }
     }
 
-    fun get(id: Int): User?{
+    override fun get(id: Int): User?{
         var user: User? = null
+        val db = database.readableDatabase
+
         try{
-            val db = database.readableDatabase
             val projection = arrayOf(
                 MyConstants.DATABASE.USER_COLUMNS.ID,
                 MyConstants.DATABASE.USER_COLUMNS.NAME,
@@ -52,14 +54,18 @@ class UserRepository private constructor(context: Context){
 
         }catch (e: Exception){
             return user
+        }finally {
+            db.close()
         }
+
         return user
     }
 
-    fun update(user: User): Boolean{
-        return try{
-            val db = database.writableDatabase
+    override fun update(user: User): Boolean{
 
+        val db = database.writableDatabase
+
+        return try{
             val id = user.id
             val name = user.name
             val values = ContentValues()
@@ -70,12 +76,15 @@ class UserRepository private constructor(context: Context){
             true
         }catch (e: Exception){
             false
+        }finally {
+            db.close()
         }
     }
 
-    fun selectWeek(id: Int): Boolean{
+    override fun selectWeek(id: Int): Boolean{
+        val db = database.readableDatabase
+
         return try {
-            val db = database.readableDatabase
 
             val values = ContentValues()
             values.put(MyConstants.DATABASE.USER_COLUMNS.ID, MyConstants.USER_ID.ID)
@@ -85,6 +94,8 @@ class UserRepository private constructor(context: Context){
             true
         }catch (e: Exception){
             false
+        }finally {
+            db.close()
         }
     }
 }

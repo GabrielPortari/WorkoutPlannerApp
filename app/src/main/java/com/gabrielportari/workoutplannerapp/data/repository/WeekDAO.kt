@@ -3,27 +3,27 @@ package com.gabrielportari.workoutplannerapp.data.repository
 import android.content.ContentValues
 import android.content.Context
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
-import com.gabrielportari.workoutplannerapp.data.model.Exercise
 import com.gabrielportari.workoutplannerapp.data.model.Week
+import com.gabrielportari.workoutplannerapp.data.repository.dao.IWeekDAO
 
-class WeekRepository private constructor(context: Context){
+class WeekDAO private constructor(context: Context) : IWeekDAO {
 
     private val database = PlannerDatabase(context)
-    val workoutRepository = WorkoutRepository.getInstance(context)
+    val workoutDAO = WorkoutDAO.getInstance(context)
 
     companion object{
-        private lateinit var repository: WeekRepository
-        fun getInstance(context: Context): WeekRepository{
+        private lateinit var repository: WeekDAO
+        fun getInstance(context: Context): WeekDAO{
             if(!Companion::repository.isInitialized){
-                repository = WeekRepository(context)
+                repository = WeekDAO(context)
             }
             return repository
         }
     }
 
-    fun insert(week: Week) : Boolean{
+    override fun insert(week: Week) : Boolean{
+        val db = database.writableDatabase
         return try{
-            val db = database.writableDatabase
 
             val values = ContentValues()
             val name = week.name
@@ -47,13 +47,15 @@ class WeekRepository private constructor(context: Context){
             true
         }catch(e : Exception){
             false
+        }finally {
+            db.close()
         }
     }
 
-    fun update(week: Week) : Boolean{
-        return try {
-            val db = database.writableDatabase
+    override fun update(week: Week) : Boolean{
+        val db = database.writableDatabase
 
+        return try {
             val id = week.id
             val name = week.name
             val description = week.description
@@ -70,13 +72,15 @@ class WeekRepository private constructor(context: Context){
             true
         }catch (e: Exception){
             false
+        }finally {
+            db.close()
         }
     }
 
-    fun workoutDeleted(id: Int) : Boolean{
-        return try {
-            val db = database.writableDatabase
+    override fun workoutDeleted(id: Int) : Boolean{
+        val db = database.writableDatabase
 
+        return try {
             val values = ContentValues().apply {
                 put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SUNDAY, 0)
                 put(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_MONDAY, 0)
@@ -110,13 +114,15 @@ class WeekRepository private constructor(context: Context){
             true
         }catch (e: Exception){
             false
+        }finally {
+            db.close()
         }
     }
 
-    fun insertWorkoutDay(day: String, weekId: Int, id: Int): Boolean{
-        return try{
-            val db = database.writableDatabase
+    override fun insertWorkoutDay(day: String, weekId: Int, id: Int): Boolean{
+        val db = database.writableDatabase
 
+        return try{
             val values = ContentValues()
             values.put(MyConstants.DATABASE.WEEK_COLUMNS.ID, weekId)
 
@@ -138,13 +144,15 @@ class WeekRepository private constructor(context: Context){
             true
         }catch(e: Exception){
             false
+        }finally {
+            db.close()
         }
     }
 
-    fun deleteWorkoutDay(week: Week, day: String) : Boolean{
-        return try {
-            val db = database.writableDatabase
+    override fun deleteWorkoutDay(week: Week, day: String) : Boolean{
+        val db = database.writableDatabase
 
+        return try {
             val values = ContentValues()
             values.put(MyConstants.DATABASE.WEEK_COLUMNS.ID, week.id)
 
@@ -168,13 +176,15 @@ class WeekRepository private constructor(context: Context){
             true
         }catch (e: Exception){
             false
+        }finally {
+            db.close()
         }
     }
 
-    fun delete(id: Int) : Boolean{
-        return try{
-            val db = database.writableDatabase
+    override fun delete(id: Int) : Boolean{
+        val db = database.writableDatabase
 
+        return try{
             val selection = MyConstants.DATABASE.WEEK_COLUMNS.ID + " = ?"
             val args = arrayOf(id.toString())
             db.delete(MyConstants.DATABASE.WEEK_TABLE_NAME, selection, args)
@@ -182,15 +192,16 @@ class WeekRepository private constructor(context: Context){
             true
         }catch (e: Exception){
             false
+        }finally {
+            db.close()
         }
     }
 
-    fun get(id: Int) : Week?{
+    override fun get(id: Int) : Week?{
         var week: Week? = null
+        val db = database.readableDatabase
 
         try {
-            val db = database.readableDatabase
-
             val projection = arrayOf(
                 MyConstants.DATABASE.WEEK_COLUMNS.ID,
                 MyConstants.DATABASE.WEEK_COLUMNS.NAME,
@@ -225,13 +236,13 @@ class WeekRepository private constructor(context: Context){
                     val workoutIdSaturday = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WEEK_COLUMNS.WEEK_WORKOUT_ID_DAY_SATURDAY))
 
                     //recuperar os exercícios
-                    val exercisesSunday = workoutRepository.get(workoutIdSunday)
-                    val exercisesMonday = workoutRepository.get(workoutIdMonday)
-                    val exercisesTuesday = workoutRepository.get(workoutIdTuesday)
-                    val exercisesWednesday = workoutRepository.get(workoutIdWednesday)
-                    val exercisesThursday = workoutRepository.get(workoutIdThursday)
-                    val exercisesFriday = workoutRepository.get(workoutIdFriday)
-                    val exercisesSaturday = workoutRepository.get(workoutIdSaturday)
+                    val exercisesSunday = workoutDAO.get(workoutIdSunday)
+                    val exercisesMonday = workoutDAO.get(workoutIdMonday)
+                    val exercisesTuesday = workoutDAO.get(workoutIdTuesday)
+                    val exercisesWednesday = workoutDAO.get(workoutIdWednesday)
+                    val exercisesThursday = workoutDAO.get(workoutIdThursday)
+                    val exercisesFriday = workoutDAO.get(workoutIdFriday)
+                    val exercisesSaturday = workoutDAO.get(workoutIdSaturday)
 
                     week = Week(
                         id, name, description,
@@ -251,16 +262,17 @@ class WeekRepository private constructor(context: Context){
 
         }catch (e: Exception){
             return week
+        }finally {
+            db.close()
         }
         return week
     }
 
-    fun getAll() : List<Week>{
+    override fun getAll() : List<Week>{
         var week: Week? = null
-        var list = mutableListOf<Week>()
-
+        val list = mutableListOf<Week>()
+        val db = database.readableDatabase
         try {
-            val db = database.readableDatabase
 
             val projection = arrayOf(
                 MyConstants.DATABASE.WEEK_COLUMNS.ID,
@@ -301,13 +313,13 @@ class WeekRepository private constructor(context: Context){
 
 
                     //recuperar os exercícios
-                    val exercisesSunday = workoutRepository.get(workoutIdSunday)
-                    val exercisesMonday = workoutRepository.get(workoutIdMonday)
-                    val exercisesTuesday = workoutRepository.get(workoutIdTuesday)
-                    val exercisesWednesday = workoutRepository.get(workoutIdWednesday)
-                    val exercisesThursday = workoutRepository.get(workoutIdThursday)
-                    val exercisesFriday = workoutRepository.get(workoutIdFriday)
-                    val exercisesSaturday = workoutRepository.get(workoutIdSaturday)
+                    val exercisesSunday = workoutDAO.get(workoutIdSunday)
+                    val exercisesMonday = workoutDAO.get(workoutIdMonday)
+                    val exercisesTuesday = workoutDAO.get(workoutIdTuesday)
+                    val exercisesWednesday = workoutDAO.get(workoutIdWednesday)
+                    val exercisesThursday = workoutDAO.get(workoutIdThursday)
+                    val exercisesFriday = workoutDAO.get(workoutIdFriday)
+                    val exercisesSaturday = workoutDAO.get(workoutIdSaturday)
 
                     week = Week(
                         id, name, description,
@@ -328,16 +340,18 @@ class WeekRepository private constructor(context: Context){
 
         }catch (e: Exception){
             return list
+        }finally {
+            db.close()
         }
         return list
     }
 
-    fun getAllExceptButton() : List<Week>{
+    override fun getAllExceptController() : List<Week>{
         var week: Week? = null
-        var list = mutableListOf<Week>()
+        val list = mutableListOf<Week>()
+        val db = database.readableDatabase
 
         try {
-            val db = database.readableDatabase
 
             val projection = arrayOf(
                 MyConstants.DATABASE.WEEK_COLUMNS.ID,
@@ -369,13 +383,13 @@ class WeekRepository private constructor(context: Context){
 
 
                     //não há necessidade de recuperar os exercicios
-                    val exercisesSunday = workoutRepository.get(0)
-                    val exercisesMonday = workoutRepository.get(0)
-                    val exercisesTuesday = workoutRepository.get(0)
-                    val exercisesWednesday = workoutRepository.get(0)
-                    val exercisesThursday = workoutRepository.get(0)
-                    val exercisesFriday = workoutRepository.get(0)
-                    val exercisesSaturday = workoutRepository.get(0)
+                    val exercisesSunday = workoutDAO.get(0)
+                    val exercisesMonday = workoutDAO.get(0)
+                    val exercisesTuesday = workoutDAO.get(0)
+                    val exercisesWednesday = workoutDAO.get(0)
+                    val exercisesThursday = workoutDAO.get(0)
+                    val exercisesFriday = workoutDAO.get(0)
+                    val exercisesSaturday = workoutDAO.get(0)
 
                     if(controller == MyConstants.CONTROLLER.CONTROLLER_FALSE) {
                         week = Week(
@@ -398,7 +412,10 @@ class WeekRepository private constructor(context: Context){
 
         }catch (e: Exception){
             return list
+        }finally {
+            db.close()
         }
+
         return list
     }
 

@@ -10,10 +10,10 @@ import com.gabrielportari.workoutplannerapp.data.model.Validation
 import com.gabrielportari.workoutplannerapp.data.model.Week
 import com.gabrielportari.workoutplannerapp.data.model.Workout
 import com.gabrielportari.workoutplannerapp.data.model.WorkoutDay
-import com.gabrielportari.workoutplannerapp.data.repository.WeekRepository
+import com.gabrielportari.workoutplannerapp.data.repository.WeekDAO
 
 class WeekFormViewModel(application: Application) : AndroidViewModel(application) {
-    private val weekRepository = WeekRepository.getInstance(application.applicationContext)
+    private val weekDAO = WeekDAO.getInstance(application.applicationContext)
     private val resources = application.resources
 
     private val workoutDays = mutableListOf<WorkoutDay>()
@@ -32,8 +32,8 @@ class WeekFormViewModel(application: Application) : AndroidViewModel(application
 
 
     fun loadWeek(id: Int){
-        if(weekRepository.get(id) != null){
-            _week.value = weekRepository.get(id)
+        if(weekDAO.get(id) != null){
+            _week.value = weekDAO.get(id)
 
             workoutDays.clear()
             workoutDays.add(WorkoutDay(MyConstants.WEEK_DAYS.SUNDAY, resources.getString(R.string.sunday), _week.value?.workoutDaySunday))
@@ -58,7 +58,7 @@ class WeekFormViewModel(application: Application) : AndroidViewModel(application
             workout, workout, workout, workout, workout, workout, workout
             , MyConstants.CONTROLLER.CONTROLLER_TRUE)
 
-        if(weekRepository.update(week)){
+        if(weekDAO.update(week)){
             _validation.value = Validation()
         }else{
             _validation.value = Validation(resources.getString(R.string.failure_edit_week))
@@ -66,9 +66,9 @@ class WeekFormViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun deleteWorkout(id: Int, day: String){
-        val week = weekRepository.get(id)
+        val week = weekDAO.get(id)
         if(week != null) {
-            if (weekRepository.deleteWorkoutDay(week, day)) {
+            if (weekDAO.deleteWorkoutDay(week, day)) {
                 _delValidation.value = Validation()
             } else {
                 _delValidation.value = Validation(resources.getString(R.string.failure_delete_workout))

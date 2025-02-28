@@ -5,27 +5,28 @@ import android.content.Context
 import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.model.Exercise
 import com.gabrielportari.workoutplannerapp.data.model.Workout
+import com.gabrielportari.workoutplannerapp.data.repository.dao.IWorkoutDAO
 
-class WorkoutRepository private constructor(context: Context){
+class WorkoutDAO private constructor(context: Context) : IWorkoutDAO {
 
     private val database = PlannerDatabase(context)
-    private val exerciseRepository = ExerciseRepository.getInstance(context)
+    private val exerciseDAO = ExerciseDAO.getInstance(context)
 
     /*Implementação do singleton*/
     companion object {
-        private lateinit var repository: WorkoutRepository
-        fun getInstance(context: Context): WorkoutRepository {
+        private lateinit var repository: WorkoutDAO
+        fun getInstance(context: Context): WorkoutDAO {
             if (!Companion::repository.isInitialized) {
-                repository = WorkoutRepository(context)
+                repository = WorkoutDAO(context)
             }
             return repository
         }
     }
 
-    fun insert(workout: Workout): Boolean{
-        return try{
-            val db = database.writableDatabase
+    override fun insert(workout: Workout): Boolean{
+        val db = database.writableDatabase
 
+        return try{
             val name = workout.name
             val description = workout.description
             val controller = workout.controller
@@ -49,13 +50,15 @@ class WorkoutRepository private constructor(context: Context){
             true
         }catch(e : Exception){
             false
+        }finally {
+            db.close()
         }
     }
 
-    fun update(workout: Workout): Boolean{
-        return try {
-            val db = database.writableDatabase
+    override fun update(workout: Workout): Boolean{
+        val db = database.writableDatabase
 
+        return try {
             val workoutId = workout.id
             val name = workout.name
             val description = workout.description
@@ -72,14 +75,15 @@ class WorkoutRepository private constructor(context: Context){
             true
         }catch (e: Exception){
             false
+        }finally {
+            db.close()
         }
     }
 
+    override fun delete(id: Int): Boolean{
+        val db = database.writableDatabase
 
-    fun delete(id: Int): Boolean{
         return try {
-            val db = database.writableDatabase
-
             val selection = MyConstants.DATABASE.WORKOUT_COLUMNS.ID + " = ?"
             val args = arrayOf(id.toString())
             db.delete(MyConstants.DATABASE.WORKOUT_TABLE_NAME, selection, args)
@@ -87,15 +91,17 @@ class WorkoutRepository private constructor(context: Context){
             true
         }catch (e: Exception){
             false
+        }finally {
+            db.close()
         }
     }
 
-    fun get(id: Int): Workout?{
+    override fun get(id: Int): Workout?{
         var workout: Workout? = null
         var exercises: List<Exercise>?
-        try{
-            val db = database.readableDatabase
+        val db = database.readableDatabase
 
+        try{
             /*o que será recuperado*/
             val projection = arrayOf(
                 MyConstants.DATABASE.WORKOUT_COLUMNS.ID,
@@ -118,7 +124,7 @@ class WorkoutRepository private constructor(context: Context){
                     val description = cursor.getString(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.DESCRIPTION))
                     val controller = cursor.getInt(cursor.getColumnIndex(MyConstants.DATABASE.WORKOUT_COLUMNS.CONTROLLER))
                     //get workout exercises
-                    exercises = exerciseRepository.getAllFromWorkout(id)
+                    exercises = exerciseDAO.getAllFromWorkout(id)
                     workout = Workout(id, name, description, exercises, controller)
 
                 }
@@ -128,16 +134,17 @@ class WorkoutRepository private constructor(context: Context){
 
         }catch (e: Exception){
             return workout
+        }finally {
+            db.close()
         }
 
         return workout
     }
 
-    fun getAll(): List<Workout>{
+    override fun getAll(): List<Workout>{
         val list = mutableListOf<Workout>()
-
+        val db = database.readableDatabase
         try{
-            val db = database.readableDatabase
 
             /*o que será recuperado*/
             val projection = arrayOf(
@@ -174,17 +181,17 @@ class WorkoutRepository private constructor(context: Context){
 
         }catch (e: Exception){
             return list
+        }finally {
+            db.close()
         }
 
         return list
     }
 
-    fun getAllExceptButton(): List<Workout>{
+    override fun getAllExceptController(): List<Workout>{
         val list = mutableListOf<Workout>()
-
+        val db = database.readableDatabase
         try{
-            val db = database.readableDatabase
-
             /*o que será recuperado*/
             val projection = arrayOf(
                 MyConstants.DATABASE.WORKOUT_COLUMNS.ID,
@@ -220,6 +227,8 @@ class WorkoutRepository private constructor(context: Context){
 
         }catch (e: Exception){
             return list
+        }finally {
+            db.close()
         }
 
         return list

@@ -9,13 +9,13 @@ import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.model.User
 import com.gabrielportari.workoutplannerapp.data.model.Validation
 import com.gabrielportari.workoutplannerapp.data.model.Week
-import com.gabrielportari.workoutplannerapp.data.repository.UserRepository
-import com.gabrielportari.workoutplannerapp.data.repository.WeekRepository
+import com.gabrielportari.workoutplannerapp.data.repository.UserDAO
+import com.gabrielportari.workoutplannerapp.data.repository.WeekDAO
 
 class ManageWeekViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = WeekRepository.getInstance(application.applicationContext)
-    private val userRepository = UserRepository.getInstance(application.applicationContext)
+    private val repository = WeekDAO.getInstance(application.applicationContext)
+    private val userDAO = UserDAO.getInstance(application.applicationContext)
     private val resources = application.resources
 
     private val _weekList = MutableLiveData<List<Week>>()
@@ -35,7 +35,7 @@ class ManageWeekViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     fun loadUser(){
-        _user.value = userRepository.get(MyConstants.USER_ID.ID)
+        _user.value = userDAO.get(MyConstants.USER_ID.ID)
     }
 
     fun createWeek(week: Week){

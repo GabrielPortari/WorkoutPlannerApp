@@ -9,12 +9,12 @@ import com.gabrielportari.workoutplannerapp.data.constants.MyConstants
 import com.gabrielportari.workoutplannerapp.data.model.User
 import com.gabrielportari.workoutplannerapp.data.model.Validation
 import com.gabrielportari.workoutplannerapp.data.model.Week
-import com.gabrielportari.workoutplannerapp.data.repository.UserRepository
-import com.gabrielportari.workoutplannerapp.data.repository.WeekRepository
+import com.gabrielportari.workoutplannerapp.data.repository.UserDAO
+import com.gabrielportari.workoutplannerapp.data.repository.WeekDAO
 
 class SelectWeekViewModel(application: Application) : AndroidViewModel(application) {
-    private val weekRepository = WeekRepository.getInstance(application.applicationContext)
-    private val userRepository = UserRepository.getInstance(application.applicationContext)
+    private val weekDAO = WeekDAO.getInstance(application.applicationContext)
+    private val userDAO = UserDAO.getInstance(application.applicationContext)
     private val resources = application.resources
 
     private val _weeks = MutableLiveData<List<Week>>()
@@ -27,15 +27,15 @@ class SelectWeekViewModel(application: Application) : AndroidViewModel(applicati
     val user: LiveData<User> get() = _user
 
     fun list(){
-        _weeks.value = weekRepository.getAllExceptButton()
+        _weeks.value = weekDAO.getAllExceptController()
     }
 
     fun loadUser(){
-        _user.value = userRepository.get(MyConstants.USER_ID.ID)
+        _user.value = userDAO.get(MyConstants.USER_ID.ID)
     }
 
     fun selectWeek(id: Int){
-        if(userRepository.selectWeek(id)){
+        if(userDAO.selectWeek(id)){
             _validation.value = Validation()
         }else{
             _validation.value = Validation(resources.getString(R.string.failure_default))

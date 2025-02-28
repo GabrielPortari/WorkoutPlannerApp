@@ -7,15 +7,15 @@ import androidx.lifecycle.MutableLiveData
 import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.data.model.Validation
 import com.gabrielportari.workoutplannerapp.data.model.Workout
-import com.gabrielportari.workoutplannerapp.data.repository.ExerciseRepository
-import com.gabrielportari.workoutplannerapp.data.repository.WeekRepository
-import com.gabrielportari.workoutplannerapp.data.repository.WorkoutRepository
+import com.gabrielportari.workoutplannerapp.data.repository.ExerciseDAO
+import com.gabrielportari.workoutplannerapp.data.repository.WeekDAO
+import com.gabrielportari.workoutplannerapp.data.repository.WorkoutDAO
 
 class ManageWorkoutViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val workoutRepository = WorkoutRepository.getInstance(application.applicationContext)
-    private val weekRepository = WeekRepository.getInstance(application.applicationContext)
-    private val exerciseRepository = ExerciseRepository.getInstance(application.applicationContext)
+    private val workoutDAO = WorkoutDAO.getInstance(application.applicationContext)
+    private val weekDAO = WeekDAO.getInstance(application.applicationContext)
+    private val exerciseDAO = ExerciseDAO.getInstance(application.applicationContext)
 
     private val resources = application.resources
 
@@ -29,11 +29,11 @@ class ManageWorkoutViewModel(application: Application) : AndroidViewModel(applic
     val deleteValidation: LiveData<Validation> get() = _deleteValidation
 
     fun listWorkouts(){
-        _workoutList.value = workoutRepository.getAll()
+        _workoutList.value = workoutDAO.getAll()
     }
 
     fun createWorkout(workout: Workout){
-        if(workoutRepository.insert(workout)){
+        if(workoutDAO.insert(workout)){
             listWorkouts()
             _createValidation.value = Validation()
         }else{
@@ -42,9 +42,9 @@ class ManageWorkoutViewModel(application: Application) : AndroidViewModel(applic
     }
 
     fun deleteWorkout(id: Int){
-        if(workoutRepository.delete(id)){
-            exerciseRepository.workoutDeleted(id)
-            weekRepository.workoutDeleted(id)
+        if(workoutDAO.delete(id)){
+            exerciseDAO.deleteWorkout(id)
+            weekDAO.workoutDeleted(id)
             listWorkouts()
             _deleteValidation.value = Validation()
         }else{

@@ -8,13 +8,13 @@ import com.gabrielportari.workoutplannerapp.R
 import com.gabrielportari.workoutplannerapp.data.model.Exercise
 import com.gabrielportari.workoutplannerapp.data.model.Validation
 import com.gabrielportari.workoutplannerapp.data.model.Workout
-import com.gabrielportari.workoutplannerapp.data.repository.ExerciseRepository
-import com.gabrielportari.workoutplannerapp.data.repository.WorkoutRepository
+import com.gabrielportari.workoutplannerapp.data.repository.ExerciseDAO
+import com.gabrielportari.workoutplannerapp.data.repository.WorkoutDAO
 
 class WorkoutFormViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val workoutRepository = WorkoutRepository.getInstance(application.applicationContext)
-    private val exerciseRepository = ExerciseRepository.getInstance(application.applicationContext)
+    private val workoutDAO = WorkoutDAO.getInstance(application.applicationContext)
+    private val exerciseDAO = ExerciseDAO.getInstance(application.applicationContext)
     private val resources = application.resources
 
     private val _validation = MutableLiveData<Validation>()
@@ -32,15 +32,15 @@ class WorkoutFormViewModel(application: Application) : AndroidViewModel(applicat
 
 
     fun loadWorkout(id: Int){
-        if(workoutRepository.get(id) != null){
-            _workout.value = workoutRepository.get(id)
+        if(workoutDAO.get(id) != null){
+            _workout.value = workoutDAO.get(id)
         }else{
             _validation.value = Validation(resources.getString(R.string.failure_load_workout))
         }
     }
 
     fun updateWorkout(workout: Workout){
-        if(workoutRepository.update(workout)){
+        if(workoutDAO.update(workout)){
             _validation.value = Validation()
         }else{
             _validation.value = Validation(resources.getString(R.string.failure_edit_workout))
@@ -48,7 +48,7 @@ class WorkoutFormViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun deleteExercise(id: Int){
-        if(exerciseRepository.delete(id)){
+        if(exerciseDAO.delete(id)){
             _deleteExercise.value = Validation()
         }else{
             _deleteExercise.value = Validation(resources.getString(R.string.failure_delete_exercise))
@@ -56,7 +56,7 @@ class WorkoutFormViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun listExercises(id: Int){
-        _exerciseList.value = exerciseRepository.getAllFromWorkout(id)
+        _exerciseList.value = exerciseDAO.getAllFromWorkout(id)
     }
 
 
